@@ -12,7 +12,8 @@ class ScrollDatePicker extends StatefulWidget {
     this.minimumYear = 2000,
     this.maximumYear = 2100,
     this.initialDateTime,
-    this.selectedTextStyle = const TextStyle(fontSize: 20.0, color: Colors.black, fontWeight: FontWeight.w500),
+    this.selectedTextStyle = const TextStyle(
+        fontSize: 20.0, color: Colors.black, fontWeight: FontWeight.w500),
     this.mainTextStyle = const TextStyle(fontSize: 18.0, color: Colors.grey),
     this.onChanged,
     this.itemExtent = 37.0,
@@ -94,7 +95,20 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
     if (widget.locale == DatePickerLocale.ko_kr) {
       month = [for (int i = 1; i <= 12; i++) i];
     } else {
-      month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      month = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+      ];
     }
     day = [for (int i = 1; i < getMonthlyDate(selectedMonth); i++) i];
 
@@ -119,7 +133,10 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
         day = 31;
         break;
       case 2:
-        day = (selectedYear % 4 == 0 && selectedYear % 100 != 0) || selectedYear % 400 == 0 ? 29 : 28;
+        day = (selectedYear % 4 == 0 && selectedYear % 100 != 0) ||
+                selectedYear % 400 == 0
+            ? 29
+            : 28;
         break;
       case 3:
         day = 31;
@@ -173,7 +190,8 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
 
   void updateDate() {
     if (widget.onChanged != null) {
-      widget.onChanged(DateTime.parse("$selectedYear-${dateFormatter(monthIndex + 1)}-${dateFormatter(selectedDay)}"));
+      widget.onChanged(DateTime.parse(
+          "$selectedYear-${dateFormatter(monthIndex + 1)}-${dateFormatter(selectedDay)}"));
     }
   }
 
@@ -209,7 +227,9 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
                 decoration: widget.selectedBoxDecoration,
               ),
             ),
-            widget.locale == DatePickerLocale.ko_kr ? koKRDatePicker() : enUSDatePicker(),
+            widget.locale == DatePickerLocale.ko_kr
+                ? koKRDatePicker()
+                : enUSDatePicker(),
           ],
         ),
       ),
@@ -229,7 +249,9 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
               setState(() {
                 monthIndex = value;
                 selectedMonth = month[value];
-                day = [for (int i = 1; i <= getMonthlyDate(monthIndex + 1); i++) i];
+                day = [
+                  for (int i = 1; i <= getMonthlyDate(monthIndex + 1); i++) i
+                ];
               });
               updateDay();
             }),
@@ -259,7 +281,9 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
               setState(() {
                 yearIndex = value;
                 selectedYear = year[value];
-                day = [for (int i = 1; i <= getMonthlyDate(monthIndex + 1); i++) i];
+                day = [
+                  for (int i = 1; i <= getMonthlyDate(monthIndex + 1); i++) i
+                ];
               });
               updateDay();
             }),
@@ -281,7 +305,9 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
               setState(() {
                 yearIndex = value;
                 selectedYear = year[value];
-                day = [for (int i = 1; i <= getMonthlyDate(selectedMonth); i++) i];
+                day = [
+                  for (int i = 1; i <= getMonthlyDate(selectedMonth); i++) i
+                ];
               });
               updateDay();
             }),
@@ -298,7 +324,9 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
               setState(() {
                 monthIndex = value;
                 selectedMonth = month[value];
-                day = [for (int i = 1; i <= getMonthlyDate(selectedMonth); i++) i];
+                day = [
+                  for (int i = 1; i <= getMonthlyDate(selectedMonth); i++) i
+                ];
               });
               updateDay();
             }),
@@ -321,7 +349,13 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
     );
   }
 
-  Widget listWheelScrollView({double width, ValueChanged<int> selectedItemChanged, int itemIndex, List item, String dateFormat = "", FixedExtentScrollController controller}) {
+  Widget listWheelScrollView(
+      {double width,
+      ValueChanged<int> selectedItemChanged,
+      int itemIndex,
+      List item,
+      String dateFormat = "",
+      FixedExtentScrollController controller}) {
     return widget.isLoop
         ? Container(
             width: width,
@@ -337,7 +371,10 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
                   item.length,
                   (index) => Container(
                     alignment: Alignment.centerLeft,
-                    child: Text("${item[index]}$dateFormat", style: itemIndex == index ? widget.selectedTextStyle : widget.mainTextStyle),
+                    child: Text("${item[index]}$dateFormat",
+                        style: itemIndex == index
+                            ? widget.selectedTextStyle
+                            : widget.mainTextStyle),
                   ),
                 ),
               ),
@@ -356,7 +393,10 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
                 item.length,
                 (index) => Container(
                   alignment: Alignment.centerLeft,
-                  child: Text("${item[index]}$dateFormat", style: itemIndex == index ? widget.selectedTextStyle : widget.mainTextStyle),
+                  child: Text("${item[index]}$dateFormat",
+                      style: itemIndex == index
+                          ? widget.selectedTextStyle
+                          : widget.mainTextStyle),
                 ),
               ),
             ),
