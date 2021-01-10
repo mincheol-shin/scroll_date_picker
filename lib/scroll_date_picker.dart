@@ -26,18 +26,43 @@ class ScrollDatePicker extends StatefulWidget {
         assert(initialDateTime != null),
         super(key: key);
 
+  /// Minimum year that the picker can be scrolled
   final int minimumYear;
+
+  /// Maximum year that the picker can be scrolled
   final int maximumYear;
+
+  /// The initial date and/or time of the picker.
   final DateTime initialDateTime;
+
+  /// An opaque object that determines the size, position, and rendering of selected text.
   final TextStyle selectedTextStyle;
+
+  /// An opaque object that determines the size, position, and rendering of text.
   final TextStyle mainTextStyle;
+
+  /// On optional listener that's called when the centered item changes.
   final ValueChanged<DateTime> onChanged;
+
+  /// If non-null, requires the child to have exactly this height.
   final double height;
+
+  /// Size of each child in the main axis
   final double itemExtent;
+
+  /// {@macro flutter.rendering.wheelList.diameterRatio}
   final double diameterRatio;
+
+  /// {@macro flutter.rendering.wheelList.perspective}
   final double perspective;
+
+  /// An immutable description of how to paint a box.
   final BoxDecoration selectedBoxDecoration;
+
+  /// The loop iterates on an explicit list of values
   final bool isLoop;
+
+  /// Set calendar language
   final DatePickerLocale locale;
 
   @override
@@ -191,7 +216,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
     );
   }
 
-  Row enUSDatePicker() {
+  Widget enUSDatePicker() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -242,7 +267,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
     );
   }
 
-  Row koKRDatePicker() {
+  Widget koKRDatePicker() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
