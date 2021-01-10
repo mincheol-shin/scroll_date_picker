@@ -37,7 +37,8 @@ class _MyAppState extends State<MyApp> {
             initialDateTime: DateTime.parse("2020-05-01"),
             isLoop: false,
             locale: DatePickerLocale.en_us,
-            selectedBoxDecoration: BoxDecoration(border: Border.all(color: Colors.blueAccent, width: 2.0)),
+            selectedBoxDecoration: BoxDecoration(
+                border: Border.all(color: Colors.blueAccent, width: 2.0)),
             onChanged: (value) {
               setState(() {
                 selectedDate = value;
