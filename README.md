@@ -2,7 +2,7 @@
 
 A customizable and easy-to-use date picker library for Flutter. 
 
-Compatible with Android & iOS & Web.
+Compatible with Android & iOS & Web. :heart_eyes:
 
 [![pub](https://img.shields.io/pub/v/scroll_date_picker)](https://pub.dev/packages/scroll_date_picker)
 
