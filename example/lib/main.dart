@@ -34,7 +34,7 @@ class _MyAppState extends State<MyApp> {
             itemExtent: 45.0,
             minimumYear: 2010,
             maximumYear: 2050,
-            initialDateTime: DateTime.parse("2020-05-01"),
+            initialDateTime: DateTime.now(),
             isLoop: false,
             locale: DatePickerLocale.en_us,
             selectedBoxDecoration: BoxDecoration(
