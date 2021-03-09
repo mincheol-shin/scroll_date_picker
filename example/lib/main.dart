@@ -36,7 +36,7 @@ class _MyAppState extends State<MyApp> {
             maximumYear: 2050,
             initialDateTime: DateTime.now(),
             isLoop: false,
-            locale: DatePickerLocale.en_us,
+            locale: DatePickerLocale.ko_kr,
             selectedBoxDecoration: BoxDecoration(
                 border: Border.all(color: Colors.blueAccent, width: 2.0)),
             onChanged: (value) {
