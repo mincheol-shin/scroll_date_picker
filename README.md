@@ -91,6 +91,33 @@ class _MyAppState extends State<MyApp> {
 ```
 <br>
 
+- `Controller` can now be used inside `outside the widget`
+```dart
+
+  late FixedExtentScrollController _yearController;
+  late FixedExtentScrollController _monthController;
+  late FixedExtentScrollController _dayController;
+
+  DateTime _selectedDate = DateTime.now();
+
+  int _minimumYear = 2010;
+  int _maximumYear = 2050;
+
+  @override
+  void initState() {
+    super.initState();
+    _yearController = FixedExtentScrollController(
+        initialItem: _selectedDate.year - _minimumYear);
+    _monthController =
+        FixedExtentScrollController(initialItem: _selectedDate.month - 1);
+    _dayController =
+        FixedExtentScrollController(initialItem: _selectedDate.day - 1);
+  }
+
+```
+
+<br>
+
 # License
 ```
 Copyright 2020, the Flutter project authors. All rights reserved.
