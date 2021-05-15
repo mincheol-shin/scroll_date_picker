@@ -1,4 +1,4 @@
-## [2.0.2]
+## 2.0.2
 
 * `Controller` can now be used inside `outside the widget`
 ```dart
@@ -13,19 +13,19 @@
 
 ```
 
-## [2.0.1]
+## 2.0.1
 
 * The operand can't be null, so the condition is always true.
 
-## [2.0.0]
+## 2.0.0
 
 * Stable null safety release.
 
-## [1.0.1]
+## 1.0.1
 
 * NotificationListener option
 * Date output bug
 
-## [1.0.0]
+## 1.0.0
 
 * Scroll Date Picker creation
