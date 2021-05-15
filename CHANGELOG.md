@@ -1,27 +1,21 @@
-## [2.0.1] - 2021-03-10
+## [2.0.2]
 
-### Fix
-- The operand can't be null, so the condition is always true.
-
-
-## [2.0.0] - 2021-03-09
-
-- Stable null safety release.
+* `Controller` can now be used inside `outside the widget`
 
 
-## [1.0.1] - 2021-03-02
+## [2.0.1]
 
-### Add
-- NotificationListener option
+* The operand can't be null, so the condition is always true.
 
-### Fix
-- Date output bug
+## [2.0.0]
 
+* Stable null safety release.
 
+## [1.0.1]
 
+* NotificationListener option
+* Date output bug
 
-## [1.0.0] - 2021-01-10
+## [1.0.0]
 
-### Add
-
-- Scroll Date Picker creation
+* Scroll Date Picker creation

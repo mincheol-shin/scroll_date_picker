@@ -11,7 +11,26 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  DateTime selectedDate = DateTime.now();
+  late FixedExtentScrollController _yearController;
+  late FixedExtentScrollController _monthController;
+  late FixedExtentScrollController _dayController;
+
+  DateTime _selectedDate = DateTime.now();
+
+  int _minimumYear = 2010;
+  int _maximumYear = 2050;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _yearController = FixedExtentScrollController(
+        initialItem: _selectedDate.year - _minimumYear);
+    _monthController =
+        FixedExtentScrollController(initialItem: _selectedDate.month - 1);
+    _dayController =
+        FixedExtentScrollController(initialItem: _selectedDate.day - 1);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +45,17 @@ class _MyAppState extends State<MyApp> {
             height: 150.0,
             alignment: Alignment.center,
             child: Text(
-              "$selectedDate",
+              "$_selectedDate",
               style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
             ),
           ),
           ScrollDatePicker(
+            yearController: _yearController,
+            monthController: _monthController,
+            dayController: _dayController,
             itemExtent: 45.0,
-            minimumYear: 2010,
-            maximumYear: 2050,
+            minimumYear: _minimumYear,
+            maximumYear: _maximumYear,
             initialDateTime: DateTime.now(),
             isLoop: false,
             locale: DatePickerLocale.ko_kr,
@@ -41,7 +63,7 @@ class _MyAppState extends State<MyApp> {
                 border: Border.all(color: Colors.blueAccent, width: 2.0)),
             onChanged: (value) {
               setState(() {
-                selectedDate = value;
+                _selectedDate = value;
               });
             },
           ),

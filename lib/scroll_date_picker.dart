@@ -8,6 +8,9 @@ enum DatePickerLocale {
 class ScrollDatePicker extends StatefulWidget {
   ScrollDatePicker({
     Key? key,
+    this.yearController,
+    this.dayController,
+    this.monthController,
     this.height = 300.0,
     this.minimumYear = 2000,
     this.maximumYear = 2100,
@@ -24,6 +27,15 @@ class ScrollDatePicker extends StatefulWidget {
     this.locale = DatePickerLocale.ko_kr,
   })  : assert(itemExtent > 0),
         super(key: key);
+
+  /// This widget's year selection and animation state.
+  final FixedExtentScrollController? yearController;
+
+  /// This widget's month selection and animation state.
+  final FixedExtentScrollController? monthController;
+
+  /// This widget's day selection and animation state.
+  final FixedExtentScrollController? dayController;
 
   /// Minimum year that the picker can be scrolled
   final int minimumYear;
@@ -73,29 +85,29 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
   late FixedExtentScrollController _monthController;
   late FixedExtentScrollController _dayController;
 
-  List month = [];
-  List<int> day = [];
-  List<int> year = [];
+  List _month = [];
+  List<int> _day = [];
+  List<int> _year = [];
 
-  int selectedYear = 0;
-  var selectedMonth;
-  int selectedDay = 0;
+  int _selectedYear = 0;
+  var _selectedMonth;
+  int _selectedDay = 0;
 
-  int monthIndex = 0;
-  int dayIndex = 0;
-  int yearIndex = 0;
+  late int _monthIndex;
+  late int _dayIndex;
+  late int _yearIndex;
 
-  DateTime? selectedDate;
+  DateTime? _selectedDate;
 
   @override
   void initState() {
     super.initState();
 
-    year = [for (int i = widget.minimumYear; i <= widget.maximumYear; i++) i];
+    _year = [for (int i = widget.minimumYear; i <= widget.maximumYear; i++) i];
     if (widget.locale == DatePickerLocale.ko_kr) {
-      month = [for (int i = 1; i <= 12; i++) i];
+      _month = [for (int i = 1; i <= 12; i++) i];
     } else {
-      month = [
+      _month = [
         'January',
         'February',
         'March',
@@ -111,21 +123,41 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
       ];
     }
 
-    selectedYear = widget.initialDateTime.year;
-    selectedMonth = widget.initialDateTime.month;
-    selectedDay = widget.initialDateTime.day;
-    day = [for (int i = 1; i <= getMonthlyDate(selectedMonth); i++) i];
+    _selectedYear = widget.initialDateTime.year;
+    _selectedMonth = widget.initialDateTime.month;
+    _selectedDay = widget.initialDateTime.day;
+    _day = [for (int i = 1; i <= _getMonthlyDate(_selectedMonth); i++) i];
 
-    yearIndex = year.indexOf(selectedYear);
-    monthIndex = month.indexOf(selectedMonth);
-    dayIndex = day.indexOf(selectedDay);
+    if (widget.yearController == null) {
+      _yearIndex = _year.indexOf(_selectedYear);
+    } else {
+      _yearIndex = widget.yearController!.initialItem;
+      _selectedYear = _year[_yearIndex];
+    }
 
-    _yearController = FixedExtentScrollController(initialItem: yearIndex);
-    _monthController = FixedExtentScrollController(initialItem: monthIndex);
-    _dayController = FixedExtentScrollController(initialItem: dayIndex);
+    if (widget.monthController == null) {
+      _monthIndex = _month.indexOf(_selectedMonth);
+    } else {
+      _monthIndex = widget.monthController!.initialItem;
+      _selectedMonth = _month[_monthIndex];
+    }
+
+    if (widget.dayController == null) {
+      _dayIndex = _day.indexOf(_selectedDay);
+    } else {
+      _dayIndex = widget.dayController!.initialItem;
+      _selectedDay = _day[_dayIndex];
+    }
+
+    _yearController = widget.yearController ??
+        FixedExtentScrollController(initialItem: _yearIndex);
+    _monthController = widget.monthController ??
+        FixedExtentScrollController(initialItem: _monthIndex);
+    _dayController = widget.dayController ??
+        FixedExtentScrollController(initialItem: _dayIndex);
   }
 
-  int getMonthlyDate(int month) {
+  int _getMonthlyDate(int month) {
     int day = 0;
 
     switch (month) {
@@ -133,8 +165,8 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
         day = 31;
         break;
       case 2:
-        day = (selectedYear % 4 == 0 && selectedYear % 100 != 0) ||
-                selectedYear % 400 == 0
+        day = (_selectedYear % 4 == 0 && _selectedYear % 100 != 0) ||
+                _selectedYear % 400 == 0
             ? 29
             : 28;
         break;
@@ -177,8 +209,8 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
     return day;
   }
 
-  void updateDay() {
-    int selectedDayIndex = day.indexOf(selectedDay);
+  void _updateDay() {
+    int selectedDayIndex = _day.indexOf(_selectedDay);
     if (selectedDayIndex != -1) {
       _dayController.jumpTo(0.1);
       _dayController.jumpTo(selectedDayIndex * widget.itemExtent);
@@ -188,7 +220,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
     }
   }
 
-  String dateFormatter(int value) {
+  String _dateFormatter(int value) {
     return value.toString().length > 1 ? value.toString() : "0$value";
   }
 
@@ -206,13 +238,13 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
       onNotification: (ScrollNotification notification) {
         if (notification is ScrollUpdateNotification) {
           DateTime date = DateTime.parse(
-              "$selectedYear-${dateFormatter(monthIndex + 1)}-${dateFormatter(selectedDay)}");
-          if (date != selectedDate) {
+              "$_selectedYear-${_dateFormatter(_monthIndex + 1)}-${_dateFormatter(_selectedDay)}");
+          if (date != _selectedDate) {
             setState(() {
-              selectedDate = date;
+              _selectedDate = date;
             });
             widget.onChanged(DateTime.parse(
-                "$selectedYear-${dateFormatter(monthIndex + 1)}-${dateFormatter(selectedDay)}"));
+                "$_selectedYear-${_dateFormatter(_monthIndex + 1)}-${_dateFormatter(_selectedDay)}"));
           }
         }
         return false;
@@ -229,128 +261,128 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
               ),
             ),
             widget.locale == DatePickerLocale.ko_kr
-                ? koKRDatePicker()
-                : enUSDatePicker(),
+                ? _koKRDatePicker()
+                : _enUSDatePicker(),
           ],
         ),
       ),
     );
   }
 
-  Widget enUSDatePicker() {
+  Widget _enUSDatePicker() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        listWheelScrollView(
+        _listWheelScrollView(
             width: 120.0,
             controller: _monthController,
-            itemIndex: monthIndex,
-            item: month,
+            itemIndex: _monthIndex,
+            item: _month,
             selectedItemChanged: (value) {
               setState(() {
-                monthIndex = value;
-                selectedMonth = month[value];
-                day = [
-                  for (int i = 1; i <= getMonthlyDate(monthIndex + 1); i++) i
+                _monthIndex = value;
+                _selectedMonth = _month[value];
+                _day = [
+                  for (int i = 1; i <= _getMonthlyDate(_monthIndex + 1); i++) i
                 ];
               });
-              updateDay();
+              _updateDay();
             }),
         SizedBox(
           width: 16.0,
         ),
-        listWheelScrollView(
+        _listWheelScrollView(
             width: 40.0,
             controller: _dayController,
-            itemIndex: dayIndex,
-            item: day,
+            itemIndex: _dayIndex,
+            item: _day,
             selectedItemChanged: (value) {
               setState(() {
-                dayIndex = value;
-                selectedDay = day[value];
+                _dayIndex = value;
+                _selectedDay = _day[value];
               });
             }),
         SizedBox(
           width: 16.0,
         ),
-        listWheelScrollView(
+        _listWheelScrollView(
             width: 70.0,
             controller: _yearController,
-            itemIndex: yearIndex,
-            item: year,
+            itemIndex: _yearIndex,
+            item: _year,
             selectedItemChanged: (value) {
               setState(() {
-                yearIndex = value;
-                selectedYear = year[value];
-                day = [
-                  for (int i = 1; i <= getMonthlyDate(monthIndex + 1); i++) i
+                _yearIndex = value;
+                _selectedYear = _year[value];
+                _day = [
+                  for (int i = 1; i <= _getMonthlyDate(_monthIndex + 1); i++) i
                 ];
               });
-              updateDay();
+              _updateDay();
             }),
       ],
     );
   }
 
-  Widget koKRDatePicker() {
+  Widget _koKRDatePicker() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        listWheelScrollView(
+        _listWheelScrollView(
             width: 70.0,
             controller: _yearController,
-            itemIndex: yearIndex,
-            item: year,
+            itemIndex: _yearIndex,
+            item: _year,
             dateFormat: "년",
             selectedItemChanged: (value) {
               setState(() {
-                yearIndex = value;
-                selectedYear = year[value];
-                day = [
-                  for (int i = 1; i <= getMonthlyDate(selectedMonth); i++) i
+                _yearIndex = value;
+                _selectedYear = _year[value];
+                _day = [
+                  for (int i = 1; i <= _getMonthlyDate(_selectedMonth); i++) i
                 ];
               });
-              updateDay();
+              _updateDay();
             }),
         SizedBox(
           width: 16.0,
         ),
-        listWheelScrollView(
+        _listWheelScrollView(
             width: 45.0,
             controller: _monthController,
-            itemIndex: monthIndex,
-            item: month,
+            itemIndex: _monthIndex,
+            item: _month,
             dateFormat: "월",
             selectedItemChanged: (value) {
               setState(() {
-                monthIndex = value;
-                selectedMonth = month[value];
-                day = [
-                  for (int i = 1; i <= getMonthlyDate(selectedMonth); i++) i
+                _monthIndex = value;
+                _selectedMonth = _month[value];
+                _day = [
+                  for (int i = 1; i <= _getMonthlyDate(_selectedMonth); i++) i
                 ];
               });
-              updateDay();
+              _updateDay();
             }),
         SizedBox(
           width: 16.0,
         ),
-        listWheelScrollView(
+        _listWheelScrollView(
             width: 45.0,
             controller: _dayController,
-            itemIndex: dayIndex,
-            item: day,
+            itemIndex: _dayIndex,
+            item: _day,
             dateFormat: "일",
             selectedItemChanged: (value) {
               setState(() {
-                dayIndex = value;
-                selectedDay = day[value];
+                _dayIndex = value;
+                _selectedDay = _day[value];
               });
             }),
       ],
     );
   }
 
-  Widget listWheelScrollView(
+  Widget _listWheelScrollView(
       {required double width,
       required ValueChanged<int> selectedItemChanged,
       required int itemIndex,
