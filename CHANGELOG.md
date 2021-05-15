@@ -1,7 +1,17 @@
 ## [2.0.2]
 
 * `Controller` can now be used inside `outside the widget`
+```dart
+          ScrollDatePicker(
+            yearController: _yearController,
+            monthController: _monthController,
+            dayController: _dayController,
+            minimumYear: _minimumYear,
+            maximumYear: _maximumYear,
+            initialDateTime: _selectedDate,
+          ),
 
+```
 
 ## [2.0.1]
 
