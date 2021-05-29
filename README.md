@@ -49,7 +49,26 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  DateTime selectedDate = DateTime.now();
+  late DatePickerController _controller;
+  DateTime _selectedDate = DateTime.now();
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = DatePickerController(
+      year: _selectedDate.year,
+      month: _selectedDate.month,
+      day: _selectedDate.day,
+      minYear: 2011,
+      maxYear: 2050,
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,21 +83,25 @@ class _MyAppState extends State<MyApp> {
             height: 150.0,
             alignment: Alignment.center,
             child: Text(
-              "$selectedDate",
+              "$_selectedDate",
               style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
             ),
           ),
           ScrollDatePicker(
-            itemExtent: 45.0,
-            minimumYear: 2010,
-            maximumYear: 2050,
-            initialDateTime: DateTime.parse("2020-05-01"),
-            isLoop: false,
+            controller: _controller,
+            initialDateTime: DateTime.now(),
             locale: DatePickerLocale.ko_kr,
-            selectedBoxDecoration: BoxDecoration(border: Border.all(color: Colors.blueAccent, width: 2.0)),
+            pickerDecoration: BoxDecoration(
+                border: Border.all(color: Colors.blueAccent, width: 2.0)),
+            config: DatePickerConfig(
+                isLoop: true,
+                selectedTextStyle: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                    fontSize: 17.0)),
             onChanged: (value) {
               setState(() {
-                selectedDate = value;
+                _selectedDate = value;
               });
             },
           ),
@@ -89,34 +112,7 @@ class _MyAppState extends State<MyApp> {
 }
 
 ```
-<br>
 
-- `Controller` can now be used inside `outside the widget`
-```dart
-
-  late FixedExtentScrollController _yearController;
-  late FixedExtentScrollController _monthController;
-  late FixedExtentScrollController _dayController;
-
-  DateTime _selectedDate = DateTime.now();
-
-  int _minimumYear = 2010;
-  int _maximumYear = 2050;
-
-  @override
-  void initState() {
-    super.initState();
-    _yearController = FixedExtentScrollController(
-        initialItem: _selectedDate.year - _minimumYear);
-    _monthController =
-        FixedExtentScrollController(initialItem: _selectedDate.month - 1);
-    _dayController =
-        FixedExtentScrollController(initialItem: _selectedDate.day - 1);
-  }
-
-```
-
-<br>
 
 # License
 ```
