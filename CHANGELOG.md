@@ -1,3 +1,8 @@
+## 2.0.3
+
+* code improvements
+* Update README
+
 ## 2.0.2
 
 * `Controller` can now be used inside `outside the widget`

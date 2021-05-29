@@ -11,25 +11,24 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late FixedExtentScrollController _yearController;
-  late FixedExtentScrollController _monthController;
-  late FixedExtentScrollController _dayController;
-
+  late DatePickerController _controller;
   DateTime _selectedDate = DateTime.now();
-
-  int _minimumYear = 2010;
-  int _maximumYear = 2050;
 
   @override
   void initState() {
     super.initState();
+    _controller = DatePickerController(
+        year: _selectedDate.year,
+        month: _selectedDate.month,
+        day: _selectedDate.day,
+        minYear: 2011,
+        maxYear: 2050);
+  }
 
-    _yearController = FixedExtentScrollController(
-        initialItem: _selectedDate.year - _minimumYear);
-    _monthController =
-        FixedExtentScrollController(initialItem: _selectedDate.month - 1);
-    _dayController =
-        FixedExtentScrollController(initialItem: _selectedDate.day - 1);
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -50,16 +49,17 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
           ScrollDatePicker(
-            yearController: _yearController,
-            monthController: _monthController,
-            dayController: _dayController,
-            minYear: _minimumYear,
-            maxYear: _maximumYear,
-            initDateTime: DateTime.now(),
-            isLoop: true,
+            controller: _controller,
+            initialDateTime: DateTime.now(),
             locale: DatePickerLocale.ko_kr,
-            selectedBoxDecoration: BoxDecoration(
+            pickerDecoration: BoxDecoration(
                 border: Border.all(color: Colors.blueAccent, width: 2.0)),
+            config: DatePickerConfig(
+                isLoop: true,
+                selectedTextStyle: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                    fontSize: 17.0)),
             onChanged: (value) {
               setState(() {
                 _selectedDate = value;

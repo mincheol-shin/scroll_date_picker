@@ -11,25 +11,27 @@ class DateScrollView extends StatelessWidget {
     required this.controller,
     this.label = "",
     required this.config,
-    this.isLoop = true,
   });
 
+  /// If non-null, requires the child to have exactly this Width.
   final double width;
 
+  /// On optional listener that's called when the centered item changes.
   final ValueChanged<int> onChanged;
 
+  /// The index of the currently selected date.
   final int itemIndex;
 
+  /// This is a list of dates.
   final List item;
 
+  /// A controller for scroll views whose items have the same size.
   final FixedExtentScrollController controller;
 
   final String label;
 
   /// Date Picker configuration
   final DatePickerConfig config;
-
-  final bool isLoop;
 
   List<Widget> _date = [];
 
@@ -39,7 +41,10 @@ class DateScrollView extends StatelessWidget {
       item.length,
       (index) => Container(
         alignment: Alignment.centerLeft,
-        child: Text("${item[index]}$label", style: itemIndex == index ? config.selectedTextStyle : config.textStyle),
+        child: Text("${item[index]}$label",
+            style: itemIndex == index
+                ? config.selectedTextStyle
+                : config.textStyle),
       ),
     );
 
@@ -52,11 +57,13 @@ class DateScrollView extends StatelessWidget {
         physics: FixedExtentScrollPhysics(),
         perspective: config.perspective,
         onSelectedItemChanged: onChanged,
-        childDelegate: isLoop
+        childDelegate: config.isLoop
             ? ListWheelChildLoopingListDelegate(
                 children: _date,
               )
-            : ListWheelChildListDelegate(children: _date),
+            : ListWheelChildListDelegate(
+                children: _date,
+              ),
       ),
     );
   }
