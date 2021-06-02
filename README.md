@@ -56,12 +56,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     _controller = DatePickerController(
-      year: _selectedDate.year,
-      month: _selectedDate.month,
-      day: _selectedDate.day,
-      minYear: 2011,
-      maxYear: 2050,
-    );
+        initialDateTime: DateTime.now(), minYear: 2011, maxYear: 2050);
   }
 
   @override
@@ -89,7 +84,6 @@ class _MyAppState extends State<MyApp> {
           ),
           ScrollDatePicker(
             controller: _controller,
-            initialDateTime: DateTime.now(),
             locale: DatePickerLocale.ko_kr,
             pickerDecoration: BoxDecoration(
                 border: Border.all(color: Colors.blueAccent, width: 2.0)),
@@ -110,6 +104,7 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+
 
 ```
 
