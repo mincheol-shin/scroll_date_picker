@@ -10,20 +10,17 @@ class ScrollDatePicker extends StatefulWidget {
     Key? key,
     required this.controller,
     this.height = 300.0,
-    required this.initialDateTime,
     required this.onChanged,
     this.pickerDecoration = const BoxDecoration(color: Colors.black12),
     this.locale = DatePickerLocale.ko_kr,
     this.config,
   }) : super(key: key);
 
+  /// This widget's year selection and animation state.
   final DatePickerController controller;
 
   /// If non-null, requires the child to have exactly this height.
   final double height;
-
-  /// The initial date and/or time of the picker.
-  final DateTime initialDateTime;
 
   /// On optional listener that's called when the centered item changes.
   final ValueChanged<DateTime> onChanged;
@@ -87,9 +84,9 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
         'December'
       ];
     }
-    _selectedYear = widget.initialDateTime.year;
-    _selectedMonth = widget.initialDateTime.month;
-    _selectedDay = widget.initialDateTime.day;
+    _selectedYear = widget.controller.initialDateTime.year;
+    _selectedMonth = widget.controller.initialDateTime.month;
+    _selectedDay = widget.controller.initialDateTime.day;
 
     _day = [
       for (int i = 1;
@@ -98,7 +95,8 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
         i
     ];
 
-    _yearIndex = widget.controller.year - widget.controller.minYear;
+    _yearIndex =
+        widget.controller.initialDateTime.year - widget.controller.minYear;
     _selectedYear = _year[_yearIndex];
 
     _monthIndex = widget.controller.monthController.initialItem;

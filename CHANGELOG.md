@@ -1,3 +1,10 @@
+## 2.0.4
+
+* new property added `initialDateTime` for `DatePickerController`
+* `initialDateTime` was removed from `ScrollDatePicker`
+* Update README
+
+
 ## 2.0.3
 
 * code improvements
