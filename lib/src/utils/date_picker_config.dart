@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 enum DatePickerLocale {
   en_us,
   ko_kr,
+  fr_fr,
 }
 
 class DatePickerConfig {

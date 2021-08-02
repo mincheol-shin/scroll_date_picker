@@ -68,6 +68,21 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
 
     if (widget.locale == DatePickerLocale.ko_kr) {
       _month = [for (int i = 1; i <= 12; i++) i];
+    } else if (widget.locale == DatePickerLocale.fr_fr) {
+      _month = [
+        'Janvier',
+        'Février',
+        'Mars',
+        'Avril',
+        'Mai',
+        'Juin',
+        'Juillet',
+        'Août',
+        'Septembre',
+        'Octobre',
+        'Novembre',
+        'Décembre'
+      ];
     } else {
       _month = [
         'January',
