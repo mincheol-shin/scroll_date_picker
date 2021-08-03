@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:scroll_date_picker/scroll_date_picker.dart';
 import 'package:scroll_date_picker/src/widgets/date_scroll_view.dart';
 
-import 'utils/date_picker_config.dart';
+import 'components/date_picker_config.dart';
+import 'components/date_picker_controller.dart';
 import 'utils/get_monthly_date.dart';
 
 class ScrollDatePicker extends StatefulWidget {
@@ -65,25 +65,8 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
           i++)
         i
     ];
+    _month = widget.locale.month;
 
-    if (widget.locale == DatePickerLocale.ko_kr) {
-      _month = [for (int i = 1; i <= 12; i++) i];
-    } else {
-      _month = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December'
-      ];
-    }
     _selectedYear = widget.controller.initialDateTime.year;
     _selectedMonth = widget.controller.initialDateTime.month;
     _selectedDay = widget.controller.initialDateTime.day;
@@ -278,18 +261,19 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
           width: 16.0,
         ),
         DateScrollView(
-            width: 45.0,
-            controller: widget.controller.dayController,
-            itemIndex: _dayIndex,
-            item: _day,
-            config: _config,
-            label: "일",
-            onChanged: (value) {
-              setState(() {
-                _dayIndex = value;
-                _selectedDay = _day[value];
-              });
-            }),
+          width: 45.0,
+          controller: widget.controller.dayController,
+          itemIndex: _dayIndex,
+          item: _day,
+          config: _config,
+          label: "일",
+          onChanged: (value) {
+            setState(() {
+              _dayIndex = value;
+              _selectedDay = _day[value];
+            });
+          },
+        ),
       ],
     );
   }

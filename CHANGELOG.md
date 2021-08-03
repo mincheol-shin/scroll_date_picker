@@ -1,3 +1,8 @@
+## 2.0.5
+
+* Adding the french support. Thanks @Babacar-arch.
+
+
 ## 2.0.4
 
 * new property added `initialDateTime` for `DatePickerController`

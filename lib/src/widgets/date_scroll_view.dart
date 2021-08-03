@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:scroll_date_picker/src/components/date_picker_config.dart';
 
-import '../utils/date_picker_config.dart';
-
+// ignore: must_be_immutable
 class DateScrollView extends StatelessWidget {
   DateScrollView({
     this.width = 45.0,

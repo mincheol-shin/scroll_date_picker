@@ -3,6 +3,48 @@ import 'package:flutter/material.dart';
 enum DatePickerLocale {
   en_us,
   ko_kr,
+  fr_fr,
+}
+
+extension DatePickerLocaleExtension on DatePickerLocale {
+  dynamic get month {
+    switch (this) {
+      case DatePickerLocale.en_us:
+        return [
+          'January',
+          'February',
+          'March',
+          'April',
+          'May',
+          'June',
+          'July',
+          'August',
+          'September',
+          'October',
+          'November',
+          'December'
+        ];
+      case DatePickerLocale.ko_kr:
+        return [for (int i = 1; i <= 12; i++) i];
+      case DatePickerLocale.fr_fr:
+        return [
+          'Janvier',
+          'Février',
+          'Mars',
+          'Avril',
+          'Mai',
+          'Juin',
+          'Juillet',
+          'Août',
+          'Septembre',
+          'Octobre',
+          'Novembre',
+          'Décembre'
+        ];
+      default:
+        return "";
+    }
+  }
 }
 
 class DatePickerConfig {
