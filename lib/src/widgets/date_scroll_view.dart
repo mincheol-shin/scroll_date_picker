@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -36,13 +37,13 @@ class DateScrollView extends StatelessWidget {
     _date = List<Widget>.generate(
       item.length,
       (index) => Container(
-        alignment: Alignment.centerLeft,
-        child: Text("${item[index]}$label"),
+        alignment: Alignment.center,
+        child: Text("${item[index]}$label", style: CupertinoTheme.of(context).textTheme.dateTimePickerTextStyle),
       ),
     );
 
     return Container(
-      width: width,
+      alignment: Alignment.center,
       child: ListWheelScrollView.useDelegate(
         itemExtent: 35,
         diameterRatio: 3,
