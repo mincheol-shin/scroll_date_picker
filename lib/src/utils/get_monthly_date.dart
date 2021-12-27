@@ -1,4 +1,4 @@
-int getMonthlyDate({required int month, required int year}) {
+int getMonthlyDate({required int year, required int month}) {
   int day = 0;
 
   switch (month) {

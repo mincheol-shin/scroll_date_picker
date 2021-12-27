@@ -2,17 +2,13 @@ import 'package:flutter/cupertino.dart';
 
 class DatePickerController extends FixedExtentScrollController {
   DatePickerController({
-    required this.initialDateTime,
+    required this.initialDate,
     this.minYear = 2010,
     this.maxYear = 2050,
-  })  : monthController =
-            FixedExtentScrollController(initialItem: initialDateTime.month - 1),
-        dayController =
-            FixedExtentScrollController(initialItem: initialDateTime.day - 1),
-        assert(initialDateTime.year >= minYear),
-        super(
-          initialItem: initialDateTime.year - minYear,
-        );
+  })  : monthController = FixedExtentScrollController(initialItem: initialDate.month - 1),
+        dayController = FixedExtentScrollController(initialItem: initialDate.day - 1),
+        assert(initialDate.year >= minYear),
+        super(initialItem: initialDate.year - minYear);
 
   /// Minimum year that the picker can be scrolled
   final int minYear;
@@ -27,7 +23,7 @@ class DatePickerController extends FixedExtentScrollController {
   final FixedExtentScrollController dayController;
 
   /// The initial date and/or time of the picker.
-  final DateTime initialDateTime;
+  final DateTime initialDate;
 
   @override
   void dispose() {
