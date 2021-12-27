@@ -6,7 +6,8 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key ? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -18,8 +19,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    _controller = DatePickerController(
-        initialDate: DateTime.now(), minYear: 2011, maxYear: 2050);
+    _controller = DatePickerController(initialDate: DateTime.now(), minYear: 2011, maxYear: 2050);
   }
 
   @override
@@ -45,23 +45,25 @@ class _MyAppState extends State<MyApp> {
               style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
             ),
           ),
-          // ScrollDatePicker(
-          //   controller: _controller,
-          //   locale: DatePickerLocale.ko_kr,
-          //   pickerDecoration: BoxDecoration(
-          //       border: Border.all(color: Colors.blueAccent, width: 2.0)),
-          //   config: DatePickerConfig(
-          //       isLoop: true,
-          //       selectedTextStyle: TextStyle(
-          //           fontWeight: FontWeight.w600,
-          //           color: Colors.black,
-          //           fontSize: 17.0)),
-          //   onChanged: (value) {
-          //     setState(() {
-          //       _selectedDate = value;
-          //     });
-          //   },
-          // ),
+          Expanded(
+            child: ScrollDatePicker(
+              controller: _controller, onDateTimeChanged: (DateTime value) {},
+              // locale: DatePickerLocale.ko_kr,
+              // pickerDecoration: BoxDecoration(
+              //     border: Border.all(color: Colors.blueAccent, width: 2.0)),
+              // config: DatePickerConfig(
+              //     isLoop: true,
+              //     selectedTextStyle: TextStyle(
+              //         fontWeight: FontWeight.w600,
+              //         color: Colors.black,
+              //         fontSize: 17.0)),
+              // onChanged: (value) {
+              //   setState(() {
+              //     _selectedDate = value;
+              //   });
+              // },
+            ),
+          ),
         ],
       ),
     );

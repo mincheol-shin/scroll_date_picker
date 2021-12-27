@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:scroll_date_picker/src/components/date_picker_config.dart';
 
 // ignore: must_be_immutable
 class DateScrollView extends StatelessWidget {
@@ -10,7 +9,6 @@ class DateScrollView extends StatelessWidget {
     required this.item,
     required this.controller,
     this.label = "",
-    required this.config,
   });
 
   /// If non-null, requires the child to have exactly this Width.
@@ -30,8 +28,6 @@ class DateScrollView extends StatelessWidget {
 
   final String label;
 
-  /// Date Picker configuration
-  final DatePickerConfig config;
 
   List<Widget> _date = [];
 
@@ -41,23 +37,20 @@ class DateScrollView extends StatelessWidget {
       item.length,
       (index) => Container(
         alignment: Alignment.centerLeft,
-        child: Text("${item[index]}$label",
-            style: itemIndex == index
-                ? config.selectedTextStyle
-                : config.textStyle),
+        child: Text("${item[index]}$label"),
       ),
     );
 
     return Container(
       width: width,
       child: ListWheelScrollView.useDelegate(
-        itemExtent: config.itemExtent,
-        diameterRatio: config.diameterRatio,
+        itemExtent: 35,
+        diameterRatio: 3,
         controller: controller,
         physics: FixedExtentScrollPhysics(),
-        perspective: config.perspective,
+        perspective: 0.01,
         onSelectedItemChanged: onChanged,
-        childDelegate: config.isLoop
+        childDelegate:true
             ? ListWheelChildLoopingListDelegate(
                 children: _date,
               )
