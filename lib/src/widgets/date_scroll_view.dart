@@ -13,6 +13,7 @@ class DateScrollView extends StatelessWidget {
     this.label = "",
   });
 
+  /// If non-null, requires the child to have exactly this Width.
   final double width;
 
   /// A controller for scroll views whose items have the same size.

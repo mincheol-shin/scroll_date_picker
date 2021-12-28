@@ -21,5 +21,6 @@ class DatePickerOptions {
   /// The loop iterates on an explicit list of values
   final bool isLoop;
 
+  /// An immutable style describing how to format and paint text.
   final TextStyle textStyle;
 }

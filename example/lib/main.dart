@@ -55,18 +55,16 @@ class _MyAppState extends State<MyApp> {
           ),
           Expanded(
             child: ScrollDatePicker(
+              minimumYear: 2010,
+              maximumYear: 2050,
               selectedDate: _selectedDate,
-              locale: DatePickerLocale.fr_fr,
-              options: DatePickerOptions(
-                isLoop: false
-              ),
+              locale: DatePickerLocale.ko_kr,
+              options: const DatePickerOptions(),
               onDateTimeChanged: (DateTime value) {
                 setState(() {
                   _selectedDate = value;
                 });
               },
-
-
             ),
           ),
         ],

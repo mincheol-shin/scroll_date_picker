@@ -30,6 +30,7 @@ class ScrollDatePicker extends StatefulWidget {
 
   final DatePickerOptions options;
 
+  /// Set calendar language
   final DatePickerLocale locale;
 
   @override
