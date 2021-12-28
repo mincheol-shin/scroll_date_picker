@@ -1,3 +1,11 @@
+## 3.0.0
+
+* Delete `controller` parameters and add `selectedDate` parameters.
+* Improved scroll performance.
+* Improved the directory structure and code.
+* Update README
+
+
 ## 2.0.5
 
 * Adding the french support. Thanks @Babacar-arch.

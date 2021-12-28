@@ -1,68 +1,67 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:scroll_date_picker/src/components/date_picker_config.dart';
+import 'package:scroll_date_picker/src/models/date_picker_options.dart';
 
-// ignore: must_be_immutable
 class DateScrollView extends StatelessWidget {
   DateScrollView({
-    this.width = 45.0,
+    this.width = 70,
     required this.onChanged,
-    this.itemIndex = 0,
-    required this.item,
+    required this.date,
     required this.controller,
+    required this.options,
+    this.alignment = Alignment.center,
     this.label = "",
-    required this.config,
   });
 
   /// If non-null, requires the child to have exactly this Width.
   final double width;
 
-  /// On optional listener that's called when the centered item changes.
-  final ValueChanged<int> onChanged;
-
-  /// The index of the currently selected date.
-  final int itemIndex;
-
-  /// This is a list of dates.
-  final List item;
-
   /// A controller for scroll views whose items have the same size.
   final FixedExtentScrollController controller;
 
+  /// On optional listener that's called when the centered item changes.
+  final ValueChanged<int> onChanged;
+
+  /// This is a list of dates.
+  final List date;
+
+  final DatePickerOptions options;
+
+  final Alignment alignment;
+
   final String label;
-
-  /// Date Picker configuration
-  final DatePickerConfig config;
-
-  List<Widget> _date = [];
 
   @override
   Widget build(BuildContext context) {
-    _date = List<Widget>.generate(
-      item.length,
-      (index) => Container(
-        alignment: Alignment.centerLeft,
-        child: Text("${item[index]}$label",
-            style: itemIndex == index
-                ? config.selectedTextStyle
-                : config.textStyle),
-      ),
-    );
-
     return Container(
       width: width,
       child: ListWheelScrollView.useDelegate(
-        itemExtent: config.itemExtent,
-        diameterRatio: config.diameterRatio,
+        itemExtent: options.itemExtent,
+        diameterRatio: options.diameterRatio,
         controller: controller,
-        physics: FixedExtentScrollPhysics(),
-        perspective: config.perspective,
+        physics: const FixedExtentScrollPhysics(),
+        perspective: options.perspective,
         onSelectedItemChanged: onChanged,
-        childDelegate: config.isLoop
+        childDelegate: options.isLoop
             ? ListWheelChildLoopingListDelegate(
-                children: _date,
+                children: List<Widget>.generate(
+                  date.length,
+                  (index) => Container(
+                    alignment: alignment,
+                    child:
+                        Text("${date[index]}$label", style: options.textStyle),
+                  ),
+                ),
               )
             : ListWheelChildListDelegate(
-                children: _date,
+                children: List<Widget>.generate(
+                  date.length,
+                  (index) => Container(
+                    alignment: alignment,
+                    child:
+                        Text("${date[index]}$label", style: options.textStyle),
+                  ),
+                ),
               ),
       ),
     );
