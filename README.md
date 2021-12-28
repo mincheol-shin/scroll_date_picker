@@ -11,7 +11,7 @@ Compatible with Android & iOS & Web. :heart_eyes:
 
 # Showcase
 
-<img src = "https://user-images.githubusercontent.com/55150540/104117038-4df88d80-5361-11eb-9f93-8d6c3b99b50b.gif" width = 200> <img src = "https://user-images.githubusercontent.com/55150540/104117042-4fc25100-5361-11eb-8aaa-05ca8cf6aa6b.gif" width = 200>
+<img src = "https://user-images.githubusercontent.com/55150540/147560195-8d9dfdcc-bdd4-4b3b-a89b-488669a0b17e.gif" width = 200> <img src = "https://user-images.githubusercontent.com/55150540/147560204-778b599d-e4e2-48d9-b6d3-2d0d5e41987a.gif" width = 200>
 
 <br> 
 
