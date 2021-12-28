@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
+
 class DateScrollView extends StatelessWidget {
   DateScrollView({
     this.width = 45.0,
@@ -42,8 +41,7 @@ class DateScrollView extends StatelessWidget {
       ),
     );
 
-    return Container(
-      alignment: Alignment.center,
+    return Flexible(
       child: ListWheelScrollView.useDelegate(
         itemExtent: 35,
         diameterRatio: 3,

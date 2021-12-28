@@ -1,6 +1,5 @@
 int getMonthlyDate({required int year, required int month}) {
   int day = 0;
-
   switch (month) {
     case 1:
       day = 31;
@@ -43,6 +42,5 @@ int getMonthlyDate({required int year, required int month}) {
       day = 30;
       break;
   }
-
   return day;
 }

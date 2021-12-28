@@ -47,21 +47,13 @@ class _MyAppState extends State<MyApp> {
           ),
           Expanded(
             child: ScrollDatePicker(
-              controller: _controller, onDateTimeChanged: (DateTime value) {},
-              // locale: DatePickerLocale.ko_kr,
-              // pickerDecoration: BoxDecoration(
-              //     border: Border.all(color: Colors.blueAccent, width: 2.0)),
-              // config: DatePickerConfig(
-              //     isLoop: true,
-              //     selectedTextStyle: TextStyle(
-              //         fontWeight: FontWeight.w600,
-              //         color: Colors.black,
-              //         fontSize: 17.0)),
-              // onChanged: (value) {
-              //   setState(() {
-              //     _selectedDate = value;
-              //   });
-              // },
+              selectedDate: _selectedDate,
+              onDateTimeChanged: (DateTime value) {
+                print(value);
+                setState(() {
+                  _selectedDate = value;
+                });
+              },
             ),
           ),
         ],
