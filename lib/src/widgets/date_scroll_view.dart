@@ -1,60 +1,56 @@
 import 'package:flutter/cupertino.dart';
-
+import 'package:scroll_date_picker/src/models/date_picker_options.dart';
 
 class DateScrollView extends StatelessWidget {
   DateScrollView({
-    this.width = 45.0,
     required this.onChanged,
-    this.itemIndex = 0,
-    required this.item,
+    required this.date,
     required this.controller,
+    required this.options,
     this.label = "",
   });
-
-  /// If non-null, requires the child to have exactly this Width.
-  final double width;
-
-  /// On optional listener that's called when the centered item changes.
-  final ValueChanged<int> onChanged;
-
-  /// The index of the currently selected date.
-  final int itemIndex;
-
-  /// This is a list of dates.
-  final List item;
 
   /// A controller for scroll views whose items have the same size.
   final FixedExtentScrollController controller;
 
+  /// On optional listener that's called when the centered item changes.
+  final ValueChanged<int> onChanged;
+
+  /// This is a list of dates.
+  final List date;
+
+  final DatePickerOptions options;
+
   final String label;
-
-
-  List<Widget> _date = [];
 
   @override
   Widget build(BuildContext context) {
-    _date = List<Widget>.generate(
-      item.length,
-      (index) => Container(
-        alignment: Alignment.center,
-        child: Text("${item[index]}$label", style: CupertinoTheme.of(context).textTheme.dateTimePickerTextStyle),
-      ),
-    );
-
     return Flexible(
       child: ListWheelScrollView.useDelegate(
-        itemExtent: 35,
-        diameterRatio: 3,
+        itemExtent: options.itemExtent,
+        diameterRatio: options.diameterRatio,
         controller: controller,
-        physics: FixedExtentScrollPhysics(),
-        perspective: 0.01,
+        physics: const FixedExtentScrollPhysics(),
+        perspective: options.perspective,
         onSelectedItemChanged: onChanged,
-        childDelegate:true
+        childDelegate: options.isLoop
             ? ListWheelChildLoopingListDelegate(
-                children: _date,
+                children: List<Widget>.generate(
+                  date.length,
+                  (index) => Container(
+                    alignment: Alignment.center,
+                    child: Text("${date[index]}$label", style: CupertinoTheme.of(context).textTheme.dateTimePickerTextStyle),
+                  ),
+                ),
               )
             : ListWheelChildListDelegate(
-                children: _date,
+                children: List<Widget>.generate(
+                  date.length,
+                  (index) => Container(
+                    alignment: Alignment.center,
+                    child: Text("${date[index]}$label", style: CupertinoTheme.of(context).textTheme.dateTimePickerTextStyle),
+                  ),
+                ),
               ),
       ),
     );

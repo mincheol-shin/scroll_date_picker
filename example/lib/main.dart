@@ -25,18 +25,38 @@ class _MyAppState extends State<MyApp> {
       body: Column(
         children: [
           Container(
-            height: 150.0,
+            height: 100.0,
             alignment: Alignment.center,
             child: Text(
               "$_selectedDate",
               style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
             ),
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    _selectedDate = _selectedDate.add(Duration(days: -5));
+                  });
+                },
+                icon: const Icon(Icons.remove),
+              ),
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    _selectedDate = _selectedDate.add(Duration(days: 5));
+                  });
+                },
+                icon: const Icon(Icons.add),
+              ),
+            ],
+          ),
           Expanded(
             child: ScrollDatePicker(
               selectedDate: _selectedDate,
               onDateTimeChanged: (DateTime value) {
-                print(value);
                 setState(() {
                   _selectedDate = value;
                 });
