@@ -48,7 +48,8 @@ class DateScrollView extends StatelessWidget {
                   date.length,
                   (index) => Container(
                     alignment: alignment,
-                    child: Text("${date[index]}$label", style: options.textStyle),
+                    child:
+                        Text("${date[index]}$label", style: options.textStyle),
                   ),
                 ),
               )
@@ -57,7 +58,8 @@ class DateScrollView extends StatelessWidget {
                   date.length,
                   (index) => Container(
                     alignment: alignment,
-                    child: Text("${date[index]}$label", style: options.textStyle),
+                    child:
+                        Text("${date[index]}$label", style: options.textStyle),
                   ),
                 ),
               ),
