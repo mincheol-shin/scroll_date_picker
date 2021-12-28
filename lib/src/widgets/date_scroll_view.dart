@@ -1,14 +1,19 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:scroll_date_picker/src/models/date_picker_options.dart';
 
 class DateScrollView extends StatelessWidget {
   DateScrollView({
+    this.width = 70,
     required this.onChanged,
     required this.date,
     required this.controller,
     required this.options,
+    this.alignment = Alignment.center,
     this.label = "",
   });
+
+  final double width;
 
   /// A controller for scroll views whose items have the same size.
   final FixedExtentScrollController controller;
@@ -21,11 +26,14 @@ class DateScrollView extends StatelessWidget {
 
   final DatePickerOptions options;
 
+  final Alignment alignment;
+
   final String label;
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
+    return Container(
+      width: width,
       child: ListWheelScrollView.useDelegate(
         itemExtent: options.itemExtent,
         diameterRatio: options.diameterRatio,
@@ -38,8 +46,8 @@ class DateScrollView extends StatelessWidget {
                 children: List<Widget>.generate(
                   date.length,
                   (index) => Container(
-                    alignment: Alignment.center,
-                    child: Text("${date[index]}$label", style: CupertinoTheme.of(context).textTheme.dateTimePickerTextStyle),
+                    alignment: alignment,
+                    child: Text("${date[index]}$label", style: options.textStyle),
                   ),
                 ),
               )
@@ -47,8 +55,8 @@ class DateScrollView extends StatelessWidget {
                 children: List<Widget>.generate(
                   date.length,
                   (index) => Container(
-                    alignment: Alignment.center,
-                    child: Text("${date[index]}$label", style: CupertinoTheme.of(context).textTheme.dateTimePickerTextStyle),
+                    alignment: alignment,
+                    child: Text("${date[index]}$label", style: options.textStyle),
                   ),
                 ),
               ),

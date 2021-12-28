@@ -14,6 +14,7 @@ class ScrollDatePicker extends StatefulWidget {
     this.minimumYear = 2010,
     this.maximumYear = 2050,
     this.options = const DatePickerOptions(),
+    this.locale = DatePickerLocale.en_us,
   }) : super(key: key);
 
   final DateTime selectedDate;
@@ -28,6 +29,8 @@ class ScrollDatePicker extends StatefulWidget {
   final ValueChanged<DateTime> onDateTimeChanged;
 
   final DatePickerOptions options;
+
+  final DatePickerLocale locale;
 
   @override
   State<ScrollDatePicker> createState() => _ScrollDatePickerState();
@@ -44,7 +47,9 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
 
   /// This widget's day selection and animation state.
   late FixedExtentScrollController _dayController = FixedExtentScrollController(initialItem: widget.selectedDate.day - 1);
-
+  late Widget _yearWidget;
+  late Widget _monthWidget;
+  late Widget _dayWidget;
   List<int> _years = [];
   List<int> _days = [];
 
@@ -73,6 +78,44 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
     super.dispose();
   }
 
+  void _initDatePickerWidgets() {
+    _yearWidget = DateScrollView(
+      width: widget.locale.localeOptions.yearWidth,
+      date: _years,
+      controller: _yearController,
+      options: widget.options,
+      label: widget.locale.localeOptions.yearLabel,
+      alignment: widget.locale.localeOptions.yearAlignment,
+      onChanged: (value) {
+        _onDateTimeChanged();
+        _initDays();
+      },
+    );
+    _monthWidget = DateScrollView(
+      width: widget.locale.localeOptions.monthWidth,
+      date: widget.locale.month,
+      controller: _monthController,
+      options: widget.options,
+      label: widget.locale.localeOptions.monthLabel,
+      alignment: widget.locale.localeOptions.monthAlignment,
+      onChanged: (value) {
+        _onDateTimeChanged();
+        _initDays();
+      },
+    );
+    _dayWidget = DateScrollView(
+      width: widget.locale.localeOptions.dayWidth,
+      date: _days,
+      controller: _dayController,
+      options: widget.options,
+      label: widget.locale.localeOptions.dayLabel,
+      alignment: widget.locale.localeOptions.dayAlignment,
+      onChanged: (value) {
+        _onDateTimeChanged();
+      },
+    );
+  }
+
   void _initControllerIndex() {
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       _yearController.jumpToItem(widget.selectedDate.year - widget.minimumYear);
@@ -93,7 +136,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
 
   void _onDateTimeChanged() {
     int _selectedYear = _years[_yearController.selectedItem % _years.length];
-    int _selectedMonth = months[_monthController.selectedItem % months.length];
+    int _selectedMonth = (_monthController.selectedItem % 12) + 1;
     int _selectedDay = _days[_dayController.selectedItem % _days.length];
     int _maximumDay = getMonthlyDate(year: _selectedYear, month: _selectedMonth);
     DateTime _dateTime = DateTime(_selectedYear, _selectedMonth, _selectedDay > _maximumDay ? _maximumDay : _selectedDay);
@@ -102,40 +145,24 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
     widget.onDateTimeChanged(_dateTime);
   }
 
+  List<Widget> _buildDatePickerWidgets() {
+    _initDatePickerWidgets();
+    switch (widget.locale) {
+      case DatePickerLocale.ko_kr:
+        return [_yearWidget, _monthWidget, _dayWidget];
+      default:
+        return [_monthWidget, _dayWidget, _yearWidget];
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.center,
       children: [
         Row(
-          children: [
-            DateScrollView(
-              date: _years,
-              controller: _yearController,
-              options: widget.options,
-              onChanged: (value) {
-                _onDateTimeChanged();
-                _initDays();
-              },
-            ),
-            DateScrollView(
-              date: months,
-              controller: _monthController,
-              options: widget.options,
-              onChanged: (value) {
-                _onDateTimeChanged();
-                _initDays();
-              },
-            ),
-            DateScrollView(
-              date: _days,
-              controller: _dayController,
-              options: widget.options,
-              onChanged: (value) {
-                _onDateTimeChanged();
-              },
-            ),
-          ],
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: _buildDatePickerWidgets(),
         ),
         const DatePickerIndicator(),
       ],

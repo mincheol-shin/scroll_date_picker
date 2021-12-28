@@ -26,7 +26,7 @@ class DatePickerIndicator extends StatelessWidget {
           Container(
             height: 40,
             decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.2),
+              color: Colors.grey.withOpacity(0.15),
               borderRadius: const BorderRadius.all(Radius.circular(4)),
             ),
           ),

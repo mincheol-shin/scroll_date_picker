@@ -1,9 +1,12 @@
+import 'package:flutter/material.dart';
+
 class DatePickerOptions {
   const DatePickerOptions({
-    this.itemExtent = 45.0,
-    this.diameterRatio = 3.0,
+    this.itemExtent = 30.0,
+    this.diameterRatio = 1.2,
     this.perspective = 0.01,
     this.isLoop = true,
+    this.textStyle = const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
   });
 
   /// Size of each child in the main axis
@@ -17,4 +20,6 @@ class DatePickerOptions {
 
   /// The loop iterates on an explicit list of values
   final bool isLoop;
+
+  final TextStyle textStyle;
 }
