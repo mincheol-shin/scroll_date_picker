@@ -82,6 +82,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
       _initMaximumDate();
       _initYears();
       _initMonths();
+      _initDays();
     }
   }
 
@@ -159,9 +160,8 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
       } else {
         _months = widget.locale.month.sublist(0, _minimumDate.month);
       }
-      WidgetsBinding.instance?.addPostFrameCallback((_) {
-        _monthController.jumpToItem(_months.indexOf(_selectedDate.month.toString()));
-      });
+      int _selectedMonthIndex = _months.indexOf(_selectedDate.month.toString());
+      _monthController.jumpToItem(_selectedMonthIndex == -1 ? _months.length - 1 : _selectedMonthIndex);
     } else {
       _months = widget.locale.month;
     }
@@ -178,7 +178,6 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
     }
 
     int _selectedDayIndex = _days.indexOf(_selectedDate.day);
-
     _dayController.jumpToItem(_selectedDayIndex == -1 ? _days.length - 1 : _selectedDayIndex);
   }
 
