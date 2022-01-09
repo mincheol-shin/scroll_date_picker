@@ -56,6 +56,7 @@ class _MyAppState extends State<MyApp> {
           ),
           Expanded(
             child: ScrollDatePicker(
+              minimumDate: DateTime(1970, 5, 1),
               selectedDate: _selectedDate,
               locale: DatePickerLocale.ko_kr,
               options: const DatePickerOptions(),
