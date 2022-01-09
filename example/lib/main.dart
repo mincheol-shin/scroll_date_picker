@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
 
@@ -55,8 +56,6 @@ class _MyAppState extends State<MyApp> {
           ),
           Expanded(
             child: ScrollDatePicker(
-              minimumYear: 2010,
-              maximumYear: 2050,
               selectedDate: _selectedDate,
               locale: DatePickerLocale.ko_kr,
               options: const DatePickerOptions(),

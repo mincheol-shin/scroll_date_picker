@@ -42,7 +42,7 @@ class DateScrollView extends StatelessWidget {
         physics: const FixedExtentScrollPhysics(),
         perspective: options.perspective,
         onSelectedItemChanged: onChanged,
-        childDelegate: options.isLoop
+        childDelegate: options.isLoop && date.length > 3
             ? ListWheelChildLoopingListDelegate(
                 children: List<Widget>.generate(
                   date.length,
