@@ -75,20 +75,7 @@ extension DatePickerLocaleExtension on DatePickerLocale {
       case DatePickerLocale.de_de:
         return deDeMonth;
       default:
-        return [
-          'January',
-          'February',
-          'March',
-          'April',
-          'May',
-          'June',
-          'July',
-          'August',
-          'September',
-          'October',
-          'November',
-          'December'
-        ];
+        return enUsMonth;
     }
   }
 
