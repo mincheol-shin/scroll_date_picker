@@ -16,7 +16,7 @@ class DatePickerIndicator extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Theme.of(context).scaffoldBackgroundColor.withOpacity(0.7),
+                    Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
                     Theme.of(context).scaffoldBackgroundColor.withOpacity(0.7),
                   ],
                 ),
@@ -38,7 +38,7 @@ class DatePickerIndicator extends StatelessWidget {
                   end: Alignment.bottomCenter,
                   colors: [
                     Theme.of(context).scaffoldBackgroundColor.withOpacity(0.7),
-                    Theme.of(context).scaffoldBackgroundColor.withOpacity(0.7),
+                    Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9),
                   ],
                 ),
               ),
