@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
 
 void main() {
-  runApp(MaterialApp(
-      home: const MyApp()));
+  runApp(MaterialApp(home: const MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -33,26 +32,20 @@ class _MyAppState extends State<MyApp> {
               style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    _selectedDate = _selectedDate.add(Duration(days: -5));
-                  });
-                },
-                icon: const Icon(Icons.remove),
+          Container(
+            alignment: Alignment.centerRight,
+            padding: const EdgeInsets.only(right: 48),
+            child: TextButton(
+              onPressed: () {
+                setState(() {
+                  _selectedDate = DateTime.now();
+                });
+              },
+              child: Text(
+                "TODAY",
+                style: TextStyle(color: Colors.red),
               ),
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    _selectedDate = _selectedDate.add(Duration(days: 5));
-                  });
-                },
-                icon: const Icon(Icons.add),
-              ),
-            ],
+            ),
           ),
           SizedBox(
             height: 300,

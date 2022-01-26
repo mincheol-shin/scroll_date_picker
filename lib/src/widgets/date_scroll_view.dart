@@ -39,7 +39,6 @@ class DateScrollView extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         int _maximumCount = constraints.maxHeight ~/ options.itemExtent;
-        print(selectedItem);
         return Container(
           width: width,
           child: ListWheelScrollView.useDelegate(

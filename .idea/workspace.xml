@@ -21,6 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="7b6f7fe6-5108-488a-aa28-4c36d33ca1d5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/scroll_date_picker.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/scroll_date_picker.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/widgets/date_scroll_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widgets/date_scroll_view.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
