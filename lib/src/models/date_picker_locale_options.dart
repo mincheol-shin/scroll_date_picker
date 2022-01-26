@@ -11,6 +11,10 @@ class DatePickerLocaleOptions {
     this.yearAlignment = Alignment.centerLeft,
     this.monthAlignment = Alignment.centerLeft,
     this.dayAlignment = Alignment.centerLeft,
+    this.yearPadding = const EdgeInsets.all(0),
+    this.monthPadding = const EdgeInsets.all(0),
+    this.dayPadding = const EdgeInsets.all(0),
+
   });
 
   /// If non-null, requires the child to have exactly this Width.
@@ -39,4 +43,10 @@ class DatePickerLocaleOptions {
 
   /// It's a day text sorting method.
   final Alignment dayAlignment;
+
+  final EdgeInsets yearPadding;
+
+  final EdgeInsets monthPadding;
+
+  final EdgeInsets dayPadding;
 }

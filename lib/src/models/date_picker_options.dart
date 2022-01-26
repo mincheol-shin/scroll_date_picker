@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class DatePickerOptions {
   const DatePickerOptions({
     this.itemExtent = 30.0,
-    this.diameterRatio = 3.0,
+    this.diameterRatio = 3,
     this.perspective = 0.01,
     this.isLoop = true,
     this.selectedTextStyle = const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),

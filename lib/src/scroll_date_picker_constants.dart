@@ -79,7 +79,7 @@ extension DatePickerLocaleExtension on DatePickerLocale {
     switch (this) {
       case DatePickerLocale.koKR:
         return DatePickerLocaleOptions(
-            yearLabel: "년", monthLabel: "월", dayLabel: "일");
+            yearLabel: "년", monthLabel: "월", dayLabel: "일", monthPadding: EdgeInsets.only(right: 8),);
       default:
         return DatePickerLocaleOptions(
             monthAlignment: Alignment.centerLeft,

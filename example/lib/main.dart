@@ -48,12 +48,11 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
           SizedBox(
-            height: 300,
+            height: 250,
             child: ScrollDatePicker(
-              minimumDate: DateTime(1980, 5, 1),
               selectedDate: _selectedDate,
               locale: DatePickerLocale.koKR,
-              options: const DatePickerOptions(),
+              options: DatePickerOptions(),
               onDateTimeChanged: (DateTime value) {
                 setState(() {
                   _selectedDate = value;
