@@ -45,17 +45,17 @@ const List<String> frFrMonth = [
 ];
 
 enum DatePickerLocale {
-  en_us,
-  ko_kr,
-  fr_fr,
+  enUS,
+  koKR,
+  frFR,
 }
 
 extension DatePickerLocaleExtension on DatePickerLocale {
   List<String> get month {
     switch (this) {
-      case DatePickerLocale.ko_kr:
+      case DatePickerLocale.koKR:
         return koKrMonths;
-      case DatePickerLocale.fr_fr:
+      case DatePickerLocale.frFR:
         return frFrMonth;
       default:
         return [
@@ -77,7 +77,7 @@ extension DatePickerLocaleExtension on DatePickerLocale {
 
   DatePickerLocaleOptions get localeOptions {
     switch (this) {
-      case DatePickerLocale.ko_kr:
+      case DatePickerLocale.koKR:
         return DatePickerLocaleOptions(
             yearLabel: "년", monthLabel: "월", dayLabel: "일");
       default:
@@ -85,7 +85,7 @@ extension DatePickerLocaleExtension on DatePickerLocale {
             monthAlignment: Alignment.centerLeft,
             monthWidth: 100,
             yearWidth: 60,
-            dayWidth: 60);
+            dayWidth: 30);
     }
   }
 }

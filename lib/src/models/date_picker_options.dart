@@ -27,5 +27,6 @@ class DatePickerOptions {
   final TextStyle textStyle;
 
   final TextStyle selectedTextStyle;
+
   final Widget? indicator;
 }

@@ -13,7 +13,7 @@ class ScrollDatePicker extends StatefulWidget {
     this.minimumDate,
     this.maximumDate,
     this.options = const DatePickerOptions(),
-    this.locale = DatePickerLocale.en_us,
+    this.locale = DatePickerLocale.enUS,
   }) : super(key: key);
 
   final DateTime selectedDate;
@@ -122,7 +122,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
       controller: _monthController,
       options: widget.options,
       label: widget.locale.localeOptions.monthLabel,
-      selectedItem: "${widget.selectedDate.month}",
+      selectedItem: "${_months[widget.selectedDate.month - 1]}",
       alignment: widget.locale.localeOptions.monthAlignment,
       onChanged: (value) {
         _onDateTimeChanged();
@@ -185,7 +185,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
 
   void _onDateTimeChanged() {
     int _selectedYear = _years[_yearController.selectedItem % _years.length];
-    int _selectedMonth = int.parse(_months[_monthController.selectedItem % _months.length]);
+    int _selectedMonth = (_monthController.selectedItem % 12) + 1;
     int _selectedDay = _days[_dayController.selectedItem % _days.length];
     int _maximumDay = getMonthlyDate(year: _selectedYear, month: _selectedMonth);
     DateTime _dateTime = DateTime(_selectedYear, _selectedMonth, _selectedDay > _maximumDay ? _maximumDay : _selectedDay);
@@ -196,7 +196,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
   List<Widget> _buildDatePickerWidgets() {
     _initDatePickerWidgets();
     switch (widget.locale) {
-      case DatePickerLocale.ko_kr:
+      case DatePickerLocale.koKR:
         return [_yearWidget, _monthWidget, _dayWidget];
       default:
         return [_monthWidget, _dayWidget, _yearWidget];

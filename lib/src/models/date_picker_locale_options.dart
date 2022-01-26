@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 
 class DatePickerLocaleOptions {
   const DatePickerLocaleOptions({
-    this.yearWidth = 70,
-    this.monthWidth = 70,
-    this.dayWidth = 70,
+    this.yearWidth = 65,
+    this.monthWidth = 35,
+    this.dayWidth = 40,
     this.yearLabel = "",
     this.monthLabel = "",
     this.dayLabel = "",
-    this.yearAlignment = Alignment.center,
-    this.monthAlignment = Alignment.center,
-    this.dayAlignment = Alignment.center,
+    this.yearAlignment = Alignment.centerLeft,
+    this.monthAlignment = Alignment.centerLeft,
+    this.dayAlignment = Alignment.centerLeft,
   });
 
   /// If non-null, requires the child to have exactly this Width.
