@@ -54,8 +54,8 @@ class _MyAppState extends State<MyApp> {
               ),
             ],
           ),
-          Expanded(child: SizedBox()),
-          Expanded(
+          SizedBox(
+            height: 300,
             child: ScrollDatePicker(
               minimumDate: DateTime(1980, 5, 1),
               selectedDate: _selectedDate,

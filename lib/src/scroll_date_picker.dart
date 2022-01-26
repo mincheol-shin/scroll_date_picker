@@ -143,7 +143,11 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
 
   void _initControllerIndex() {
     WidgetsBinding.instance?.addPostFrameCallback((_) {
-      _yearController.jumpToItem(widget.selectedDate.year - _minimumDate.year);
+      if (widget.selectedDate.year < _minimumDate.year) {
+        _yearController.animateToItem(_yearController.selectedItem - 1, duration: Duration(seconds: 1), curve: Curves.ease);
+      } else {
+        _yearController.jumpToItem(widget.selectedDate.year - _minimumDate.year);
+      }
       _monthController.jumpToItem(widget.selectedDate.month - 1);
       _dayController.jumpToItem(widget.selectedDate.day - 1);
     });
