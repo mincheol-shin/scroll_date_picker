@@ -110,6 +110,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
       options: widget.options,
       label: widget.locale.localeOptions.yearLabel,
       alignment: widget.locale.localeOptions.yearAlignment,
+      padding: widget.locale.localeOptions.yearPadding,
       onChanged: (value) {
         _onDateTimeChanged();
         _initMonths();
@@ -122,8 +123,9 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
       controller: _monthController,
       options: widget.options,
       label: widget.locale.localeOptions.monthLabel,
-      selectedItem: "${_months[widget.selectedDate.month - 1]}",
+      selectedItem: "$selectedMonthToString",
       alignment: widget.locale.localeOptions.monthAlignment,
+      padding: widget.locale.localeOptions.monthPadding,
       onChanged: (value) {
         _onDateTimeChanged();
         _initDays();
@@ -137,6 +139,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
       label: widget.locale.localeOptions.dayLabel,
       selectedItem: "${widget.selectedDate.day}",
       alignment: widget.locale.localeOptions.dayAlignment,
+      padding: widget.locale.localeOptions.dayPadding,
       onChanged: (value) {
         _onDateTimeChanged();
       },
@@ -162,11 +165,11 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
       } else {
         _months = widget.locale.month.sublist(0, _minimumDate.month);
       }
-      int _selectedMonthIndex = _months.indexOf(_selectedDate.month.toString());
-      _monthController.jumpToItem(_selectedMonthIndex == -1 ? _months.length - 1 : _selectedMonthIndex);
     } else {
       _months = widget.locale.month;
     }
+    int _selectedMonthIndex = _months.indexOf(selectedMonthToString);
+    _monthController.jumpToItem(_selectedMonthIndex == -1 ? _months.length - 1 : _selectedMonthIndex);
   }
 
   void _initDays() {
@@ -185,7 +188,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
 
   void _onDateTimeChanged() {
     int _selectedYear = _years[_yearController.selectedItem % _years.length];
-    int _selectedMonth = (_monthController.selectedItem % 12) + 1;
+    int _selectedMonth = (_monthController.selectedItem % _months.length) + 1;
     int _selectedDay = _days[_dayController.selectedItem % _days.length];
     int _maximumDay = getMonthlyDate(year: _selectedYear, month: _selectedMonth);
     DateTime _dateTime = DateTime(_selectedYear, _selectedMonth, _selectedDay > _maximumDay ? _maximumDay : _selectedDay);
@@ -202,6 +205,8 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
         return [_monthWidget, _dayWidget, _yearWidget];
     }
   }
+
+  String get selectedMonthToString => _months[(_selectedDate.month - 1) > _months.length ? _months.length - 1 : _selectedDate.month - 1];
 
   @override
   Widget build(BuildContext context) {
