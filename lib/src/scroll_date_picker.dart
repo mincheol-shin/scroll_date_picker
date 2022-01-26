@@ -106,6 +106,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
       width: widget.locale.localeOptions.yearWidth,
       date: _years,
       controller: _yearController,
+      selectedItem: "${widget.selectedDate.year}",
       options: widget.options,
       label: widget.locale.localeOptions.yearLabel,
       alignment: widget.locale.localeOptions.yearAlignment,
@@ -121,6 +122,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
       controller: _monthController,
       options: widget.options,
       label: widget.locale.localeOptions.monthLabel,
+      selectedItem: "${widget.selectedDate.month}",
       alignment: widget.locale.localeOptions.monthAlignment,
       onChanged: (value) {
         _onDateTimeChanged();
@@ -133,6 +135,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
       controller: _dayController,
       options: widget.options,
       label: widget.locale.localeOptions.dayLabel,
+      selectedItem: "${widget.selectedDate.day}",
       alignment: widget.locale.localeOptions.dayAlignment,
       onChanged: (value) {
         _onDateTimeChanged();

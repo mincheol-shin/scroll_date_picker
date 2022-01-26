@@ -11,6 +11,7 @@ class DateScrollView extends StatelessWidget {
     required this.options,
     this.alignment = Alignment.center,
     this.label = "",
+    required this.selectedItem,
   });
 
   /// If non-null, requires the child to have exactly this Width.
@@ -31,8 +32,12 @@ class DateScrollView extends StatelessWidget {
 
   final String label;
 
+  final String selectedItem;
+
   @override
   Widget build(BuildContext context) {
+    print(date);
+    print("Selected Item $selectedItem");
     return Container(
       width: width,
       child: ListWheelScrollView.useDelegate(
@@ -48,8 +53,7 @@ class DateScrollView extends StatelessWidget {
                   date.length,
                   (index) => Container(
                     alignment: alignment,
-                    child:
-                        Text("${date[index]}$label", style: options.textStyle),
+                    child: Text("${date[index]}$label", style: "${date[index]}" == selectedItem ? options.selectedTextStyle : options.textStyle),
                   ),
                 ),
               )
@@ -58,8 +62,7 @@ class DateScrollView extends StatelessWidget {
                   date.length,
                   (index) => Container(
                     alignment: alignment,
-                    child:
-                        Text("${date[index]}$label", style: options.textStyle),
+                    child: Text("${date[index]}$label", style: "${date[index]}" == selectedItem ? options.selectedTextStyle : options.textStyle),
                   ),
                 ),
               ),

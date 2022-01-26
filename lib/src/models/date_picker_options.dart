@@ -6,7 +6,8 @@ class DatePickerOptions {
     this.diameterRatio = 3.0,
     this.perspective = 0.01,
     this.isLoop = true,
-    this.textStyle = const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+    this.selectedTextStyle = const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+    this.textStyle = const TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
     this.indicator,
   });
 
@@ -25,5 +26,6 @@ class DatePickerOptions {
   /// An immutable style describing how to format and paint text.
   final TextStyle textStyle;
 
+  final TextStyle selectedTextStyle;
   final Widget? indicator;
 }

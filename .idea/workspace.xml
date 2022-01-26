@@ -21,10 +21,9 @@
   <component name="ChangeListManager">
     <list default="true" id="7b6f7fe6-5108-488a-aa28-4c36d33ca1d5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/models/date_picker_options.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/models/date_picker_options.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/scroll_date_picker.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/scroll_date_picker.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/widgets/date_picker_indicator.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/widgets/date_scroll_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/widgets/date_scroll_view.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,9 +126,10 @@
     <state width="918" height="195" key="GridCell.Tab.0.right/0.25.1792.1026@0.25.1792.1026" timestamp="1643160266875" />
     <state width="2036" height="377" key="GridCell.Tab.0.right/0.25.2560.1328/-2560.157.2560.1415@-2560.157.2560.1415" timestamp="1641716237986" />
     <state width="2036" height="213" key="GridCell.Tab.0.right/0.25.2560.1415/-2560.157.2560.1328@-2560.157.2560.1328" timestamp="1640530035839" />
-    <state x="-1856" y="389" key="run.anything.popup" timestamp="1640681973417">
-      <screen x="-2560" y="157" width="2560" height="1415" />
+    <state x="528" y="187" key="run.anything.popup" timestamp="1643165368617">
+      <screen x="0" y="25" width="1920" height="986" />
     </state>
+    <state x="528" y="187" key="run.anything.popup/0.25.1920.986@0.25.1920.986" timestamp="1643165368617" />
     <state x="-1856" y="389" key="run.anything.popup/0.25.2560.1328/-2560.157.2560.1415@-2560.157.2560.1415" timestamp="1640681973417" />
   </component>
 </project>
