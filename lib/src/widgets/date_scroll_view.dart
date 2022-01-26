@@ -36,37 +36,44 @@ class DateScrollView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(date);
-    print("Selected Item $selectedItem");
-    return Container(
-      width: width,
-      child: ListWheelScrollView.useDelegate(
-        itemExtent: options.itemExtent,
-        diameterRatio: options.diameterRatio,
-        controller: controller,
-        physics: const FixedExtentScrollPhysics(),
-        perspective: options.perspective,
-        onSelectedItemChanged: onChanged,
-        childDelegate: options.isLoop && date.length > 3
-            ? ListWheelChildLoopingListDelegate(
-                children: List<Widget>.generate(
-                  date.length,
-                  (index) => Container(
-                    alignment: alignment,
-                    child: Text("${date[index]}$label", style: "${date[index]}" == selectedItem ? options.selectedTextStyle : options.textStyle),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        int _maximumCount = constraints.maxHeight ~/ options.itemExtent;
+        print(selectedItem);
+        return Container(
+          width: width,
+          child: ListWheelScrollView.useDelegate(
+            itemExtent: options.itemExtent,
+            diameterRatio: options.diameterRatio,
+            controller: controller,
+            physics: const FixedExtentScrollPhysics(),
+            perspective: options.perspective,
+            onSelectedItemChanged: onChanged,
+            childDelegate: options.isLoop && date.length > _maximumCount
+                ? ListWheelChildLoopingListDelegate(
+                    children: List<Widget>.generate(
+                      date.length,
+                      (index) => Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 0),
+                        child: Container(
+                          alignment: alignment,
+                          child: Text("${date[index]}$label", style: "${date[index]}" == selectedItem ? options.selectedTextStyle : options.textStyle),
+                        ),
+                      ),
+                    ),
+                  )
+                : ListWheelChildListDelegate(
+                    children: List<Widget>.generate(
+                      date.length,
+                      (index) => Container(
+                        alignment: alignment,
+                        child: Text("${date[index]}$label", style: "${date[index]}" == selectedItem ? options.selectedTextStyle : options.textStyle),
+                      ),
+                    ),
                   ),
-                ),
-              )
-            : ListWheelChildListDelegate(
-                children: List<Widget>.generate(
-                  date.length,
-                  (index) => Container(
-                    alignment: alignment,
-                    child: Text("${date[index]}$label", style: "${date[index]}" == selectedItem ? options.selectedTextStyle : options.textStyle),
-                  ),
-                ),
-              ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
