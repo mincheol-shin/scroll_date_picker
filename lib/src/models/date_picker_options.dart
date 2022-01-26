@@ -7,6 +7,7 @@ class DatePickerOptions {
     this.perspective = 0.01,
     this.isLoop = true,
     this.textStyle = const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+    this.indicator,
   });
 
   /// Size of each child in the main axis
@@ -23,4 +24,6 @@ class DatePickerOptions {
 
   /// An immutable style describing how to format and paint text.
   final TextStyle textStyle;
+
+  final Widget? indicator;
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scroll_date_picker/src/models/date_picker_options.dart';
 import 'package:scroll_date_picker/src/utils/get_monthly_date.dart';
-import 'package:scroll_date_picker/src/widgets/date_picker_indicator.dart';
 import 'package:scroll_date_picker/src/widgets/date_scroll_view.dart';
 
 import 'scroll_date_picker_constants.dart';
@@ -214,7 +213,51 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: _buildDatePickerWidgets(),
         ),
-        const DatePickerIndicator(),
+
+        /// Date Picker Indicator
+        IgnorePointer(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Theme.of(context).scaffoldBackgroundColor,
+                        Theme.of(context).scaffoldBackgroundColor.withOpacity(0.7),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              widget.options.indicator ??
+                  Container(
+                    height: widget.options.itemExtent,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.withOpacity(0.15),
+                      borderRadius: const BorderRadius.all(Radius.circular(4)),
+                    ),
+                  ),
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Theme.of(context).scaffoldBackgroundColor.withOpacity(0.7),
+                        Theme.of(context).scaffoldBackgroundColor,
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

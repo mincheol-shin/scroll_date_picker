@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
 
 void main() {
-  runApp(MaterialApp(home: const MyApp()));
+  runApp(MaterialApp(
+      home: const MyApp()));
 }
 
 class MyApp extends StatefulWidget {
