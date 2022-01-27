@@ -9,6 +9,11 @@
 * Update example
 
 
+## 3.1.0
+
+* Adding the german support. Thanks @komarekw.
+
+
 ## 3.0.0
 
 * Delete `controller` parameters and add `selectedDate` parameters.
