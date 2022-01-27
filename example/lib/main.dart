@@ -32,34 +32,26 @@ class _MyAppState extends State<MyApp> {
               style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    _selectedDate = _selectedDate.add(Duration(days: -5));
-                  });
-                },
-                icon: const Icon(Icons.remove),
+          Container(
+            alignment: Alignment.centerRight,
+            padding: const EdgeInsets.only(right: 48),
+            child: TextButton(
+              onPressed: () {
+                setState(() {
+                  _selectedDate = DateTime.now();
+                });
+              },
+              child: Text(
+                "TODAY",
+                style: TextStyle(color: Colors.red),
               ),
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    _selectedDate = _selectedDate.add(Duration(days: 5));
-                  });
-                },
-                icon: const Icon(Icons.add),
-              ),
-            ],
+            ),
           ),
-          Expanded(
+          SizedBox(
+            height: 250,
             child: ScrollDatePicker(
-              minimumYear: 2010,
-              maximumYear: 2050,
               selectedDate: _selectedDate,
-              locale: DatePickerLocale.ko_kr,
-              options: const DatePickerOptions(),
+              locale: DatePickerLocale.koKR,
               onDateTimeChanged: (DateTime value) {
                 setState(() {
                   _selectedDate = value;

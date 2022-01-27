@@ -59,20 +59,20 @@ const List<String> deDeMonth = [
 ];
 
 enum DatePickerLocale {
-  en_us,
-  ko_kr,
-  fr_fr,
-  de_de,
+  enUS,
+  koKR,
+  frFR,
+  deDE,
 }
 
 extension DatePickerLocaleExtension on DatePickerLocale {
   List<String> get month {
     switch (this) {
-      case DatePickerLocale.ko_kr:
+      case DatePickerLocale.koKR:
         return koKrMonths;
-      case DatePickerLocale.fr_fr:
+      case DatePickerLocale.frFR:
         return frFrMonth;
-      case DatePickerLocale.de_de:
+      case DatePickerLocale.deDE:
         return deDeMonth;
       default:
         return enUsMonth;
@@ -81,15 +81,21 @@ extension DatePickerLocaleExtension on DatePickerLocale {
 
   DatePickerLocaleOptions get localeOptions {
     switch (this) {
-      case DatePickerLocale.ko_kr:
+      case DatePickerLocale.koKR:
         return DatePickerLocaleOptions(
-            yearLabel: "년", monthLabel: "월", dayLabel: "일");
+          yearLabel: "년",
+          monthLabel: "월",
+          dayLabel: "일",
+          yearPadding: const EdgeInsets.only(right: 8),
+          monthPadding: const EdgeInsets.only(right: 16),
+          dayPadding: EdgeInsets.zero,
+        );
       default:
         return DatePickerLocaleOptions(
-            monthAlignment: Alignment.centerLeft,
-            monthWidth: 100,
-            yearWidth: 60,
-            dayWidth: 60);
+          monthWidth: 100,
+          yearWidth: 60,
+          dayWidth: 30,
+        );
     }
   }
 }

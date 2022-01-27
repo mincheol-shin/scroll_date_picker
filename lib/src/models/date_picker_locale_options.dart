@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 
 class DatePickerLocaleOptions {
   const DatePickerLocaleOptions({
-    this.yearWidth = 70,
-    this.monthWidth = 70,
-    this.dayWidth = 70,
+    this.yearWidth = 65,
+    this.monthWidth = 35,
+    this.dayWidth = 40,
     this.yearLabel = "",
     this.monthLabel = "",
     this.dayLabel = "",
-    this.yearAlignment = Alignment.center,
-    this.monthAlignment = Alignment.center,
-    this.dayAlignment = Alignment.center,
+    this.yearAlignment = Alignment.centerLeft,
+    this.monthAlignment = Alignment.centerLeft,
+    this.dayAlignment = Alignment.centerLeft,
+    this.yearPadding = const EdgeInsets.all(0),
+    this.monthPadding = const EdgeInsets.all(0),
+    this.dayPadding = const EdgeInsets.only(right: 8),
   });
 
   /// If non-null, requires the child to have exactly this Width.
@@ -39,4 +42,13 @@ class DatePickerLocaleOptions {
 
   /// It's a day text sorting method.
   final Alignment dayAlignment;
+
+  /// The amount of space that can be added to the year.
+  final EdgeInsets yearPadding;
+
+  /// The amount of space that can be added to the month.
+  final EdgeInsets monthPadding;
+
+  /// The amount of space that can be added to the day.
+  final EdgeInsets dayPadding;
 }

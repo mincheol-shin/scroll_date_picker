@@ -11,6 +11,8 @@ class DateScrollView extends StatelessWidget {
     required this.options,
     this.alignment = Alignment.center,
     this.label = "",
+    required this.selectedItem,
+    this.padding = const EdgeInsets.all(0),
   });
 
   /// If non-null, requires the child to have exactly this Width.
@@ -25,45 +27,69 @@ class DateScrollView extends StatelessWidget {
   /// This is a list of dates.
   final List date;
 
+  /// A set that allows you to specify options related to ListWheelScrollView.
   final DatePickerOptions options;
 
+  /// It's a year or month or day text sorting method.
   final Alignment alignment;
 
+  /// Text that is printed next to the year or month or day.
   final String label;
+
+  /// The currently selected date.
+  final String selectedItem;
+
+  /// The amount of space that can be added to the year or month or day.
+  final EdgeInsets padding;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: width,
-      child: ListWheelScrollView.useDelegate(
-        itemExtent: options.itemExtent,
-        diameterRatio: options.diameterRatio,
-        controller: controller,
-        physics: const FixedExtentScrollPhysics(),
-        perspective: options.perspective,
-        onSelectedItemChanged: onChanged,
-        childDelegate: options.isLoop
-            ? ListWheelChildLoopingListDelegate(
-                children: List<Widget>.generate(
-                  date.length,
-                  (index) => Container(
-                    alignment: alignment,
-                    child:
-                        Text("${date[index]}$label", style: options.textStyle),
-                  ),
-                ),
-              )
-            : ListWheelChildListDelegate(
-                children: List<Widget>.generate(
-                  date.length,
-                  (index) => Container(
-                    alignment: alignment,
-                    child:
-                        Text("${date[index]}$label", style: options.textStyle),
-                  ),
-                ),
-              ),
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        int _maximumCount = constraints.maxHeight ~/ options.itemExtent;
+        return Padding(
+          padding: padding,
+          child: Container(
+            width: width,
+            child: ListWheelScrollView.useDelegate(
+              itemExtent: options.itemExtent,
+              diameterRatio: options.diameterRatio,
+              controller: controller,
+              physics: const FixedExtentScrollPhysics(),
+              perspective: options.perspective,
+              onSelectedItemChanged: onChanged,
+              childDelegate: options.isLoop && date.length > _maximumCount
+                  ? ListWheelChildLoopingListDelegate(
+                      children: List<Widget>.generate(
+                        date.length,
+                        (index) => Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 0),
+                          child: Container(
+                            alignment: alignment,
+                            child: Text("${date[index]}$label",
+                                style: "${date[index]}" == selectedItem
+                                    ? options.selectedTextStyle
+                                    : options.textStyle),
+                          ),
+                        ),
+                      ),
+                    )
+                  : ListWheelChildListDelegate(
+                      children: List<Widget>.generate(
+                        date.length,
+                        (index) => Container(
+                          alignment: alignment,
+                          child: Text("${date[index]}$label",
+                              style: "${date[index]}" == selectedItem
+                                  ? options.selectedTextStyle
+                                  : options.textStyle),
+                        ),
+                      ),
+                    ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
