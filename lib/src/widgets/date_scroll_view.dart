@@ -66,7 +66,10 @@ class DateScrollView extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(vertical: 0),
                           child: Container(
                             alignment: alignment,
-                            child: Text("${date[index]}$label", style: "${date[index]}" == selectedItem ? options.selectedTextStyle : options.textStyle),
+                            child: Text("${date[index]}$label",
+                                style: "${date[index]}" == selectedItem
+                                    ? options.selectedTextStyle
+                                    : options.textStyle),
                           ),
                         ),
                       ),
@@ -76,7 +79,10 @@ class DateScrollView extends StatelessWidget {
                         date.length,
                         (index) => Container(
                           alignment: alignment,
-                          child: Text("${date[index]}$label", style: "${date[index]}" == selectedItem ? options.selectedTextStyle : options.textStyle),
+                          child: Text("${date[index]}$label",
+                              style: "${date[index]}" == selectedItem
+                                  ? options.selectedTextStyle
+                                  : options.textStyle),
                         ),
                       ),
                     ),

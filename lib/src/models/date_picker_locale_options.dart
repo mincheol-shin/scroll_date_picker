@@ -14,7 +14,6 @@ class DatePickerLocaleOptions {
     this.yearPadding = const EdgeInsets.all(0),
     this.monthPadding = const EdgeInsets.all(0),
     this.dayPadding = const EdgeInsets.only(right: 8),
-
   });
 
   /// If non-null, requires the child to have exactly this Width.

@@ -1,3 +1,14 @@
+## 3.2.0
+
+* Added date limit function.
+* Added year, month and day padding parameters.
+* Added indicator parameters.
+* Added selection text style setting function.
+* Update enum values naming
+* Update README
+* Update example
+
+
 ## 3.0.0
 
 * Delete `controller` parameters and add `selectedDate` parameters.

@@ -6,8 +6,10 @@ class DatePickerOptions {
     this.diameterRatio = 3,
     this.perspective = 0.01,
     this.isLoop = true,
-    this.selectedTextStyle = const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-    this.textStyle = const TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+    this.selectedTextStyle =
+        const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+    this.textStyle =
+        const TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
     this.indicator,
   });
 

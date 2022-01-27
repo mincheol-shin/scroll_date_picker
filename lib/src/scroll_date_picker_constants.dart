@@ -1,9 +1,48 @@
 import 'package:flutter/cupertino.dart';
 import 'package:scroll_date_picker/src/models/date_picker_locale_options.dart';
 
-const List<String> koKrMonths = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
-const List<String> enUsMonth = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-const List<String> frFrMonth = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+const List<String> koKrMonths = [
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  '10',
+  '11',
+  '12'
+];
+const List<String> enUsMonth = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+];
+const List<String> frFrMonth = [
+  'Janvier',
+  'Février',
+  'Mars',
+  'Avril',
+  'Mai',
+  'Juin',
+  'Juillet',
+  'Août',
+  'Septembre',
+  'Octobre',
+  'Novembre',
+  'Décembre'
+];
 
 enum DatePickerLocale {
   enUS,
