@@ -13,7 +13,7 @@ class DatePickerLocaleOptions {
     this.dayAlignment = Alignment.centerLeft,
     this.yearPadding = const EdgeInsets.all(0),
     this.monthPadding = const EdgeInsets.all(0),
-    this.dayPadding = const EdgeInsets.all(0),
+    this.dayPadding = const EdgeInsets.only(right: 8),
 
   });
 

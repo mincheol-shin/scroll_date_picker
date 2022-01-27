@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scroll_date_picker/src/models/date_picker_locale_options.dart';
 import 'package:scroll_date_picker/src/models/date_picker_options.dart';
 import 'package:scroll_date_picker/src/utils/get_monthly_date.dart';
 import 'package:scroll_date_picker/src/widgets/date_scroll_view.dart';
@@ -14,6 +15,7 @@ class ScrollDatePicker extends StatefulWidget {
     this.maximumDate,
     this.options = const DatePickerOptions(),
     this.locale = DatePickerLocale.enUS,
+    this.localeOptions,
   }) : super(key: key);
 
   final DateTime selectedDate;
@@ -31,6 +33,8 @@ class ScrollDatePicker extends StatefulWidget {
 
   /// Set calendar language
   final DatePickerLocale locale;
+
+  final DatePickerLocaleOptions? localeOptions;
 
   @override
   State<ScrollDatePicker> createState() => _ScrollDatePickerState();
@@ -54,6 +58,8 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
   late DateTime _minimumDate;
   late DateTime _maximumDate;
 
+  late DatePickerLocaleOptions _datePickerLocaleOptions;
+
   List<int> _years = [];
   List<String> _months = [];
   List<int> _days = [];
@@ -69,6 +75,8 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
     _initYears();
     _initMonths();
     _initDays();
+
+    _datePickerLocaleOptions = widget.localeOptions ?? widget.locale.localeOptions;
   }
 
   @override
@@ -94,7 +102,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
   }
 
   void _initMinimumDate() {
-    _minimumDate = widget.minimumDate ?? DateTime(1960, 1, 1);
+    _minimumDate = widget.minimumDate ?? DateTime(1960, 12, 31);
   }
 
   void _initMaximumDate() {
@@ -103,14 +111,14 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
 
   void _initDatePickerWidgets() {
     _yearWidget = DateScrollView(
-      width: widget.locale.localeOptions.yearWidth,
+      width: _datePickerLocaleOptions.yearWidth,
       date: _years,
       controller: _yearController,
       selectedItem: "${widget.selectedDate.year}",
       options: widget.options,
-      label: widget.locale.localeOptions.yearLabel,
-      alignment: widget.locale.localeOptions.yearAlignment,
-      padding: widget.locale.localeOptions.yearPadding,
+      label: _datePickerLocaleOptions.yearLabel,
+      alignment: _datePickerLocaleOptions.yearAlignment,
+      padding: _datePickerLocaleOptions.yearPadding,
       onChanged: (value) {
         _onDateTimeChanged();
         _initMonths();
@@ -118,28 +126,28 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
       },
     );
     _monthWidget = DateScrollView(
-      width: widget.locale.localeOptions.monthWidth,
+      width: _datePickerLocaleOptions.monthWidth,
       date: _months,
       controller: _monthController,
       options: widget.options,
-      label: widget.locale.localeOptions.monthLabel,
+      label: _datePickerLocaleOptions.monthLabel,
       selectedItem: "$selectedMonthToString",
-      alignment: widget.locale.localeOptions.monthAlignment,
-      padding: widget.locale.localeOptions.monthPadding,
+      alignment: _datePickerLocaleOptions.monthAlignment,
+      padding: _datePickerLocaleOptions.monthPadding,
       onChanged: (value) {
         _onDateTimeChanged();
         _initDays();
       },
     );
     _dayWidget = DateScrollView(
-      width: widget.locale.localeOptions.dayWidth,
+      width: _datePickerLocaleOptions.dayWidth,
       date: _days,
       controller: _dayController,
       options: widget.options,
-      label: widget.locale.localeOptions.dayLabel,
+      label: _datePickerLocaleOptions.dayLabel,
       selectedItem: "${widget.selectedDate.day}",
-      alignment: widget.locale.localeOptions.dayAlignment,
-      padding: widget.locale.localeOptions.dayPadding,
+      alignment: _datePickerLocaleOptions.dayAlignment,
+      padding: _datePickerLocaleOptions.dayPadding,
       onChanged: (value) {
         _onDateTimeChanged();
       },
