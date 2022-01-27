@@ -11,7 +11,7 @@ Compatible with Android & iOS & Web. :heart_eyes:
 
 # Showcase
 
-<img src = "https://user-images.githubusercontent.com/55150540/147560195-8d9dfdcc-bdd4-4b3b-a89b-488669a0b17e.gif" width = 200> <img src = "https://user-images.githubusercontent.com/55150540/147560204-778b599d-e4e2-48d9-b6d3-2d0d5e41987a.gif" width = 200>
+<img src = "https://user-images.githubusercontent.com/55150540/151300615-dc982927-70e7-46f6-bd4b-f9aff729a02d.gif" width = 200> <img src = "https://user-images.githubusercontent.com/55150540/151300623-de8f7cef-a6ac-492e-9293-00e8793a69c0.gif" width = 200>
 
 <br> 
 
@@ -70,34 +70,26 @@ class _MyAppState extends State<MyApp> {
               style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    _selectedDate = _selectedDate.add(Duration(days: -5));
-                  });
-                },
-                icon: const Icon(Icons.remove),
+          Container(
+            alignment: Alignment.centerRight,
+            padding: const EdgeInsets.only(right: 48),
+            child: TextButton(
+              onPressed: () {
+                setState(() {
+                  _selectedDate = DateTime.now();
+                });
+              },
+              child: Text(
+                "TODAY",
+                style: TextStyle(color: Colors.red),
               ),
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    _selectedDate = _selectedDate.add(Duration(days: 5));
-                  });
-                },
-                icon: const Icon(Icons.add),
-              ),
-            ],
+            ),
           ),
-          Expanded(
+          SizedBox(
+            height: 250,
             child: ScrollDatePicker(
-              minimumYear: 2010,
-              maximumYear: 2050,
               selectedDate: _selectedDate,
-              locale: DatePickerLocale.ko_kr,
-              options: const DatePickerOptions(),
+              locale: DatePickerLocale.koKR,
               onDateTimeChanged: (DateTime value) {
                 setState(() {
                   _selectedDate = value;
