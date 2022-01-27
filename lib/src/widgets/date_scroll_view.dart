@@ -27,14 +27,19 @@ class DateScrollView extends StatelessWidget {
   /// This is a list of dates.
   final List date;
 
+  /// A set that allows you to specify options related to ListWheelScrollView.
   final DatePickerOptions options;
 
+  /// It's a year or month or day text sorting method.
   final Alignment alignment;
 
+  /// Text that is printed next to the year or month or day.
   final String label;
 
+  /// The currently selected date.
   final String selectedItem;
 
+  /// The amount of space that can be added to the year or month or day.
   final EdgeInsets padding;
 
   @override

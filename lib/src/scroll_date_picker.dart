@@ -18,6 +18,7 @@ class ScrollDatePicker extends StatefulWidget {
     this.localeOptions,
   }) : super(key: key);
 
+  /// The currently selected date.
   final DateTime selectedDate;
 
   /// Minimum year that the picker can be scrolled
@@ -29,11 +30,13 @@ class ScrollDatePicker extends StatefulWidget {
   /// On optional listener that's called when the centered item changes.
   final ValueChanged<DateTime> onDateTimeChanged;
 
+  /// A set that allows you to specify options related to ListWheelScrollView.
   final DatePickerOptions options;
 
   /// Set calendar language
   final DatePickerLocale locale;
 
+  /// Options that can be applied nationally or collectively.
   final DatePickerLocaleOptions? localeOptions;
 
   @override

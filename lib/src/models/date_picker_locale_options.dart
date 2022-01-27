@@ -44,9 +44,12 @@ class DatePickerLocaleOptions {
   /// It's a day text sorting method.
   final Alignment dayAlignment;
 
+  /// The amount of space that can be added to the year.
   final EdgeInsets yearPadding;
 
+  /// The amount of space that can be added to the month.
   final EdgeInsets monthPadding;
 
+  /// The amount of space that can be added to the day.
   final EdgeInsets dayPadding;
 }

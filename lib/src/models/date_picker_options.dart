@@ -26,6 +26,7 @@ class DatePickerOptions {
   /// An immutable style describing how to format and paint text.
   final TextStyle textStyle;
 
+  /// An invariant style that specifies the selected text format and explains how to draw it.
   final TextStyle selectedTextStyle;
 
   final Widget? indicator;
