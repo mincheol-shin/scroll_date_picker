@@ -50,6 +50,8 @@ class _MyAppState extends State<MyApp> {
           SizedBox(
             height: 250,
             child: ScrollDatePicker(
+              minimumDate: DateTime.now(),
+              maximumDate: DateTime.now().add(Duration(days: 365)),
               selectedDate: _selectedDate,
               locale: DatePickerLocale.koKR,
               onDateTimeChanged: (DateTime value) {

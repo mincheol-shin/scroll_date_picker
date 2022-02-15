@@ -72,18 +72,14 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
     super.initState();
     _initMinimumDate();
     _initMaximumDate();
-    _yearController = FixedExtentScrollController(
-        initialItem: widget.selectedDate.year - _minimumDate.year);
-    _monthController =
-        FixedExtentScrollController(initialItem: widget.selectedDate.month - 1);
-    _dayController =
-        FixedExtentScrollController(initialItem: widget.selectedDate.day - 1);
+    _yearController = FixedExtentScrollController(initialItem: widget.selectedDate.year - _minimumDate.year);
+    _monthController = FixedExtentScrollController(initialItem: widget.selectedDate.month - 1);
+    _dayController = FixedExtentScrollController(initialItem: widget.selectedDate.day - 1);
     _initYears();
     _initMonths();
     _initDays();
 
-    _datePickerLocaleOptions =
-        widget.localeOptions ?? widget.locale.localeOptions;
+    _datePickerLocaleOptions = widget.localeOptions ?? widget.locale.localeOptions;
   }
 
   @override
@@ -91,14 +87,6 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
     super.didUpdateWidget(oldWidget);
     if (_selectedDate != widget.selectedDate) {
       _initControllerIndex();
-    } else if ((widget.minimumDate != null &&
-            widget.minimumDate != _minimumDate) ||
-        (widget.maximumDate != null && widget.maximumDate != _maximumDate)) {
-      _initMinimumDate();
-      _initMaximumDate();
-      _initYears();
-      _initMonths();
-      _initDays();
     }
   }
 
@@ -176,48 +164,43 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
   }
 
   void _initMonths() {
-    if (_selectedDate.year == _maximumDate.year ||
-        _selectedDate.year == _minimumDate.year) {
+    if (_selectedDate.year == _maximumDate.year || _selectedDate.year == _minimumDate.year) {
       if (_selectedDate.year == _maximumDate.year) {
         _months = widget.locale.month.sublist(0, _maximumDate.month);
       } else {
-        _months = widget.locale.month.sublist(0, _minimumDate.month);
+        _months = widget.locale.month.sublist(_minimumDate.month - 1, widget.locale.month.length);
       }
     } else {
       _months = widget.locale.month;
     }
-    int _selectedMonthIndex = _months.indexOf(selectedMonthToString);
-    _monthController.jumpToItem(
-        _selectedMonthIndex == -1 ? _months.length - 1 : _selectedMonthIndex);
+    if (_selectedDate.year != widget.selectedDate.year) {
+      int _selectedMonthIndex = _months.indexOf(selectedMonthToString);
+      _monthController.jumpToItem(_selectedMonthIndex == -1 ? _months.length - 1 : _selectedMonthIndex);
+    }
   }
 
   void _initDays() {
-    int _maximumDay =
-        getMonthlyDate(year: _selectedDate.year, month: _selectedDate.month);
+    int _maximumDay = getMonthlyDate(year: _selectedDate.year, month: _selectedDate.month);
 
     _days = [for (int i = 1; i <= _maximumDay; i++) i];
-    if (_selectedDate.year == _maximumDate.year &&
-        _selectedDate.month == _maximumDate.month) {
+    if (_selectedDate.year == _maximumDate.year && _selectedDate.month == _maximumDate.month) {
       _days = _days.sublist(0, _maximumDate.day);
-    } else if (_selectedDate.year == _minimumDate.year &&
-        _selectedDate.month == _minimumDate.month) {
+    } else if (_selectedDate.year == _minimumDate.year && _selectedDate.month == _minimumDate.month) {
       _days = _days.sublist(0, _minimumDate.day);
     }
 
     int _selectedDayIndex = _days.indexOf(_selectedDate.day);
-    _dayController.jumpToItem(
-        _selectedDayIndex == -1 ? _days.length - 1 : _selectedDayIndex);
+    _dayController.jumpToItem(_selectedDayIndex == -1 ? _days.length - 1 : _selectedDayIndex);
   }
 
   void _onDateTimeChanged() {
     int _selectedYear = _years[_yearController.selectedItem % _years.length];
-    int _selectedMonth = (_monthController.selectedItem % _months.length) + 1;
+    int _selectedMonth = (selectedMonthIndex + (12 - _months.length + 1));
     int _selectedDay = _days[_dayController.selectedItem % _days.length];
-    int _maximumDay =
-        getMonthlyDate(year: _selectedYear, month: _selectedMonth);
-    DateTime _dateTime = DateTime(_selectedYear, _selectedMonth,
-        _selectedDay > _maximumDay ? _maximumDay : _selectedDay);
+    int _maximumDay = getMonthlyDate(year: _selectedYear, month: _selectedMonth);
+    DateTime _dateTime = DateTime(_selectedYear, _selectedMonth, _selectedDay > _maximumDay ? _maximumDay : _selectedDay);
     _selectedDate = _dateTime;
+    print(_selectedDate);
     widget.onDateTimeChanged(_dateTime);
   }
 
@@ -231,10 +214,9 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
     }
   }
 
-  String get selectedMonthToString =>
-      _months[(_selectedDate.month) > _months.length
-          ? _months.length - 1
-          : _selectedDate.month - 1];
+  String get selectedMonthToString => _months[(_selectedDate.month) > _months.length ? _months.length - 1 : selectedMonthIndex];
+
+  int get selectedMonthIndex => (_months.indexOf(_months[(_monthController.selectedItem % _months.length)]));
 
   @override
   Widget build(BuildContext context) {
@@ -259,9 +241,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
                       end: Alignment.bottomCenter,
                       colors: [
                         Theme.of(context).scaffoldBackgroundColor,
-                        Theme.of(context)
-                            .scaffoldBackgroundColor
-                            .withOpacity(0.7),
+                        Theme.of(context).scaffoldBackgroundColor.withOpacity(0.7),
                       ],
                     ),
                   ),
@@ -282,9 +262,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        Theme.of(context)
-                            .scaffoldBackgroundColor
-                            .withOpacity(0.7),
+                        Theme.of(context).scaffoldBackgroundColor.withOpacity(0.7),
                         Theme.of(context).scaffoldBackgroundColor,
                       ],
                     ),
