@@ -13,7 +13,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  DateTime _selectedDate = DateTime.now();
+  DateTime _selectedDate = DateTime.parse("2020-10-11");
 
   @override
   Widget build(BuildContext context) {
@@ -32,26 +32,11 @@ class _MyAppState extends State<MyApp> {
               style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
             ),
           ),
-          Container(
-            alignment: Alignment.centerRight,
-            padding: const EdgeInsets.only(right: 48),
-            child: TextButton(
-              onPressed: () {
-                setState(() {
-                  _selectedDate = DateTime.now();
-                });
-              },
-              child: Text(
-                "TODAY",
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
-          ),
           SizedBox(
             height: 250,
             child: ScrollDatePicker(
-              minimumDate: DateTime.now(),
-              maximumDate: DateTime.now().add(Duration(days: 365)),
+              minimumDate: DateTime.now().add(Duration(days: -300)),
+              maximumDate: DateTime.now(),
               selectedDate: _selectedDate,
               locale: DatePickerLocale.koKR,
               onDateTimeChanged: (DateTime value) {

@@ -11,8 +11,8 @@ class DateScrollView extends StatelessWidget {
     required this.options,
     this.alignment = Alignment.center,
     this.label = "",
-    required this.selectedItem,
     this.padding = const EdgeInsets.all(0),
+    required this.selectedIndex,
   });
 
   /// If non-null, requires the child to have exactly this Width.
@@ -36,11 +36,10 @@ class DateScrollView extends StatelessWidget {
   /// Text that is printed next to the year or month or day.
   final String label;
 
-  /// The currently selected date.
-  final String selectedItem;
-
   /// The amount of space that can be added to the year or month or day.
   final EdgeInsets padding;
+  /// The currently selected date.
+  final int selectedIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +66,7 @@ class DateScrollView extends StatelessWidget {
                           child: Container(
                             alignment: alignment,
                             child: Text("${date[index]}$label",
-                                style: "${date[index]}" == selectedItem
+                                style: selectedIndex % date.length == index
                                     ? options.selectedTextStyle
                                     : options.textStyle),
                           ),
@@ -80,7 +79,7 @@ class DateScrollView extends StatelessWidget {
                         (index) => Container(
                           alignment: alignment,
                           child: Text("${date[index]}$label",
-                              style: "${date[index]}" == selectedItem
+                              style:  selectedIndex % date.length == index
                                   ? options.selectedTextStyle
                                   : options.textStyle),
                         ),
