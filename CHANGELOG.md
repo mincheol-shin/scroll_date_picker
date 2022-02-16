@@ -1,3 +1,9 @@
+## 3.3.0
+
+* Improved the directory structure and code.
+* Fixed date limit issue.
+* Fixed monthly reset issue.
+
 ## 3.2.0
 
 * Added date limit function.

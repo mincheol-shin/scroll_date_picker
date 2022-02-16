@@ -85,7 +85,8 @@ class DateScrollView extends StatelessWidget {
       alignment: alignment,
       child: Text(
         "${date[index]}$label",
-        style: selectedIndex == index ? style.selectedTextStyle : style.textStyle,
+        style:
+            selectedIndex == index ? style.selectedTextStyle : style.textStyle,
       ),
     );
   }

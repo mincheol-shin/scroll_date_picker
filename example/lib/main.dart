@@ -13,7 +13,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  DateTime _selectedDate = DateTime.parse("2010-10-11");
+  DateTime _selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class _MyAppState extends State<MyApp> {
             height: 250,
             child: ScrollDatePicker(
               selectedDate: _selectedDate,
-              locale: DatePickerLocale.koKR,
+              locale: DatePickerLocale.enUS,
               onDateTimeChanged: (DateTime value) {
                 setState(() {
                   _selectedDate = value;

@@ -1,6 +1,7 @@
 import 'package:scroll_date_picker/scroll_date_picker.dart';
 
-List<String> getMonthsToStringList({required List<int> months, required DatePickerLocale locale}) {
+List<String> getMonthsToStringList(
+    {required List<int> months, required DatePickerLocale locale}) {
   List<String> _months = [];
   switch (locale) {
     case DatePickerLocale.koKR:
