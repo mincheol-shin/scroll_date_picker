@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:scroll_date_picker/src/models/date_picker_options.dart';
+import 'package:scroll_date_picker/scroll_date_picker.dart';
 
 class DateScrollView extends StatelessWidget {
   DateScrollView({
@@ -9,6 +9,7 @@ class DateScrollView extends StatelessWidget {
     required this.date,
     required this.controller,
     required this.options,
+    required this.style,
     this.alignment = Alignment.center,
     this.label = "",
     this.padding = const EdgeInsets.all(0),
@@ -30,6 +31,8 @@ class DateScrollView extends StatelessWidget {
   /// A set that allows you to specify options related to ListWheelScrollView.
   final DatePickerOptions options;
 
+  final DatePickerStyle style;
+
   /// It's a year or month or day text sorting method.
   final Alignment alignment;
 
@@ -38,9 +41,9 @@ class DateScrollView extends StatelessWidget {
 
   /// The amount of space that can be added to the year or month or day.
   final EdgeInsets padding;
-  /// The currently selected date.
-  final int selectedIndex;
 
+  /// The currently selected date index.
+  final int selectedIndex;
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -61,34 +64,29 @@ class DateScrollView extends StatelessWidget {
                   ? ListWheelChildLoopingListDelegate(
                       children: List<Widget>.generate(
                         date.length,
-                        (index) => Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 0),
-                          child: Container(
-                            alignment: alignment,
-                            child: Text("${date[index]}$label",
-                                style: selectedIndex % date.length == index
-                                    ? options.selectedTextStyle
-                                    : options.textStyle),
-                          ),
-                        ),
+                        (index) => _buildDateView(index: index),
                       ),
                     )
                   : ListWheelChildListDelegate(
                       children: List<Widget>.generate(
                         date.length,
-                        (index) => Container(
-                          alignment: alignment,
-                          child: Text("${date[index]}$label",
-                              style:  selectedIndex % date.length == index
-                                  ? options.selectedTextStyle
-                                  : options.textStyle),
-                        ),
+                        (index) => _buildDateView(index: index),
                       ),
                     ),
             ),
           ),
         );
       },
+    );
+  }
+
+  Widget _buildDateView({required int index}) {
+    return Container(
+      alignment: alignment,
+      child: Text(
+        "${date[index]}$label",
+        style: selectedIndex == index ? style.selectedTextStyle : style.textStyle,
+      ),
     );
   }
 }

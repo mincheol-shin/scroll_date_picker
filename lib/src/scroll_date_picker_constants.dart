@@ -15,7 +15,7 @@ const List<String> koKrMonths = [
   '11',
   '12'
 ];
-const List<String> enUsMonth = [
+const List<String> enUsMonths = [
   'January',
   'February',
   'March',
@@ -29,7 +29,7 @@ const List<String> enUsMonth = [
   'November',
   'December'
 ];
-const List<String> frFrMonth = [
+const List<String> frFrMonths = [
   'Janvier',
   'Février',
   'Mars',
@@ -43,7 +43,7 @@ const List<String> frFrMonth = [
   'Novembre',
   'Décembre'
 ];
-const List<String> deDeMonth = [
+const List<String> deDeMonths = [
   'Januar',
   'Februar',
   'März',
@@ -66,19 +66,6 @@ enum DatePickerLocale {
 }
 
 extension DatePickerLocaleExtension on DatePickerLocale {
-  List<String> get month {
-    switch (this) {
-      case DatePickerLocale.koKR:
-        return koKrMonths;
-      case DatePickerLocale.frFR:
-        return frFrMonth;
-      case DatePickerLocale.deDE:
-        return deDeMonth;
-      default:
-        return enUsMonth;
-    }
-  }
-
   DatePickerLocaleOptions get localeOptions {
     switch (this) {
       case DatePickerLocale.koKR:
