@@ -1,3 +1,8 @@
+## 3.4.0
+
+* Added support for Vietnamese.
+
+
 ## 3.3.0
 
 * Improved the directory structure and code.
