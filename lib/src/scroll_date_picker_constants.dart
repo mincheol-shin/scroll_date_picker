@@ -58,11 +58,27 @@ const List<String> deDeMonths = [
   'Dezember'
 ];
 
+const List<String> viVnMonths = [
+  'Tháng 1',
+  'Tháng 2',
+  'Tháng 3',
+  'Tháng 4',
+  'Tháng 5',
+  'Tháng 6',
+  'Tháng 7',
+  'Tháng 8',
+  'Tháng 9',
+  'Tháng 10',
+  'Tháng 11',
+  'Tháng 12',
+];
+
 enum DatePickerLocale {
   enUS,
   koKR,
   frFR,
   deDE,
+  viVN,
 }
 
 extension DatePickerLocaleExtension on DatePickerLocale {
@@ -75,6 +91,11 @@ extension DatePickerLocaleExtension on DatePickerLocale {
           dayLabel: "일",
           yearPadding: const EdgeInsets.only(right: 8),
           monthPadding: const EdgeInsets.only(right: 16),
+          dayPadding: EdgeInsets.zero,
+        );
+      case DatePickerLocale.viVN:
+        return DatePickerLocaleOptions(
+          monthWidth: 90,
           dayPadding: EdgeInsets.zero,
         );
       default:

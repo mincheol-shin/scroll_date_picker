@@ -248,6 +248,8 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
     switch (widget.locale) {
       case DatePickerLocale.koKR:
         return [_yearWidget, _monthWidget, _dayWidget];
+      case DatePickerLocale.viVN:
+        return [_dayWidget, _monthWidget, _yearWidget];
       default:
         return [_monthWidget, _dayWidget, _yearWidget];
     }
