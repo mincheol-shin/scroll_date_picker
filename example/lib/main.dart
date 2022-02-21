@@ -51,7 +51,7 @@ class _MyAppState extends State<MyApp> {
             height: 250,
             child: ScrollDatePicker(
               selectedDate: _selectedDate,
-              locale: DatePickerLocale.enUS,
+              locale: DatePickerLocale.viVN,
               onDateTimeChanged: (DateTime value) {
                 setState(() {
                   _selectedDate = value;

@@ -13,6 +13,9 @@ List<String> getMonthsToStringList(
     case DatePickerLocale.deDE:
       _months = deDeMonths;
       break;
+    case DatePickerLocale.viVN:
+      _months = viVnMonths;
+      break;
     default:
       _months = enUsMonths;
   }
