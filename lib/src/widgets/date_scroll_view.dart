@@ -94,8 +94,6 @@ class DateScrollView extends StatelessWidget {
   }
 
   Widget _buildDateView({required int index}) {
-    print(style.selectedTextStyle.fontSize);
-    print(style.selectedTextStyle.height);
     return Container(
       alignment: alignment,
       child: Text(
