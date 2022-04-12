@@ -16,6 +16,7 @@ class DateScrollView extends StatelessWidget {
     this.label = "",
     this.padding = const EdgeInsets.all(0),
     required this.selectedIndex,
+    required this.scrollOnTap,
   });
 
   /// If non-null, requires the child to have exactly this Width.
@@ -49,44 +50,53 @@ class DateScrollView extends StatelessWidget {
 
   /// The currently selected date index.
   final int selectedIndex;
+
+  /// Whether to scroll to tapped item.
+  final bool scrollOnTap;
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        int _maximumCount = constraints.maxHeight ~/ options.itemExtent;
+        final int _maximumCount = constraints.maxHeight ~/ options.itemExtent;
+        final ListWheelScrollView _scrollView = ListWheelScrollView.useDelegate(
+          itemExtent: options.itemExtent,
+          diameterRatio: options.diameterRatio,
+          controller: controller,
+          physics: const FixedExtentScrollPhysics(),
+          perspective: options.perspective,
+          onSelectedItemChanged: onChanged,
+          childDelegate: options.isLoop && date.length > _maximumCount
+              ? ListWheelChildLoopingListDelegate(
+                  children: List<Widget>.generate(
+                    date.length,
+                    (index) => _buildDateView(index: index),
+                  ),
+                )
+              : ListWheelChildListDelegate(
+                  children: List<Widget>.generate(
+                    date.length,
+                    (index) => _buildDateView(index: index),
+                  ),
+                ),
+        );
         return Padding(
           padding: padding,
           child: Container(
             width: width,
-            child: ClickableListWheelScrollView(
-              scrollController: controller,
-              itemHeight: height,
-              itemCount: date.length,
-              onItemTapCallback: (index) {
-                print("onItemTapCallback index: $index");
-              },
-              child: ListWheelScrollView.useDelegate(
-                itemExtent: options.itemExtent,
-                diameterRatio: options.diameterRatio,
-                controller: controller,
-                physics: const FixedExtentScrollPhysics(),
-                perspective: options.perspective,
-                onSelectedItemChanged: onChanged,
-                childDelegate: options.isLoop && date.length > _maximumCount
-                    ? ListWheelChildLoopingListDelegate(
-                        children: List<Widget>.generate(
-                          date.length,
-                          (index) => _buildDateView(index: index),
-                        ),
-                      )
-                    : ListWheelChildListDelegate(
-                        children: List<Widget>.generate(
-                          date.length,
-                          (index) => _buildDateView(index: index),
-                        ),
-                      ),
-              ),
-            ),
+            child: (scrollOnTap &&
+                    !options
+                        .isLoop) // TODO(yangsoo12): Handle scrolling for looped scroll view
+                ? ClickableListWheelScrollView(
+                    scrollController: controller,
+                    itemHeight: height,
+                    itemCount: date.length,
+                    onItemTapCallback: (index) {
+                      print("onItemTapCallback index: $index");
+                    },
+                    child: _scrollView,
+                  )
+                : _scrollView,
           ),
         );
       },

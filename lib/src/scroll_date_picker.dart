@@ -17,6 +17,7 @@ class ScrollDatePicker extends StatefulWidget {
     DatePickerLocaleOptions? localeOptions,
     DatePickerStyle? style,
     Widget? indicator,
+    bool? scrollOnTap,
   })  : selectedDate = selectedDate,
         minimumDate = minimumDate ?? DateTime(1960, 1, 1),
         maximumDate = maximumDate ?? DateTime.now(),
@@ -25,15 +26,16 @@ class ScrollDatePicker extends StatefulWidget {
         options = options ?? const DatePickerOptions(),
         localeOptions = localeOptions,
         style = style ?? const DatePickerStyle(),
-        indicator = indicator;
+        indicator = indicator,
+        scrollOnTap = scrollOnTap ?? true;
 
   /// The currently selected date.
   final DateTime selectedDate;
 
-  /// Minimum year that the picker can be scrolled
+  /// Minimum year that the picker can be scrolled.
   final DateTime minimumDate;
 
-  /// Maximum year that the picker can be scrolled
+  /// Maximum year that the picker can be scrolled.
   final DateTime maximumDate;
 
   /// On optional listener that's called when the centered item changes.
@@ -42,7 +44,7 @@ class ScrollDatePicker extends StatefulWidget {
   /// A set that allows you to specify options related to ListWheelScrollView.
   final DatePickerOptions options;
 
-  /// Set calendar language
+  /// Calendar language.
   final DatePickerLocale locale;
 
   /// Options that can be applied nationally or collectively.
@@ -50,8 +52,11 @@ class ScrollDatePicker extends StatefulWidget {
 
   final DatePickerStyle style;
 
-  /// Indicator displayed in the center of the ScrollDatePicker
+  /// Indicator to display at the center of the ScrollDatePicker.
   final Widget? indicator;
+
+  /// Whether to scroll to tapped item.
+  final bool scrollOnTap;
 
   @override
   State<ScrollDatePicker> createState() => _ScrollDatePickerState();
@@ -147,26 +152,28 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
 
   void _initDatePickerWidgets() {
     _yearWidget = DateScrollView(
-        date: _years,
-        controller: _yearController,
-        options: widget.options,
-        width: _localeOptions.yearWidth,
-        height: widget.options.itemExtent,
-        label: _localeOptions.yearLabel,
-        alignment: _localeOptions.yearAlignment,
-        padding: _localeOptions.yearPadding,
-        style: widget.style,
-        selectedIndex: selectedYearIndex,
-        onChanged: (_) {
-          _onDateTimeChanged();
-          _initMonths();
-          _initDays();
-          if (isYearScrollable) {
-            _monthController.jumpToItem(selectedMonthIndex);
-            _dayController.jumpToItem(selectedDayIndex);
-          }
-          isYearScrollable = true;
-        });
+      date: _years,
+      controller: _yearController,
+      options: widget.options,
+      width: _localeOptions.yearWidth,
+      height: widget.options.itemExtent,
+      label: _localeOptions.yearLabel,
+      alignment: _localeOptions.yearAlignment,
+      padding: _localeOptions.yearPadding,
+      style: widget.style,
+      selectedIndex: selectedYearIndex,
+      onChanged: (_) {
+        _onDateTimeChanged();
+        _initMonths();
+        _initDays();
+        if (isYearScrollable) {
+          _monthController.jumpToItem(selectedMonthIndex);
+          _dayController.jumpToItem(selectedDayIndex);
+        }
+        isYearScrollable = true;
+      },
+      scrollOnTap: widget.scrollOnTap,
+    );
     _monthWidget = DateScrollView(
       date: getMonthsToStringList(months: _months, locale: widget.locale),
       controller: _monthController,
@@ -186,6 +193,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
         }
         isMonthScrollable = true;
       },
+      scrollOnTap: widget.scrollOnTap,
     );
     _dayWidget = DateScrollView(
       width: _localeOptions.dayWidth,
@@ -202,6 +210,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
         _onDateTimeChanged();
         _initDays();
       },
+      scrollOnTap: widget.scrollOnTap,
     );
   }
 
