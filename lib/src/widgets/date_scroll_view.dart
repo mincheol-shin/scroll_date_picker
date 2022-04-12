@@ -81,15 +81,22 @@ class DateScrollView extends StatelessWidget {
   }
 
   Widget _buildDateView({required int index}) {
-    return 
-    
-    Container(
-      alignment: alignment,
-      child: Text(
-        "1${date[index]}$label",
-        style:
-            selectedIndex == index ? style.selectedTextStyle : style.textStyle,
+    return GestureDetector(
+      onTap: scrollToIndex(index: index),
+      child: Container(
+        alignment: alignment,
+        child: Text(
+          "${date[index]}$label",
+          style: selectedIndex == index
+              ? style.selectedTextStyle
+              : style.textStyle,
+        ),
       ),
     );
+  }
+
+  scrollToIndex({required int index}) {
+    controller.animateToItem(index,
+        duration: Duration(seconds: 1), curve: Curves.ease);
   }
 }
