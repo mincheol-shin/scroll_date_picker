@@ -1,3 +1,4 @@
+import 'package:clickable_list_wheel_view/clickable_list_wheel_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
@@ -5,6 +6,7 @@ import 'package:scroll_date_picker/scroll_date_picker.dart';
 class DateScrollView extends StatelessWidget {
   DateScrollView({
     this.width = 70,
+    required this.height,
     required this.onChanged,
     required this.date,
     required this.controller,
@@ -18,6 +20,9 @@ class DateScrollView extends StatelessWidget {
 
   /// If non-null, requires the child to have exactly this Width.
   final double width;
+
+  ///for enalbing onTap touch
+  final double height;
 
   /// A controller for scroll views whose items have the same size.
   final FixedExtentScrollController controller;
@@ -53,26 +58,34 @@ class DateScrollView extends StatelessWidget {
           padding: padding,
           child: Container(
             width: width,
-            child: ListWheelScrollView.useDelegate(
-              itemExtent: options.itemExtent,
-              diameterRatio: options.diameterRatio,
-              controller: controller,
-              physics: const FixedExtentScrollPhysics(),
-              perspective: options.perspective,
-              onSelectedItemChanged: onChanged,
-              childDelegate: options.isLoop && date.length > _maximumCount
-                  ? ListWheelChildLoopingListDelegate(
-                      children: List<Widget>.generate(
-                        date.length,
-                        (index) => _buildDateView(index: index),
+            child: ClickableListWheelScrollView(
+              scrollController: controller,
+              itemHeight: height,
+              itemCount: date.length,
+              onItemTapCallback: (index) {
+                print("onItemTapCallback index: $index");
+              },
+              child: ListWheelScrollView.useDelegate(
+                itemExtent: options.itemExtent,
+                diameterRatio: options.diameterRatio,
+                controller: controller,
+                physics: const FixedExtentScrollPhysics(),
+                perspective: options.perspective,
+                onSelectedItemChanged: onChanged,
+                childDelegate: options.isLoop && date.length > _maximumCount
+                    ? ListWheelChildLoopingListDelegate(
+                        children: List<Widget>.generate(
+                          date.length,
+                          (index) => _buildDateView(index: index),
+                        ),
+                      )
+                    : ListWheelChildListDelegate(
+                        children: List<Widget>.generate(
+                          date.length,
+                          (index) => _buildDateView(index: index),
+                        ),
                       ),
-                    )
-                  : ListWheelChildListDelegate(
-                      children: List<Widget>.generate(
-                        date.length,
-                        (index) => _buildDateView(index: index),
-                      ),
-                    ),
+              ),
             ),
           ),
         );
@@ -81,6 +94,8 @@ class DateScrollView extends StatelessWidget {
   }
 
   Widget _buildDateView({required int index}) {
+    print(style.selectedTextStyle.fontSize);
+    print(style.selectedTextStyle.height);
     return Container(
       alignment: alignment,
       child: Text(

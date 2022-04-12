@@ -151,6 +151,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
         controller: _yearController,
         options: widget.options,
         width: _localeOptions.yearWidth,
+        height: widget.options.itemExtent,
         label: _localeOptions.yearLabel,
         alignment: _localeOptions.yearAlignment,
         padding: _localeOptions.yearPadding,
@@ -171,6 +172,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
       controller: _monthController,
       options: widget.options,
       width: _localeOptions.monthWidth,
+      height: widget.options.itemExtent,
       label: _localeOptions.monthLabel,
       alignment: _localeOptions.monthAlignment,
       padding: _localeOptions.monthPadding,
@@ -187,6 +189,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
     );
     _dayWidget = DateScrollView(
       width: _localeOptions.dayWidth,
+      height: widget.options.itemExtent,
       date: _days,
       controller: _dayController,
       options: widget.options,
