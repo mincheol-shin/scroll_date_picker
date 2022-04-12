@@ -83,6 +83,7 @@ class DateScrollView extends StatelessWidget {
   Widget _buildDateView({required int index}) {
     return GestureDetector(
       onTap: () {
+        print(index);
         scrollToIndex(index: index);
       },
       child: Container(
