@@ -30,7 +30,8 @@ enum DatePickerLocale {
 }
 
 extension DatePickerLocaleExtension on DatePickerLocale {
-  List<String> pickerMonthsInGivenYear(List<int> months) {
+
+  List<String> get months {
     List<String> _months = [];
     switch (this) {
       case DatePickerLocale.koKR:
@@ -48,7 +49,7 @@ extension DatePickerLocaleExtension on DatePickerLocale {
       default:
         _months = enUsMonths;
     }
-    return _months.sublist(months.first - 1, months.last);
+    return _months;
   }
 
   DatePickerScrollViewOptions get scrollViewOptions {

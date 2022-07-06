@@ -10,7 +10,9 @@ class DateScrollView extends StatelessWidget {
     required this.options,
     required this.scrollViewOptions,
     required this.selectedIndex,
+    this.locale,
   });
+
   /// A controller for scroll views whose items have the same size.
   final FixedExtentScrollController controller;
 
@@ -23,33 +25,34 @@ class DateScrollView extends StatelessWidget {
   /// A set that allows you to specify options related to ListWheelScrollView.
   final DatePickerOptions options;
 
+  /// A set that allows you to specify options related to ScrollView.
   final ScrollViewDetailOptions scrollViewOptions;
 
   /// The currently selected date index.
   final int selectedIndex;
 
-  double getScrollViewWidth(BuildContext context){
+  /// Set calendar language
+  final DatePickerLocale? locale;
+
+  double getScrollViewWidth(BuildContext context) {
     String _longestText = '';
-    for(var text in dates){
-      if('$text'.length > _longestText.length){
-        _longestText = '$text';
+    List _dates = locale != null ? locale!.months : dates;
+    for (var text in _dates) {
+      if ('$text'.length > _longestText.length) {
+        _longestText = '$text'.padLeft(2, '0');
       }
     }
-    if(_longestText.length < 2){
-      _longestText = '31';
-    }
     _longestText += scrollViewOptions.label;
-    final TextPainter painter = TextPainter(
+    final TextPainter _painter = TextPainter(
       text: TextSpan(
         style: scrollViewOptions.selectedTextStyle,
         text: _longestText,
       ),
       textDirection: Directionality.of(context),
     );
-    painter.layout();
-    return painter.size.width + 16;
+    _painter.layout();
+    return _painter.size.width + 8.0;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -90,8 +93,7 @@ class DateScrollView extends StatelessWidget {
       alignment: scrollViewOptions.alignment,
       child: Text(
         "${dates[index]}${scrollViewOptions.label}",
-        style:
-            selectedIndex == index ? scrollViewOptions.selectedTextStyle : scrollViewOptions.textStyle,
+        style: selectedIndex == index ? scrollViewOptions.selectedTextStyle : scrollViewOptions.textStyle,
       ),
     );
   }

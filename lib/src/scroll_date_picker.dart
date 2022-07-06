@@ -141,11 +141,12 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
           isYearScrollable = true;
         });
     _monthWidget = DateScrollView(
-      dates: widget.locale.pickerMonthsInGivenYear(_months),
+      dates: widget.locale.months.sublist(_months.first - 1, _months.last),
       controller: _monthController,
       options: widget.options,
       scrollViewOptions: _scrollViewOptions.month,
       selectedIndex: selectedMonthIndex,
+      locale: widget.locale,
       onChanged: (_) {
         _onDateTimeChanged();
         _initDays();
