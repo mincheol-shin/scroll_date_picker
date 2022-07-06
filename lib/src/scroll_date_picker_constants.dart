@@ -82,6 +82,28 @@ enum DatePickerLocale {
 }
 
 extension DatePickerLocaleExtension on DatePickerLocale {
+
+  List<String> pickerMonthsInGivenYear(List<int> months){
+    List<String> _months = [];
+    switch (this) {
+      case DatePickerLocale.koKR:
+        _months = koKrMonths;
+        break;
+      case DatePickerLocale.frFR:
+        _months = frFrMonths;
+        break;
+      case DatePickerLocale.deDE:
+        _months = deDeMonths;
+        break;
+      case DatePickerLocale.viVN:
+        _months = viVnMonths;
+        break;
+      default:
+        _months = enUsMonths;
+    }
+    return _months.sublist(months.first - 1, months.last);
+  }
+
   DatePickerLocaleOptions get localeOptions {
     switch (this) {
       case DatePickerLocale.koKR:

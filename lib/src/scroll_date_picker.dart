@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
-import 'package:scroll_date_picker/src/utils/get_month_to_string_list.dart';
 import 'package:scroll_date_picker/src/widgets/date_scroll_view.dart';
 
 import 'utils/get_monthly_date.dart';
@@ -167,7 +166,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
           isYearScrollable = true;
         });
     _monthWidget = DateScrollView(
-      date: getMonthsToStringList(months: _months, locale: widget.locale),
+      date: widget.locale.pickerMonthsInGivenYear(_months),
       controller: _monthController,
       options: widget.options,
       width: _localeOptions.monthWidth,
