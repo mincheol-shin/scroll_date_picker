@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
 
 class DateScrollView extends StatelessWidget {
-  DateScrollView({
+   DateScrollView({
     required this.onChanged,
     required this.dates,
     required this.controller,
@@ -32,7 +32,7 @@ class DateScrollView extends StatelessWidget {
   final int selectedIndex;
 
   /// Set calendar language
-  final DatePickerLocale? locale;
+  final Locale? locale;
 
   double getScrollViewWidth(BuildContext context) {
     String _longestText = '';

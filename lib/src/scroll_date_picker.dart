@@ -11,7 +11,7 @@ class ScrollDatePicker extends StatefulWidget {
     DateTime? minimumDate,
     DateTime? maximumDate,
     required ValueChanged<DateTime> onDateTimeChanged,
-    DatePickerLocale? locale,
+    Locale? locale,
     DatePickerOptions? options,
     DatePickerScrollViewOptions? scrollViewOptions,
     Widget? indicator,
@@ -19,7 +19,7 @@ class ScrollDatePicker extends StatefulWidget {
         minimumDate = minimumDate ?? DateTime(1960, 1, 1),
         maximumDate = maximumDate ?? DateTime.now(),
         onDateTimeChanged = onDateTimeChanged,
-        locale = locale ?? DatePickerLocale.enUS,
+        locale = locale ?? Locale('en'),
         options = options ?? const DatePickerOptions(),
         scrollViewOptions = scrollViewOptions,
         indicator = indicator;
@@ -40,7 +40,7 @@ class ScrollDatePicker extends StatefulWidget {
   final DatePickerOptions options;
 
   /// Set calendar language
-  final DatePickerLocale locale;
+  final Locale locale;
 
   /// A set that allows you to specify options related to ScrollView.
   final DatePickerScrollViewOptions? scrollViewOptions;
@@ -62,7 +62,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
   /// This widget's day selection and animation state.
   late FixedExtentScrollController _dayController;
 
-  late DatePickerScrollViewOptions _scrollViewOptions = widget.scrollViewOptions ?? widget.locale.scrollViewOptions;
+  late DatePickerScrollViewOptions _scrollViewOptions = widget.scrollViewOptions ?? DatePickerScrollViewOptions();
 
   late Widget _yearWidget;
   late Widget _monthWidget;
@@ -203,10 +203,10 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
 
   List<Widget> _buildDatePickerWidgets() {
     _initDatePickerWidgets();
-    switch (widget.locale) {
-      case DatePickerLocale.koKR:
+    switch (widget.locale.languageCode) {
+      case ko:
         return [_yearWidget, _monthWidget, _dayWidget];
-      case DatePickerLocale.viVN:
+      case vi:
         return [_dayWidget, _monthWidget, _yearWidget];
       default:
         return [_monthWidget, _dayWidget, _yearWidget];
