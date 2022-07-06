@@ -207,6 +207,8 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
       case ko:
         return [_yearWidget, _monthWidget, _dayWidget];
       case vi:
+      case id:
+      case th:
         return [_dayWidget, _monthWidget, _yearWidget];
       default:
         return [_monthWidget, _dayWidget, _yearWidget];

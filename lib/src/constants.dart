@@ -5,27 +5,27 @@ const String fr = 'fr';
 const String de = 'de';
 const String vi = 'vi';
 const String en = 'en';
+const String id = 'id';
+const String th = 'th';
 
 extension LocaleExtension on Locale {
   List<String> get months {
-    List<String> _months = [];
     switch (languageCode) {
       case ko:
-        _months = koMonths;
-        break;
+        return koMonths;
       case fr:
-        _months = frMonths;
-        break;
+        return frMonths;
       case de:
-        _months = deMonths;
-        break;
+        return deMonths;
       case vi:
-        _months = viMonths;
-        break;
+        return viMonths;
+      case id:
+        return idMonths;
+      case th:
+        return thMonths;
       default:
-        _months = enMonths;
+        return enMonths;
     }
-    return _months;
   }
 }
 
@@ -99,4 +99,33 @@ const List<String> viMonths = [
   'Tháng 10',
   'Tháng 11',
   'Tháng 12',
+];
+
+const List<String> idMonths = [
+  'Januari',
+  'Februari',
+  'Maret',
+  'April',
+  'Mei',
+  'Juni',
+  'Juli',
+  'Agustus',
+  'September',
+  'Oktober',
+  'November',
+  'Desember',
+];
+const List<String> thMonths = [
+  'มกราคม',
+  'กุมภาพันธ์',
+  'มีนาคม',
+  'เมษายน',
+  'พฤษภาคม',
+  'มิถุนายน',
+  'กรกฎาคม',
+  'สิงหาคม',
+  'กันยายน',
+  'ตุลาคม',
+  'พฤศจิกายน',
+  'ธันวาคม',
 ];
