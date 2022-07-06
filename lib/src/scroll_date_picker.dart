@@ -13,8 +13,7 @@ class ScrollDatePicker extends StatefulWidget {
     required ValueChanged<DateTime> onDateTimeChanged,
     DatePickerLocale? locale,
     DatePickerOptions? options,
-    DatePickerLocaleOptions? localeOptions,
-    DatePickerStyle? style,
+    DatePickerScrollViewOptions? scrollViewOptions,
     Widget? indicator,
   })  : selectedDate = selectedDate,
         minimumDate = minimumDate ?? DateTime(1960, 1, 1),
@@ -22,8 +21,7 @@ class ScrollDatePicker extends StatefulWidget {
         onDateTimeChanged = onDateTimeChanged,
         locale = locale ?? DatePickerLocale.enUS,
         options = options ?? const DatePickerOptions(),
-        localeOptions = localeOptions,
-        style = style ?? const DatePickerStyle(),
+        scrollViewOptions = scrollViewOptions,
         indicator = indicator;
 
   /// The currently selected date.
@@ -44,10 +42,8 @@ class ScrollDatePicker extends StatefulWidget {
   /// Set calendar language
   final DatePickerLocale locale;
 
-  /// Options that can be applied nationally or collectively.
-  final DatePickerLocaleOptions? localeOptions;
-
-  final DatePickerStyle style;
+  /// A set that allows you to specify options related to ScrollView.
+  final DatePickerScrollViewOptions? scrollViewOptions;
 
   /// Indicator displayed in the center of the ScrollDatePicker
   final Widget? indicator;
@@ -65,8 +61,8 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
 
   /// This widget's day selection and animation state.
   late FixedExtentScrollController _dayController;
-  late DatePickerLocaleOptions _localeOptions =
-      widget.localeOptions ?? widget.locale.localeOptions;
+
+  late DatePickerScrollViewOptions _scrollViewOptions = widget.scrollViewOptions ?? widget.locale.scrollViewOptions;
 
   late Widget _yearWidget;
   late Widget _monthWidget;
@@ -80,42 +76,28 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
   List<int> _months = [];
   List<int> _days = [];
 
-  int get selectedYearIndex => _years.indexOf(_selectedDate.year) == -1
-      ? 0
-      : _years.indexOf(_selectedDate.year);
+  int get selectedYearIndex => _years.indexOf(_selectedDate.year) == -1 ? 0 : _years.indexOf(_selectedDate.year);
 
-  int get selectedMonthIndex => _months.indexOf(_selectedDate.month) == -1
-      ? 0
-      : _months.indexOf(_selectedDate.month);
+  int get selectedMonthIndex => _months.indexOf(_selectedDate.month) == -1 ? 0 : _months.indexOf(_selectedDate.month);
 
-  int get selectedDayIndex => _days.indexOf(_selectedDate.day) == -1
-      ? 0
-      : _days.indexOf(_selectedDate.day);
+  int get selectedDayIndex => _days.indexOf(_selectedDate.day) == -1 ? 0 : _days.indexOf(_selectedDate.day);
 
   int get selectedYear => _years[_yearController.selectedItem % _years.length];
 
-  int get selectedMonth =>
-      _months[_monthController.selectedItem % _months.length];
+  int get selectedMonth => _months[_monthController.selectedItem % _months.length];
 
   int get selectedDay => _days[_dayController.selectedItem % _days.length];
 
   @override
   void initState() {
     super.initState();
-    _selectedDate = widget.selectedDate.isAfter(widget.maximumDate) ||
-            widget.selectedDate.isBefore(widget.minimumDate)
-        ? _now
-        : widget.selectedDate;
+    _selectedDate = widget.selectedDate.isAfter(widget.maximumDate) || widget.selectedDate.isBefore(widget.minimumDate) ? _now : widget.selectedDate;
 
-    _years = [
-      for (int i = widget.minimumDate.year; i <= widget.maximumDate.year; i++) i
-    ];
+    _years = [for (int i = widget.minimumDate.year; i <= widget.maximumDate.year; i++) i];
     _initMonths();
     _initDays();
-    _yearController =
-        FixedExtentScrollController(initialItem: selectedYearIndex);
-    _monthController =
-        FixedExtentScrollController(initialItem: selectedMonthIndex);
+    _yearController = FixedExtentScrollController(initialItem: selectedYearIndex);
+    _monthController = FixedExtentScrollController(initialItem: selectedMonthIndex);
     _dayController = FixedExtentScrollController(initialItem: selectedDayIndex);
   }
 
@@ -127,12 +109,9 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
       isYearScrollable = false;
       isMonthScrollable = false;
       WidgetsBinding.instance?.addPostFrameCallback((_) {
-        _yearController.animateToItem(selectedYearIndex,
-            curve: Curves.ease, duration: Duration(microseconds: 500));
-        _monthController.animateToItem(selectedMonthIndex,
-            curve: Curves.ease, duration: Duration(microseconds: 500));
-        _dayController.animateToItem(selectedDayIndex,
-            curve: Curves.ease, duration: Duration(microseconds: 500));
+        _yearController.animateToItem(selectedYearIndex, curve: Curves.ease, duration: Duration(microseconds: 500));
+        _monthController.animateToItem(selectedMonthIndex, curve: Curves.ease, duration: Duration(microseconds: 500));
+        _dayController.animateToItem(selectedDayIndex, curve: Curves.ease, duration: Duration(microseconds: 500));
       });
     }
   }
@@ -146,14 +125,10 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
 
   void _initDatePickerWidgets() {
     _yearWidget = DateScrollView(
-        date: _years,
+        dates: _years,
         controller: _yearController,
         options: widget.options,
-        width: _localeOptions.yearWidth,
-        label: _localeOptions.yearLabel,
-        alignment: _localeOptions.yearAlignment,
-        padding: _localeOptions.yearPadding,
-        style: widget.style,
+        scrollViewOptions: _scrollViewOptions.year,
         selectedIndex: selectedYearIndex,
         onChanged: (_) {
           _onDateTimeChanged();
@@ -166,14 +141,10 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
           isYearScrollable = true;
         });
     _monthWidget = DateScrollView(
-      date: widget.locale.pickerMonthsInGivenYear(_months),
+      dates: widget.locale.pickerMonthsInGivenYear(_months),
       controller: _monthController,
       options: widget.options,
-      width: _localeOptions.monthWidth,
-      label: _localeOptions.monthLabel,
-      alignment: _localeOptions.monthAlignment,
-      padding: _localeOptions.monthPadding,
-      style: widget.style,
+      scrollViewOptions: _scrollViewOptions.month,
       selectedIndex: selectedMonthIndex,
       onChanged: (_) {
         _onDateTimeChanged();
@@ -185,14 +156,10 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
       },
     );
     _dayWidget = DateScrollView(
-      width: _localeOptions.dayWidth,
-      date: _days,
+      dates: _days,
       controller: _dayController,
       options: widget.options,
-      label: _localeOptions.dayLabel,
-      alignment: _localeOptions.dayAlignment,
-      padding: _localeOptions.dayPadding,
-      style: widget.style,
+      scrollViewOptions: _scrollViewOptions.day,
       selectedIndex: selectedDayIndex,
       onChanged: (_) {
         _onDateTimeChanged();
@@ -202,14 +169,8 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
   }
 
   void _initMonths() {
-    if (_selectedDate.year == widget.maximumDate.year &&
-        _selectedDate.year == widget.minimumDate.year) {
-      _months = [
-        for (int i = widget.minimumDate.month;
-            i <= widget.maximumDate.month;
-            i++)
-          i
-      ];
+    if (_selectedDate.year == widget.maximumDate.year && _selectedDate.year == widget.minimumDate.year) {
+      _months = [for (int i = widget.minimumDate.month; i <= widget.maximumDate.month; i++) i];
     } else if (_selectedDate.year == widget.maximumDate.year) {
       _months = [for (int i = 1; i <= widget.maximumDate.month; i++) i];
     } else if (_selectedDate.year == widget.minimumDate.year) {
@@ -220,19 +181,16 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
   }
 
   void _initDays() {
-    int _maximumDay =
-        getMonthlyDate(year: _selectedDate.year, month: _selectedDate.month);
+    int _maximumDay = getMonthlyDate(year: _selectedDate.year, month: _selectedDate.month);
     _days = [for (int i = 1; i <= _maximumDay; i++) i];
     if (_selectedDate.year == widget.maximumDate.year &&
         _selectedDate.month == widget.maximumDate.month &&
         _selectedDate.year == widget.minimumDate.year &&
         _selectedDate.month == widget.minimumDate.month) {
       _days = _days.sublist(widget.minimumDate.day - 1, widget.maximumDate.day);
-    } else if (_selectedDate.year == widget.maximumDate.year &&
-        _selectedDate.month == widget.maximumDate.month) {
+    } else if (_selectedDate.year == widget.maximumDate.year && _selectedDate.month == widget.maximumDate.month) {
       _days = _days.sublist(0, widget.maximumDate.day);
-    } else if (_selectedDate.year == widget.minimumDate.year &&
-        _selectedDate.month == widget.minimumDate.month) {
+    } else if (_selectedDate.year == widget.minimumDate.year && _selectedDate.month == widget.minimumDate.month) {
       _days = _days.sublist(widget.minimumDate.day - 1, _days.length);
     }
   }
@@ -277,9 +235,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
                       end: Alignment.bottomCenter,
                       colors: [
                         Theme.of(context).scaffoldBackgroundColor,
-                        Theme.of(context)
-                            .scaffoldBackgroundColor
-                            .withOpacity(0.7),
+                        Theme.of(context).scaffoldBackgroundColor.withOpacity(0.7),
                       ],
                     ),
                   ),
@@ -300,9 +256,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        Theme.of(context)
-                            .scaffoldBackgroundColor
-                            .withOpacity(0.7),
+                        Theme.of(context).scaffoldBackgroundColor.withOpacity(0.7),
                         Theme.of(context).scaffoldBackgroundColor,
                       ],
                     ),

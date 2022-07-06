@@ -4,21 +4,13 @@ import 'package:scroll_date_picker/scroll_date_picker.dart';
 
 class DateScrollView extends StatelessWidget {
   DateScrollView({
-    this.width = 70,
     required this.onChanged,
-    required this.date,
+    required this.dates,
     required this.controller,
     required this.options,
-    required this.style,
-    this.alignment = Alignment.center,
-    this.label = "",
-    this.padding = const EdgeInsets.all(0),
+    required this.scrollViewOptions,
     required this.selectedIndex,
   });
-
-  /// If non-null, requires the child to have exactly this Width.
-  final double width;
-
   /// A controller for scroll views whose items have the same size.
   final FixedExtentScrollController controller;
 
@@ -26,54 +18,67 @@ class DateScrollView extends StatelessWidget {
   final ValueChanged<int> onChanged;
 
   /// This is a list of dates.
-  final List date;
+  final List dates;
 
   /// A set that allows you to specify options related to ListWheelScrollView.
   final DatePickerOptions options;
 
-  final DatePickerStyle style;
-
-  /// It's a year or month or day text sorting method.
-  final Alignment alignment;
-
-  /// Text that is printed next to the year or month or day.
-  final String label;
-
-  /// The amount of space that can be added to the year or month or day.
-  final EdgeInsets padding;
+  final ScrollViewDetailOptions scrollViewOptions;
 
   /// The currently selected date index.
   final int selectedIndex;
+
+  double getScrollViewWidth(BuildContext context){
+    String _longestText = '';
+    for(var text in dates){
+      if('$text'.length > _longestText.length){
+        _longestText = '$text';
+      }
+    }
+    if(_longestText.length < 2){
+      _longestText = '31';
+    }
+    _longestText += scrollViewOptions.label;
+    final TextPainter painter = TextPainter(
+      text: TextSpan(
+        style: scrollViewOptions.selectedTextStyle,
+        text: _longestText,
+      ),
+      textDirection: Directionality.of(context),
+    );
+    painter.layout();
+    return painter.size.width + 16;
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
         int _maximumCount = constraints.maxHeight ~/ options.itemExtent;
-        return Padding(
-          padding: padding,
-          child: Container(
-            width: width,
-            child: ListWheelScrollView.useDelegate(
-              itemExtent: options.itemExtent,
-              diameterRatio: options.diameterRatio,
-              controller: controller,
-              physics: const FixedExtentScrollPhysics(),
-              perspective: options.perspective,
-              onSelectedItemChanged: onChanged,
-              childDelegate: options.isLoop && date.length > _maximumCount
-                  ? ListWheelChildLoopingListDelegate(
-                      children: List<Widget>.generate(
-                        date.length,
-                        (index) => _buildDateView(index: index),
-                      ),
-                    )
-                  : ListWheelChildListDelegate(
-                      children: List<Widget>.generate(
-                        date.length,
-                        (index) => _buildDateView(index: index),
-                      ),
+        return Container(
+          margin: scrollViewOptions.margin,
+          width: getScrollViewWidth(context),
+          child: ListWheelScrollView.useDelegate(
+            itemExtent: options.itemExtent,
+            diameterRatio: options.diameterRatio,
+            controller: controller,
+            physics: const FixedExtentScrollPhysics(),
+            perspective: options.perspective,
+            onSelectedItemChanged: onChanged,
+            childDelegate: options.isLoop && dates.length > _maximumCount
+                ? ListWheelChildLoopingListDelegate(
+                    children: List<Widget>.generate(
+                      dates.length,
+                      (index) => _buildDateView(index: index),
                     ),
-            ),
+                  )
+                : ListWheelChildListDelegate(
+                    children: List<Widget>.generate(
+                      dates.length,
+                      (index) => _buildDateView(index: index),
+                    ),
+                  ),
           ),
         );
       },
@@ -82,11 +87,11 @@ class DateScrollView extends StatelessWidget {
 
   Widget _buildDateView({required int index}) {
     return Container(
-      alignment: alignment,
+      alignment: scrollViewOptions.alignment,
       child: Text(
-        "${date[index]}$label",
+        "${dates[index]}${scrollViewOptions.label}",
         style:
-            selectedIndex == index ? style.selectedTextStyle : style.textStyle,
+            selectedIndex == index ? scrollViewOptions.selectedTextStyle : scrollViewOptions.textStyle,
       ),
     );
   }
