@@ -4,6 +4,9 @@
 * Improved to avoid text overflow by calculating the scrollview width.
 * Delete `DatePickerLocale` and utilize Locale class.
 * Improved the directory structure and code.
+* Update README
+* Update example
+
 
 ## 3.4.0
 
