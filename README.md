@@ -9,13 +9,13 @@ Compatible with Android & iOS & Web. :heart_eyes:
 
 <br>
 
-# Showcase
+## Showcase
 
 <img src = "https://user-images.githubusercontent.com/55150540/151300615-dc982927-70e7-46f6-bd4b-f9aff729a02d.gif" width = 200> <img src = "https://user-images.githubusercontent.com/55150540/151300623-de8f7cef-a6ac-492e-9293-00e8793a69c0.gif" width = 200>
 
 <br> 
 
-# Getting Started
+## Getting Started
 
 In the pubspec.yaml of your flutter project, add the following dependency:
 
@@ -26,7 +26,7 @@ dependencies:
 
 <br>
 
-# Usage
+## Usage
 Need to include the import the package to the dart file where it will be used, refer the below command
 ```dart
 import 'package:scroll_date_picker/scroll_date_picker.dart';
@@ -34,7 +34,7 @@ import 'package:scroll_date_picker/scroll_date_picker.dart';
 
 <br>
 
-# Complete example
+## Complete example
 ```dart
 import 'package:flutter/material.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
@@ -89,7 +89,7 @@ class _MyAppState extends State<MyApp> {
             height: 250,
             child: ScrollDatePicker(
               selectedDate: _selectedDate,
-              locale: DatePickerLocale.koKR,
+              locale: Locale('en'),
               onDateTimeChanged: (DateTime value) {
                 setState(() {
                   _selectedDate = value;
@@ -97,16 +97,41 @@ class _MyAppState extends State<MyApp> {
               },
             ),
           ),
+          /// Showcase second image source
+      // SizedBox(
+          //   height: 250,
+          //   child: ScrollDatePicker(
+          //     selectedDate: _selectedDate,
+          //     locale: Locale('ko'),
+          //     scrollViewOptions: DatePickerScrollViewOptions(
+          //       year: ScrollViewDetailOptions(
+          //         label: '년',
+          //         margin: const EdgeInsets.only(right: 8),
+          //       ),
+          //       month: ScrollViewDetailOptions(
+          //         label: '월',
+          //         margin: const EdgeInsets.only(right: 8),
+          //       ),
+          //       day: ScrollViewDetailOptions(
+          //         label: '일',
+          //       )
+          //     ),
+          //     onDateTimeChanged: (DateTime value) {
+          //       setState(() {
+          //         _selectedDate = value;
+          //       });
+          //     },
+          //   ),
+          // ),
         ],
       ),
     );
   }
 }
-
 ```
 
 
-# License
+## License
 ```
 Copyright 2020, the Flutter project authors. All rights reserved.
 

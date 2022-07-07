@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
-import 'package:scroll_date_picker/src/utils/get_month_to_string_list.dart';
 import 'package:scroll_date_picker/src/widgets/date_scroll_view.dart';
 
 import 'utils/get_monthly_date.dart';
@@ -12,19 +11,17 @@ class ScrollDatePicker extends StatefulWidget {
     DateTime? minimumDate,
     DateTime? maximumDate,
     required ValueChanged<DateTime> onDateTimeChanged,
-    DatePickerLocale? locale,
+    Locale? locale,
     DatePickerOptions? options,
-    DatePickerLocaleOptions? localeOptions,
-    DatePickerStyle? style,
+    DatePickerScrollViewOptions? scrollViewOptions,
     Widget? indicator,
   })  : selectedDate = selectedDate,
         minimumDate = minimumDate ?? DateTime(1960, 1, 1),
         maximumDate = maximumDate ?? DateTime.now(),
         onDateTimeChanged = onDateTimeChanged,
-        locale = locale ?? DatePickerLocale.enUS,
+        locale = locale ?? Locale('en'),
         options = options ?? const DatePickerOptions(),
-        localeOptions = localeOptions,
-        style = style ?? const DatePickerStyle(),
+        scrollViewOptions = scrollViewOptions ?? DatePickerScrollViewOptions(),
         indicator = indicator;
 
   /// The currently selected date.
@@ -43,12 +40,10 @@ class ScrollDatePicker extends StatefulWidget {
   final DatePickerOptions options;
 
   /// Set calendar language
-  final DatePickerLocale locale;
+  final Locale locale;
 
-  /// Options that can be applied nationally or collectively.
-  final DatePickerLocaleOptions? localeOptions;
-
-  final DatePickerStyle style;
+  /// A set that allows you to specify options related to ScrollView.
+  final DatePickerScrollViewOptions scrollViewOptions;
 
   /// Indicator displayed in the center of the ScrollDatePicker
   final Widget? indicator;
@@ -66,13 +61,10 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
 
   /// This widget's day selection and animation state.
   late FixedExtentScrollController _dayController;
-  late DatePickerLocaleOptions _localeOptions =
-      widget.localeOptions ?? widget.locale.localeOptions;
 
-  late Widget _yearWidget;
-  late Widget _monthWidget;
-  late Widget _dayWidget;
-  final DateTime _now = DateTime.now();
+  late Widget _yearScrollView;
+  late Widget _monthScrollView;
+  late Widget _dayScrollView;
 
   late DateTime _selectedDate;
   bool isYearScrollable = true;
@@ -105,7 +97,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
     super.initState();
     _selectedDate = widget.selectedDate.isAfter(widget.maximumDate) ||
             widget.selectedDate.isBefore(widget.minimumDate)
-        ? _now
+        ? DateTime.now()
         : widget.selectedDate;
 
     _years = [
@@ -145,17 +137,15 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
     super.dispose();
   }
 
-  void _initDatePickerWidgets() {
-    _yearWidget = DateScrollView(
-        date: _years,
+  void _initDateScrollView() {
+    _yearScrollView = DateScrollView(
+        dates: _years,
         controller: _yearController,
         options: widget.options,
-        width: _localeOptions.yearWidth,
-        label: _localeOptions.yearLabel,
-        alignment: _localeOptions.yearAlignment,
-        padding: _localeOptions.yearPadding,
-        style: widget.style,
+        scrollViewOptions: widget.scrollViewOptions.year,
         selectedIndex: selectedYearIndex,
+        isYearScrollView: true,
+        locale: widget.locale,
         onChanged: (_) {
           _onDateTimeChanged();
           _initMonths();
@@ -166,16 +156,14 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
           }
           isYearScrollable = true;
         });
-    _monthWidget = DateScrollView(
-      date: getMonthsToStringList(months: _months, locale: widget.locale),
+    _monthScrollView = DateScrollView(
+      dates: widget.locale.months.sublist(_months.first - 1, _months.last),
       controller: _monthController,
       options: widget.options,
-      width: _localeOptions.monthWidth,
-      label: _localeOptions.monthLabel,
-      alignment: _localeOptions.monthAlignment,
-      padding: _localeOptions.monthPadding,
-      style: widget.style,
+      scrollViewOptions: widget.scrollViewOptions.month,
       selectedIndex: selectedMonthIndex,
+      locale: widget.locale,
+      isMonthScrollView: true,
       onChanged: (_) {
         _onDateTimeChanged();
         _initDays();
@@ -185,16 +173,13 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
         isMonthScrollable = true;
       },
     );
-    _dayWidget = DateScrollView(
-      width: _localeOptions.dayWidth,
-      date: _days,
+    _dayScrollView = DateScrollView(
+      dates: _days,
       controller: _dayController,
       options: widget.options,
-      label: _localeOptions.dayLabel,
-      alignment: _localeOptions.dayAlignment,
-      padding: _localeOptions.dayPadding,
-      style: widget.style,
+      scrollViewOptions: widget.scrollViewOptions.day,
       selectedIndex: selectedDayIndex,
+      locale: widget.locale,
       onChanged: (_) {
         _onDateTimeChanged();
         _initDays();
@@ -243,15 +228,17 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
     widget.onDateTimeChanged(_selectedDate);
   }
 
-  List<Widget> _buildDatePickerWidgets() {
-    _initDatePickerWidgets();
-    switch (widget.locale) {
-      case DatePickerLocale.koKR:
-        return [_yearWidget, _monthWidget, _dayWidget];
-      case DatePickerLocale.viVN:
-        return [_dayWidget, _monthWidget, _yearWidget];
+  List<Widget> _getScrollDatePicker() {
+    _initDateScrollView();
+    switch (widget.locale.languageCode) {
+      case ko:
+        return [_yearScrollView, _monthScrollView, _dayScrollView];
+      case vi:
+      case id:
+      case th:
+        return [_dayScrollView, _monthScrollView, _yearScrollView];
       default:
-        return [_monthWidget, _dayWidget, _yearWidget];
+        return [_monthScrollView, _dayScrollView, _yearScrollView];
     }
   }
 
@@ -262,7 +249,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: _buildDatePickerWidgets(),
+          children: _getScrollDatePicker(),
         ),
 
         /// Date Picker Indicator

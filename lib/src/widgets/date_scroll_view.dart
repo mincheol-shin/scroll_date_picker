@@ -4,20 +4,16 @@ import 'package:scroll_date_picker/scroll_date_picker.dart';
 
 class DateScrollView extends StatelessWidget {
   DateScrollView({
-    this.width = 70,
     required this.onChanged,
-    required this.date,
+    required this.dates,
     required this.controller,
     required this.options,
-    required this.style,
-    this.alignment = Alignment.center,
-    this.label = "",
-    this.padding = const EdgeInsets.all(0),
+    required this.scrollViewOptions,
     required this.selectedIndex,
+    required this.locale,
+    this.isYearScrollView = false,
+    this.isMonthScrollView = false,
   });
-
-  /// If non-null, requires the child to have exactly this Width.
-  final double width;
 
   /// A controller for scroll views whose items have the same size.
   final FixedExtentScrollController controller;
@@ -26,54 +22,72 @@ class DateScrollView extends StatelessWidget {
   final ValueChanged<int> onChanged;
 
   /// This is a list of dates.
-  final List date;
+  final List dates;
 
   /// A set that allows you to specify options related to ListWheelScrollView.
   final DatePickerOptions options;
 
-  final DatePickerStyle style;
-
-  /// It's a year or month or day text sorting method.
-  final Alignment alignment;
-
-  /// Text that is printed next to the year or month or day.
-  final String label;
-
-  /// The amount of space that can be added to the year or month or day.
-  final EdgeInsets padding;
+  /// A set that allows you to specify options related to ScrollView.
+  final ScrollViewDetailOptions scrollViewOptions;
 
   /// The currently selected date index.
   final int selectedIndex;
+
+  /// Set calendar language
+  final Locale locale;
+
+  final bool isYearScrollView;
+
+  final bool isMonthScrollView;
+
+  double _getScrollViewWidth(BuildContext context) {
+    String _longestText = '';
+    List _dates = isMonthScrollView ? locale.months : dates;
+    for (var text in _dates) {
+      if ('$text'.length > _longestText.length) {
+        _longestText = '$text'.padLeft(2, '0');
+      }
+    }
+    _longestText += scrollViewOptions.label;
+    final TextPainter _painter = TextPainter(
+      text: TextSpan(
+        style: scrollViewOptions.selectedTextStyle,
+        text: _longestText,
+      ),
+      textDirection: Directionality.of(context),
+    );
+    _painter.layout();
+    return _painter.size.width + 8.0;
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
         int _maximumCount = constraints.maxHeight ~/ options.itemExtent;
-        return Padding(
-          padding: padding,
-          child: Container(
-            width: width,
-            child: ListWheelScrollView.useDelegate(
-              itemExtent: options.itemExtent,
-              diameterRatio: options.diameterRatio,
-              controller: controller,
-              physics: const FixedExtentScrollPhysics(),
-              perspective: options.perspective,
-              onSelectedItemChanged: onChanged,
-              childDelegate: options.isLoop && date.length > _maximumCount
-                  ? ListWheelChildLoopingListDelegate(
-                      children: List<Widget>.generate(
-                        date.length,
-                        (index) => _buildDateView(index: index),
-                      ),
-                    )
-                  : ListWheelChildListDelegate(
-                      children: List<Widget>.generate(
-                        date.length,
-                        (index) => _buildDateView(index: index),
-                      ),
+        return Container(
+          margin: scrollViewOptions.margin,
+          width: _getScrollViewWidth(context),
+          child: ListWheelScrollView.useDelegate(
+            itemExtent: options.itemExtent,
+            diameterRatio: options.diameterRatio,
+            controller: controller,
+            physics: const FixedExtentScrollPhysics(),
+            perspective: options.perspective,
+            onSelectedItemChanged: onChanged,
+            childDelegate: options.isLoop && dates.length > _maximumCount
+                ? ListWheelChildLoopingListDelegate(
+                    children: List<Widget>.generate(
+                      dates.length,
+                      (index) => _buildDateView(index: index),
                     ),
-            ),
+                  )
+                : ListWheelChildListDelegate(
+                    children: List<Widget>.generate(
+                      dates.length,
+                      (index) => _buildDateView(index: index),
+                    ),
+                  ),
           ),
         );
       },
@@ -81,12 +95,15 @@ class DateScrollView extends StatelessWidget {
   }
 
   Widget _buildDateView({required int index}) {
+    String _date = "${dates[index]}${scrollViewOptions.label}";
+    if (locale.languageCode == th && isYearScrollView) {
+      _date = "${dates[index] + 543}${scrollViewOptions.label}";
+    }
     return Container(
-      alignment: alignment,
+      alignment: scrollViewOptions.alignment,
       child: Text(
-        "${date[index]}$label",
-        style:
-            selectedIndex == index ? style.selectedTextStyle : style.textStyle,
+        _date,
+        style: selectedIndex == index ? scrollViewOptions.selectedTextStyle : scrollViewOptions.textStyle,
       ),
     );
   }
