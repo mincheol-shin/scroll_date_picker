@@ -97,6 +97,31 @@ class _MyAppState extends State<MyApp> {
               },
             ),
           ),
+      // SizedBox(
+          //   height: 250,
+          //   child: ScrollDatePicker(
+          //     selectedDate: _selectedDate,
+          //     locale: Locale('ko'),
+          //     scrollViewOptions: DatePickerScrollViewOptions(
+          //       year: ScrollViewDetailOptions(
+          //         label: '년',
+          //         margin: const EdgeInsets.only(right: 8),
+          //       ),
+          //       month: ScrollViewDetailOptions(
+          //         label: '월',
+          //         margin: const EdgeInsets.only(right: 8),
+          //       ),
+          //       day: ScrollViewDetailOptions(
+          //         label: '일',
+          //       )
+          //     ),
+          //     onDateTimeChanged: (DateTime value) {
+          //       setState(() {
+          //         _selectedDate = value;
+          //       });
+          //     },
+          //   ),
+          // ),
         ],
       ),
     );
