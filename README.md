@@ -89,7 +89,7 @@ class _MyAppState extends State<MyApp> {
             height: 250,
             child: ScrollDatePicker(
               selectedDate: _selectedDate,
-              locale: DatePickerLocale.koKR,
+              locale: Locale('en'),
               onDateTimeChanged: (DateTime value) {
                 setState(() {
                   _selectedDate = value;
@@ -102,7 +102,6 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
 ```
 
 
