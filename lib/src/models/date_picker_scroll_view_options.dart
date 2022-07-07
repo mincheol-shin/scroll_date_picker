@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class DatePickerScrollViewOptions {
   const DatePickerScrollViewOptions({
-    this.year = const ScrollViewDetailOptions(),
-    this.month = const ScrollViewDetailOptions(),
-    this.day = const ScrollViewDetailOptions(),
+    this.year = const ScrollViewDetailOptions(margin: EdgeInsets.all(4)),
+    this.month = const ScrollViewDetailOptions(margin: EdgeInsets.all(4)),
+    this.day = const ScrollViewDetailOptions(margin: EdgeInsets.all(4)),
   });
 
   final ScrollViewDetailOptions year;
