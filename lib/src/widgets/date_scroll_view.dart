@@ -10,7 +10,9 @@ class DateScrollView extends StatelessWidget {
     required this.options,
     required this.scrollViewOptions,
     required this.selectedIndex,
-    this.locale,
+    required this.locale,
+    this.isYearScrollView = false,
+    this.isMonthScrollView = false,
   });
 
   /// A controller for scroll views whose items have the same size.
@@ -32,11 +34,15 @@ class DateScrollView extends StatelessWidget {
   final int selectedIndex;
 
   /// Set calendar language
-  final Locale? locale;
+  final Locale locale;
+
+  final bool isYearScrollView;
+
+  final bool isMonthScrollView;
 
   double _getScrollViewWidth(BuildContext context) {
     String _longestText = '';
-    List _dates = locale != null ? locale!.months : dates;
+    List _dates = isMonthScrollView ? locale.months : dates;
     for (var text in _dates) {
       if ('$text'.length > _longestText.length) {
         _longestText = '$text'.padLeft(2, '0');
@@ -89,13 +95,15 @@ class DateScrollView extends StatelessWidget {
   }
 
   Widget _buildDateView({required int index}) {
+    String _date = "${dates[index]}${scrollViewOptions.label}";
+    if (locale.languageCode == th && isYearScrollView) {
+      _date = "${dates[index] + 543}${scrollViewOptions.label}";
+    }
     return Container(
       alignment: scrollViewOptions.alignment,
       child: Text(
-        "${dates[index]}${scrollViewOptions.label}",
-        style: selectedIndex == index
-            ? scrollViewOptions.selectedTextStyle
-            : scrollViewOptions.textStyle,
+        _date,
+        style: selectedIndex == index ? scrollViewOptions.selectedTextStyle : scrollViewOptions.textStyle,
       ),
     );
   }
