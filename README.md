@@ -26,7 +26,7 @@ dependencies:
 
 <br>
 
-# Usage
+## Usage
 Need to include the import the package to the dart file where it will be used, refer the below command
 ```dart
 import 'package:scroll_date_picker/scroll_date_picker.dart';
