@@ -1,3 +1,10 @@
+## 3.5.0
+
+* Added support for Indonesian and Thai language.
+* Improved to avoid text overflow by calculating the scrollview width.
+* Delete `DatePickerLocale` and utilize Locale class.
+* Improved the directory structure and code.
+
 ## 3.4.0
 
 * Added support for Vietnamese.

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
 
 class DateScrollView extends StatelessWidget {
-   DateScrollView({
+  DateScrollView({
     required this.onChanged,
     required this.dates,
     required this.controller,
@@ -34,7 +34,7 @@ class DateScrollView extends StatelessWidget {
   /// Set calendar language
   final Locale? locale;
 
-  double getScrollViewWidth(BuildContext context) {
+  double _getScrollViewWidth(BuildContext context) {
     String _longestText = '';
     List _dates = locale != null ? locale!.months : dates;
     for (var text in _dates) {
@@ -61,7 +61,7 @@ class DateScrollView extends StatelessWidget {
         int _maximumCount = constraints.maxHeight ~/ options.itemExtent;
         return Container(
           margin: scrollViewOptions.margin,
-          width: getScrollViewWidth(context),
+          width: _getScrollViewWidth(context),
           child: ListWheelScrollView.useDelegate(
             itemExtent: options.itemExtent,
             diameterRatio: options.diameterRatio,
@@ -93,7 +93,9 @@ class DateScrollView extends StatelessWidget {
       alignment: scrollViewOptions.alignment,
       child: Text(
         "${dates[index]}${scrollViewOptions.label}",
-        style: selectedIndex == index ? scrollViewOptions.selectedTextStyle : scrollViewOptions.textStyle,
+        style: selectedIndex == index
+            ? scrollViewOptions.selectedTextStyle
+            : scrollViewOptions.textStyle,
       ),
     );
   }
