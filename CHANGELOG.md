@@ -1,3 +1,8 @@
+## 3.5.1
+
+* Update to Flutter 3
+
+
 ## 3.5.0
 
 * Added support for Indonesian and Thai language.

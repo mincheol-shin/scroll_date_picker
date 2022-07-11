@@ -95,14 +95,10 @@ class DateScrollView extends StatelessWidget {
   }
 
   Widget _buildDateView({required int index}) {
-    String _date = "${dates[index]}${scrollViewOptions.label}";
-    if (locale.languageCode == th && isYearScrollView) {
-      _date = "${dates[index] + 543}${scrollViewOptions.label}";
-    }
     return Container(
       alignment: scrollViewOptions.alignment,
       child: Text(
-        _date,
+        '${dates[index]}${scrollViewOptions.label}',
         style: selectedIndex == index ? scrollViewOptions.selectedTextStyle : scrollViewOptions.textStyle,
       ),
     );
