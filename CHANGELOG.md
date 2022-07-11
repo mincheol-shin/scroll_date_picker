@@ -1,3 +1,8 @@
+## 3.5.2
+
+* Improve code
+
+
 ## 3.5.1
 
 * Update to Flutter 3
