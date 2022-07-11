@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
 
 class DateScrollView extends StatelessWidget {
-  DateScrollView({
+  const DateScrollView({
+    Key? key,
     required this.onChanged,
     required this.dates,
     required this.controller,
@@ -13,7 +14,7 @@ class DateScrollView extends StatelessWidget {
     required this.locale,
     this.isYearScrollView = false,
     this.isMonthScrollView = false,
-  });
+  }) : super(key: key);
 
   /// A controller for scroll views whose items have the same size.
   final FixedExtentScrollController controller;
