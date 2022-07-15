@@ -1,7 +1,7 @@
 
 ## Type of change
 
-Please select PR type by entering `x` between [ ].
+Please select PR type by entering x between [ ].
 
 - [ ] Bugfix
 - [ ] Feature
