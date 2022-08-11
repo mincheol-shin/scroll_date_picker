@@ -152,7 +152,7 @@ const List<String> nlMonth = [
   'Februari',
   'Maart',
   'April',
-  'Kunnen',
+  'Mei',
   'Juni',
   'Juli',
   'Augustus',
