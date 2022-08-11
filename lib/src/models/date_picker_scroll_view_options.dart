@@ -10,6 +10,15 @@ class DatePickerScrollViewOptions {
   final ScrollViewDetailOptions year;
   final ScrollViewDetailOptions month;
   final ScrollViewDetailOptions day;
+
+  // Applies the given [ScrollViewDetailOptions] to all three options ie. year, month and day.
+ static DatePickerScrollViewOptions all(ScrollViewDetailOptions value) {
+    return DatePickerScrollViewOptions(
+      year: value,
+      month: value,
+      day: value,
+    );
+  }
 }
 
 class ScrollViewDetailOptions {
