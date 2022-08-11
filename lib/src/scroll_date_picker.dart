@@ -209,6 +209,10 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
       case vi:
       case id:
       case th:
+      case de:
+      case es:
+      case nl:
+      case fr:
         return [_dayScrollView, _monthScrollView, _yearScrollView];
       default:
         return [_monthScrollView, _dayScrollView, _yearScrollView];
