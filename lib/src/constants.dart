@@ -7,6 +7,8 @@ const String vi = 'vi';
 const String en = 'en';
 const String id = 'id';
 const String th = 'th';
+const String es = 'es';
+const String nl = 'nl';
 
 extension LocaleExtension on Locale {
   List<String> get months {
@@ -23,6 +25,10 @@ extension LocaleExtension on Locale {
         return idMonths;
       case th:
         return thMonths;
+      case es:
+        return esMonth;
+      case nl:
+        return nlMonth;
       default:
         return enMonths;
     }
@@ -78,14 +84,13 @@ const List<String> deMonths = [
   'April',
   'Mai',
   'Juni',
-  'July',
+  'Juli',
   'August',
   'September',
   'Oktober',
   'November',
   'Dezember',
 ];
-
 const List<String> viMonths = [
   'Tháng 1',
   'Tháng 2',
@@ -100,7 +105,6 @@ const List<String> viMonths = [
   'Tháng 11',
   'Tháng 12',
 ];
-
 const List<String> idMonths = [
   'Januari',
   'Februari',
@@ -128,4 +132,32 @@ const List<String> thMonths = [
   'ตุลาคม',
   'พฤศจิกายน',
   'ธันวาคม',
+];
+const List<String> esMonth = [
+  'Enero',
+  'Febrero',
+  'Marzo',
+  'Abril',
+  'Mayo',
+  'Junio',
+  'Julio',
+  'Agosto',
+  'Septiembre',
+  'Octubre',
+  'Noviembre',
+  'Diciembre',
+];
+const List<String> nlMonth = [
+  'Januari',
+  'Februari',
+  'Maart',
+  'April',
+  'Mei',
+  'Juni',
+  'Juli',
+  'Augustus',
+  'September',
+  'Oktober',
+  'November',
+  'December',
 ];
