@@ -1,6 +1,6 @@
 name: scroll_date_picker_example
 description: Demonstrates how to use the scroll_date_picker plugin.
-version: 3.5.1
+version: 3.6.0
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.

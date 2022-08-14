@@ -1,3 +1,9 @@
+## 3.6.0
+
+* Add a new `all` constructor to scroll view options. Thanks @Syed Ahkam. (#13)
+* Add and correct month names.  Thanks @Alexander Klehm. (#14)
+
+
 ## 3.5.1
 
 * Update to Flutter 3
