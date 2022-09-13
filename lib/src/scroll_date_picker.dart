@@ -103,7 +103,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
       _selectedDate = widget.selectedDate;
       isYearScrollable = false;
       isMonthScrollable = false;
-      WidgetsBinding.instance.addPostFrameCallback((_) {
+      WidgetsBinding.instance?.addPostFrameCallback((_) {
         _yearController.animateToItem(selectedYearIndex, curve: Curves.ease, duration: const Duration(microseconds: 500));
         _monthController.animateToItem(selectedMonthIndex, curve: Curves.ease, duration: const Duration(microseconds: 500));
         _dayController.animateToItem(selectedDayIndex, curve: Curves.ease, duration: const Duration(microseconds: 500));
