@@ -6,6 +6,7 @@ const String de = 'de';
 const String vi = 'vi';
 const String en = 'en';
 const String id = 'id';
+const String it = 'it';
 const String th = 'th';
 const String es = 'es';
 const String nl = 'nl';
@@ -23,6 +24,8 @@ extension LocaleExtension on Locale {
         return viMonths;
       case id:
         return idMonths;
+      case it:
+        return itMonths;
       case th:
         return thMonths;
       case es:
@@ -118,6 +121,20 @@ const List<String> idMonths = [
   'Oktober',
   'November',
   'Desember',
+];
+const List<String> itMonths = [
+  'Gennaio',
+  'Febbraio',
+  'Marzo',
+  'Aprile',
+  'Maggio',
+  'Giugno',
+  'Luglio',
+  'Agosto',
+  'Settembre',
+  'Ottobre',
+  'Novembre',
+  'Dicembre',
 ];
 const List<String> thMonths = [
   'มกราคม',
