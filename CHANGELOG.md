@@ -1,3 +1,9 @@
+## 3.6.1
+
+* Mac OS Support added in example. Thanks @Hamza A.Malik. (#16)
+* Added italian localization. Thanks @sharkfabri. (#17)
+
+
 ## 3.6.0
 
 * Add a new `all` constructor to scroll view options. Thanks @Syed Ahkam. (#13)

@@ -100,7 +100,9 @@ class DateScrollView extends StatelessWidget {
       alignment: scrollViewOptions.alignment,
       child: Text(
         '${dates[index]}${scrollViewOptions.label}',
-        style: selectedIndex == index ? scrollViewOptions.selectedTextStyle : scrollViewOptions.textStyle,
+        style: selectedIndex == index
+            ? scrollViewOptions.selectedTextStyle
+            : scrollViewOptions.textStyle,
       ),
     );
   }
