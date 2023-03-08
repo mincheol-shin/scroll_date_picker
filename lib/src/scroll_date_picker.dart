@@ -252,7 +252,8 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
       alignment: Alignment.center,
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: widget.scrollViewOptions.mainAxisAlignment,
+          crossAxisAlignment: widget.scrollViewOptions.crossAxisAlignment,
           children: _getScrollDatePicker(),
         ),
 

@@ -5,11 +5,15 @@ class DatePickerScrollViewOptions {
     this.year = const ScrollViewDetailOptions(margin: EdgeInsets.all(4)),
     this.month = const ScrollViewDetailOptions(margin: EdgeInsets.all(4)),
     this.day = const ScrollViewDetailOptions(margin: EdgeInsets.all(4)),
+    this.mainAxisAlignment = MainAxisAlignment.center,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
   });
 
   final ScrollViewDetailOptions year;
   final ScrollViewDetailOptions month;
   final ScrollViewDetailOptions day;
+  final MainAxisAlignment mainAxisAlignment;
+  final CrossAxisAlignment crossAxisAlignment;
 
   // Applies the given [ScrollViewDetailOptions] to all three options ie. year, month and day.
   static DatePickerScrollViewOptions all(ScrollViewDetailOptions value) {
