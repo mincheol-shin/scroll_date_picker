@@ -230,6 +230,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
   List<Widget> _getScrollDatePicker() {
     _initDateScrollView();
     switch (widget.locale.languageCode) {
+      case zh:
       case ko:
         return [_yearScrollView, _monthScrollView, _dayScrollView];
       case vi:
