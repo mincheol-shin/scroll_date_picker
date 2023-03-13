@@ -1,3 +1,8 @@
+## 3.6.2
+
+* Add a new backgroundColor constructor to date picker options. Thanks @Paroca72. (#18)
+
+
 ## 3.6.1
 
 * Mac OS Support added in example. Thanks @Hamza A.Malik. (#16)
