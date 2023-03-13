@@ -10,12 +10,14 @@ const String it = 'it';
 const String th = 'th';
 const String es = 'es';
 const String nl = 'nl';
+const String zh = 'zh';
 
 extension LocaleExtension on Locale {
   List<String> get months {
     switch (languageCode) {
+      case zh:
       case ko:
-        return koMonths;
+        return intMonths;
       case fr:
         return frMonths;
       case de:
@@ -38,7 +40,7 @@ extension LocaleExtension on Locale {
   }
 }
 
-const List<String> koMonths = [
+const List<String> intMonths = [
   '1',
   '2',
   '3',

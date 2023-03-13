@@ -230,6 +230,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
   List<Widget> _getScrollDatePicker() {
     _initDateScrollView();
     switch (widget.locale.languageCode) {
+      case zh:
       case ko:
         return [_yearScrollView, _monthScrollView, _dayScrollView];
       case vi:
@@ -251,7 +252,8 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
       alignment: Alignment.center,
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: widget.scrollViewOptions.mainAxisAlignment,
+          crossAxisAlignment: widget.scrollViewOptions.crossAxisAlignment,
           children: _getScrollDatePicker(),
         ),
         // Date Picker Indicator
