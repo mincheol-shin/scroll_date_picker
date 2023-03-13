@@ -1,3 +1,9 @@
+## 3.7.0
+
+* Added support for Chinese. Thanks @Chenyang. (#19)
+* Added crossAxisAlignment and mainAxisAlignment to `DatePickerScrollViewOptions`. Thanks @Chenyang. (#19)
+
+
 ## 3.6.2
 
 * Add a new backgroundColor constructor to date picker options. Thanks @Paroca72. (#18)
