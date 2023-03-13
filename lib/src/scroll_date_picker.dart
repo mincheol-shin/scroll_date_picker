@@ -19,8 +19,7 @@ class ScrollDatePicker extends StatefulWidget {
         maximumDate = maximumDate ?? DateTime.now(),
         locale = locale ?? const Locale('en'),
         options = options ?? const DatePickerOptions(),
-        scrollViewOptions =
-            scrollViewOptions ?? const DatePickerScrollViewOptions(),
+        scrollViewOptions = scrollViewOptions ?? const DatePickerScrollViewOptions(),
         super(key: key);
 
   /// The currently selected date.
@@ -72,41 +71,28 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
   List<int> _months = [];
   List<int> _days = [];
 
-  int get selectedYearIndex => !_years.contains(_selectedDate.year)
-      ? 0
-      : _years.indexOf(_selectedDate.year);
+  int get selectedYearIndex => !_years.contains(_selectedDate.year) ? 0 : _years.indexOf(_selectedDate.year);
 
-  int get selectedMonthIndex => !_months.contains(_selectedDate.month)
-      ? 0
-      : _months.indexOf(_selectedDate.month);
+  int get selectedMonthIndex => !_months.contains(_selectedDate.month) ? 0 : _months.indexOf(_selectedDate.month);
 
-  int get selectedDayIndex =>
-      !_days.contains(_selectedDate.day) ? 0 : _days.indexOf(_selectedDate.day);
+  int get selectedDayIndex => !_days.contains(_selectedDate.day) ? 0 : _days.indexOf(_selectedDate.day);
 
   int get selectedYear => _years[_yearController.selectedItem % _years.length];
 
-  int get selectedMonth =>
-      _months[_monthController.selectedItem % _months.length];
+  int get selectedMonth => _months[_monthController.selectedItem % _months.length];
 
   int get selectedDay => _days[_dayController.selectedItem % _days.length];
 
   @override
   void initState() {
     super.initState();
-    _selectedDate = widget.selectedDate.isAfter(widget.maximumDate) ||
-            widget.selectedDate.isBefore(widget.minimumDate)
-        ? DateTime.now()
-        : widget.selectedDate;
+    _selectedDate = widget.selectedDate.isAfter(widget.maximumDate) || widget.selectedDate.isBefore(widget.minimumDate) ? DateTime.now() : widget.selectedDate;
 
-    _years = [
-      for (int i = widget.minimumDate.year; i <= widget.maximumDate.year; i++) i
-    ];
+    _years = [for (int i = widget.minimumDate.year; i <= widget.maximumDate.year; i++) i];
     _initMonths();
     _initDays();
-    _yearController =
-        FixedExtentScrollController(initialItem: selectedYearIndex);
-    _monthController =
-        FixedExtentScrollController(initialItem: selectedMonthIndex);
+    _yearController = FixedExtentScrollController(initialItem: selectedYearIndex);
+    _monthController = FixedExtentScrollController(initialItem: selectedMonthIndex);
     _dayController = FixedExtentScrollController(initialItem: selectedDayIndex);
   }
 
@@ -118,12 +104,9 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
       isYearScrollable = false;
       isMonthScrollable = false;
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        _yearController.animateToItem(selectedYearIndex,
-            curve: Curves.ease, duration: const Duration(microseconds: 500));
-        _monthController.animateToItem(selectedMonthIndex,
-            curve: Curves.ease, duration: const Duration(microseconds: 500));
-        _dayController.animateToItem(selectedDayIndex,
-            curve: Curves.ease, duration: const Duration(microseconds: 500));
+        _yearController.animateToItem(selectedYearIndex, curve: Curves.ease, duration: const Duration(microseconds: 500));
+        _monthController.animateToItem(selectedMonthIndex, curve: Curves.ease, duration: const Duration(microseconds: 500));
+        _dayController.animateToItem(selectedDayIndex, curve: Curves.ease, duration: const Duration(microseconds: 500));
       });
     }
   }
@@ -187,14 +170,8 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
   }
 
   void _initMonths() {
-    if (_selectedDate.year == widget.maximumDate.year &&
-        _selectedDate.year == widget.minimumDate.year) {
-      _months = [
-        for (int i = widget.minimumDate.month;
-            i <= widget.maximumDate.month;
-            i++)
-          i
-      ];
+    if (_selectedDate.year == widget.maximumDate.year && _selectedDate.year == widget.minimumDate.year) {
+      _months = [for (int i = widget.minimumDate.month; i <= widget.maximumDate.month; i++) i];
     } else if (_selectedDate.year == widget.maximumDate.year) {
       _months = [for (int i = 1; i <= widget.maximumDate.month; i++) i];
     } else if (_selectedDate.year == widget.minimumDate.year) {
@@ -205,19 +182,16 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
   }
 
   void _initDays() {
-    int _maximumDay =
-        getMonthlyDate(year: _selectedDate.year, month: _selectedDate.month);
+    int _maximumDay = getMonthlyDate(year: _selectedDate.year, month: _selectedDate.month);
     _days = [for (int i = 1; i <= _maximumDay; i++) i];
     if (_selectedDate.year == widget.maximumDate.year &&
         _selectedDate.month == widget.maximumDate.month &&
         _selectedDate.year == widget.minimumDate.year &&
         _selectedDate.month == widget.minimumDate.month) {
       _days = _days.sublist(widget.minimumDate.day - 1, widget.maximumDate.day);
-    } else if (_selectedDate.year == widget.maximumDate.year &&
-        _selectedDate.month == widget.maximumDate.month) {
+    } else if (_selectedDate.year == widget.maximumDate.year && _selectedDate.month == widget.maximumDate.month) {
       _days = _days.sublist(0, widget.maximumDate.day);
-    } else if (_selectedDate.year == widget.minimumDate.year &&
-        _selectedDate.month == widget.minimumDate.month) {
+    } else if (_selectedDate.year == widget.minimumDate.year && _selectedDate.month == widget.minimumDate.month) {
       _days = _days.sublist(widget.minimumDate.day - 1, _days.length);
     }
   }
@@ -254,8 +228,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: _getScrollDatePicker(),
         ),
-
-        /// Date Picker Indicator
+        // Date Picker Indicator
         IgnorePointer(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -267,10 +240,8 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        Theme.of(context).scaffoldBackgroundColor,
-                        Theme.of(context)
-                            .scaffoldBackgroundColor
-                            .withOpacity(0.7),
+                        widget.options.backgroundColor,
+                        widget.options.backgroundColor.withOpacity(0.7),
                       ],
                     ),
                   ),
@@ -291,10 +262,8 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        Theme.of(context)
-                            .scaffoldBackgroundColor
-                            .withOpacity(0.7),
-                        Theme.of(context).scaffoldBackgroundColor,
+                        widget.options.backgroundColor.withOpacity(0.7),
+                        widget.options.backgroundColor,
                       ],
                     ),
                   ),
