@@ -58,7 +58,9 @@ class DateScrollView extends StatelessWidget {
       textDirection: Directionality.of(context),
     );
     _painter.layout();
-    return _painter.size.width + 8.0;
+    return locale.languageCode == ar
+        ? _painter.size.width + 40.0
+        : _painter.size.width + 8.0;
   }
 
   @override
