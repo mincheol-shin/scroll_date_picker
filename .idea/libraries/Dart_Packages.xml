@@ -54,6 +54,7 @@
         <entry key="flutter">
           <value>
             <list>
+              <option value="$USER_HOME$/development/Flutter/packages/flutter/lib" />
               <option value="$USER_HOME$/development/flutter/packages/flutter/lib" />
             </list>
           </value>
@@ -61,6 +62,7 @@
         <entry key="flutter_test">
           <value>
             <list>
+              <option value="$USER_HOME$/development/Flutter/packages/flutter_test/lib" />
               <option value="$USER_HOME$/development/flutter/packages/flutter_test/lib" />
             </list>
           </value>
@@ -103,6 +105,7 @@
         <entry key="sky_engine">
           <value>
             <list>
+              <option value="$USER_HOME$/development/Flutter/bin/cache/pkg/sky_engine/lib" />
               <option value="$USER_HOME$/development/flutter/bin/cache/pkg/sky_engine/lib" />
             </list>
           </value>
@@ -178,6 +181,9 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/term_glyph-1.2.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/test_api-0.4.16/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/vector_math-2.1.4/lib" />
+      <root url="file://$USER_HOME$/development/Flutter/bin/cache/pkg/sky_engine/lib" />
+      <root url="file://$USER_HOME$/development/Flutter/packages/flutter/lib" />
+      <root url="file://$USER_HOME$/development/Flutter/packages/flutter_test/lib" />
       <root url="file://$USER_HOME$/development/flutter/bin/cache/pkg/sky_engine/lib" />
       <root url="file://$USER_HOME$/development/flutter/packages/flutter/lib" />
       <root url="file://$USER_HOME$/development/flutter/packages/flutter_test/lib" />

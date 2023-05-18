@@ -1,3 +1,8 @@
+## 3.7.1
+
+* Added support for Arabic. Thanks @Mahmod Masoud. (#22)
+
+
 ## 3.7.0
 
 * Added support for Chinese. Thanks @Chenyang. (#19)
