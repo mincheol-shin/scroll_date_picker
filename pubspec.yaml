@@ -16,3 +16,8 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
+
+
+platforms:
+  android:
+  ios:
