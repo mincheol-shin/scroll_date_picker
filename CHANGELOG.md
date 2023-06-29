@@ -1,3 +1,8 @@
+## 3.7.2
+
+* Add the italian locale to the list of the ones that require day / month / year order
+* Add support for Portuguese.
+
 ## 3.7.1
 
 * Added support for Arabic. Thanks @Mahmod Masoud. (#22)

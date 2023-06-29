@@ -16,7 +16,6 @@ class DateScrollView extends StatelessWidget {
     this.isMonthScrollView = false,
   }) : super(key: key);
 
-
   /// A controller for scroll views whose items have the same size.
   final FixedExtentScrollController controller;
 
@@ -41,7 +40,6 @@ class DateScrollView extends StatelessWidget {
   final bool isYearScrollView;
 
   final bool isMonthScrollView;
-
 
   double _getScrollViewWidth(BuildContext context) {
     String _longestText = '';

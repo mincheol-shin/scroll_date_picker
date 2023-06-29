@@ -14,7 +14,8 @@ class ScrollDatePicker extends StatefulWidget {
     Locale? locale,
     DatePickerOptions? options,
     DatePickerScrollViewOptions? scrollViewOptions,
-    this.indicator, this.viewType,
+    this.indicator,
+    this.viewType,
   })  : minimumDate = minimumDate ?? DateTime(1960, 1, 1),
         maximumDate = maximumDate ?? DateTime.now(),
         locale = locale ?? const Locale('en'),
@@ -144,7 +145,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
 
   void _initDateScrollView() {
     _yearScrollView = DateScrollView(
-      key: const Key("year"),
+        key: const Key("year"),
         dates: _years,
         controller: _yearController,
         options: widget.options,
@@ -240,7 +241,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
     _initDateScrollView();
 
     // set order of scroll view
-    if(widget.viewType?.isNotEmpty ?? false) {
+    if (widget.viewType?.isNotEmpty ?? false) {
       final viewList = <Widget>[];
 
       for (var view in widget.viewType!) {
@@ -272,6 +273,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
       case nl:
       case fr:
       case it:
+      case pt:
         return [_dayScrollView, _monthScrollView, _yearScrollView];
       default:
         return [_monthScrollView, _dayScrollView, _yearScrollView];
@@ -338,7 +340,4 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
 }
 
 /// ViewType that represents order of scroll view
-enum DatePickerViewType {
-  year, month, day
-}
-
+enum DatePickerViewType { year, month, day }
