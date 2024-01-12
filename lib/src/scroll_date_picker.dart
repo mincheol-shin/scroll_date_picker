@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
 import 'package:scroll_date_picker/src/widgets/date_scroll_view.dart';
@@ -233,7 +235,9 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
   }
 
   void _onDateTimeChanged() {
-    _selectedDate = DateTime(selectedYear, selectedMonth, selectedDay);
+    final maximumDay = getMonthlyDate(year: selectedYear, month: selectedMonth);
+    _selectedDate =
+        DateTime(selectedYear, selectedMonth, min(selectedDay, maximumDay));
     widget.onDateTimeChanged(_selectedDate);
   }
 
