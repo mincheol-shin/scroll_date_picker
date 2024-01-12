@@ -5,7 +5,7 @@ class DatePickerOptions {
     this.itemExtent = 30.0,
     this.diameterRatio = 3,
     this.perspective = 0.01,
-    this.isLoop = true,
+    this.isLoop,
     this.backgroundColor = Colors.white,
   });
 
@@ -18,8 +18,8 @@ class DatePickerOptions {
   /// {@macro flutter.rendering.wheelList.perspective}
   final double perspective;
 
-  /// The loop iterates on an explicit list of values
-  final bool isLoop;
+  /// Optional boolean to define if all/none scrollViews should loop
+  final bool? isLoop;
 
   /// The color to paint behind the date picker
   final Color backgroundColor;

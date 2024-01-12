@@ -34,6 +34,7 @@ class ScrollViewDetailOptions {
         const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
     this.textStyle =
         const TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
+    this.isLoop = true,
   });
 
   /// The text printed next to the year, month, and day.
@@ -50,4 +51,7 @@ class ScrollViewDetailOptions {
 
   /// An invariant style that specifies the selected text format and explains how to draw it.
   final TextStyle selectedTextStyle;
+
+  /// Define for each ScrollView if it should loop
+  final bool isLoop;
 }
