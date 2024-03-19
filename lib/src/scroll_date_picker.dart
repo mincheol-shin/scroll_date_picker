@@ -175,7 +175,6 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
           _onDateTimeChanged();
           _initMonths();
           _initDays();
-          print('이게 시랳ㅇ되남');
           if (isYearScrollable) {
             _monthController.jumpToItem(selectedMonthIndex);
             _dayController.jumpToItem(selectedDayIndex);
