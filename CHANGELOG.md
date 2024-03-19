@@ -1,3 +1,7 @@
+## 3.8.0
+
+* Add the functionality to change dates by touch. Thanks @unyang09. (#28)
+
 ## 3.7.4
 
 * Add turkish months. Thanks @Barış Şenyerli. (#29)
