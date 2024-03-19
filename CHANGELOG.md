@@ -1,9 +1,13 @@
-## 3.7.3
+## 3.7.4
 
 * Add turkish months. Thanks @Barış Şenyerli. (#29)
 * Add the option to enable/disable looping per scroll view. Thanks @moderateroni. (#32)
 * Fix day jumps to wrong index. Thanks @moderateroni. (#34)
 * Fix bug in DatePickerViewType. Thanks @mkhitar-avsharyan (#36)
+
+## 3.7.3
+
+* Add viewType option. Thanks @sejun. (#21)
 
 ## 3.7.2
 
@@ -13,7 +17,6 @@
 ## 3.7.1
 
 * Added support for Arabic. Thanks @Mahmod Masoud. (#22)
-
 
 ## 3.7.0
 
