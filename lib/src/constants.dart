@@ -18,9 +18,8 @@ const String tr = 'tr';
 extension LocaleExtension on Locale {
   List<String> get months {
     switch (languageCode) {
-      case zh:
-      case ko:
-        return intMonths;
+      case en:
+        return enMonths;
       case fr:
         return frMonths;
       case de:
@@ -44,7 +43,7 @@ extension LocaleExtension on Locale {
       case tr:
         return trMonths;
       default:
-        return enMonths;
+        return intMonths;
     }
   }
 }

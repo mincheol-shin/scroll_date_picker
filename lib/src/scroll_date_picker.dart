@@ -89,15 +89,32 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
       ? 0
       : _months.indexOf(_selectedDate.month);
 
-  int get selectedDayIndex =>
-      !_days.contains(_selectedDate.day) ? 0 : _days.indexOf(_selectedDate.day);
+  int get selectedDayIndex {
+    return !_days.contains(_selectedDate.day)
+        ? 0
+        : _days.indexOf(_selectedDate.day);
+  }
 
-  int get selectedYear => _years[_yearController.selectedItem % _years.length];
+  int get selectedYear {
+    if (_yearController.hasClients) {
+      return _years[_yearController.selectedItem % _years.length];
+    }
+    return DateTime.now().year;
+  }
 
-  int get selectedMonth =>
-      _months[_monthController.selectedItem % _months.length];
+  int get selectedMonth {
+    if(_monthController.hasClients){
+      return _months[_monthController.selectedItem % _months.length];
+    }
+    return DateTime.now().month;
+  }
 
-  int get selectedDay => _days[_dayController.selectedItem % _days.length];
+  int get selectedDay {
+    if(_dayController.hasClients){
+      return _days[_dayController.selectedItem % _days.length];
+    }
+    return DateTime.now().day;
+  }
 
   @override
   void initState() {
@@ -158,6 +175,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
           _onDateTimeChanged();
           _initMonths();
           _initDays();
+          print('이게 시랳ㅇ되남');
           if (isYearScrollable) {
             _monthController.jumpToItem(selectedMonthIndex);
             _dayController.jumpToItem(selectedDayIndex);
