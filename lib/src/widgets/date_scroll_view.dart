@@ -14,6 +14,7 @@ class DateScrollView extends StatelessWidget {
     required this.scrollViewOptions,
     required this.selectedIndex,
     required this.locale,
+    required this.onTap,
   }) : super(key: key);
 
   /// A controller for scroll views whose items have the same size.
@@ -36,6 +37,11 @@ class DateScrollView extends StatelessWidget {
 
   /// Set calendar language
   final Locale locale;
+
+  /// Adds the onTap property to enable clicking to navigate dates.
+  ///
+  /// The onTap property allows users to navigate dates by clicking on them.
+  final ValueChanged<int> onTap;
 
   double _getScrollViewWidth(BuildContext context) {
     String longestText = dates.longestString + scrollViewOptions.label;
@@ -87,14 +93,17 @@ class DateScrollView extends StatelessWidget {
   }
 
   Widget _buildDateView({required int index}) {
-    return Container(
-      alignment: scrollViewOptions.alignment,
-      child: Text(
-        '${dates[index]}${scrollViewOptions.label}',
-        style: selectedIndex == index
-            ? scrollViewOptions.selectedTextStyle
-            : scrollViewOptions.textStyle,
-        textScaler: TextScaler.linear(scrollViewOptions.textScaleFactor),
+    return GestureDetector(
+      onTap: () => onTap(index),
+      child: Container(
+        alignment: scrollViewOptions.alignment,
+        child: Text(
+          '${dates[index]}${scrollViewOptions.label}',
+          style: selectedIndex == index
+              ? scrollViewOptions.selectedTextStyle
+              : scrollViewOptions.textStyle,
+          textScaler: TextScaler.linear(scrollViewOptions.textScaleFactor),
+        ),
       ),
     );
   }
