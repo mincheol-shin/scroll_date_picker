@@ -103,14 +103,14 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
   }
 
   int get selectedMonth {
-    if(_monthController.hasClients){
+    if (_monthController.hasClients) {
       return _months[_monthController.selectedItem % _months.length];
     }
     return DateTime.now().month;
   }
 
   int get selectedDay {
-    if(_dayController.hasClients){
+    if (_dayController.hasClients) {
       return _days[_dayController.selectedItem % _days.length];
     }
     return DateTime.now().day;

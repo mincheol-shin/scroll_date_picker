@@ -1,3 +1,10 @@
+## 3.7.3
+
+* Add turkish months. Thanks @Barış Şenyerli. (#29)
+* Add the option to enable/disable looping per scroll view. Thanks @moderateroni. (#32)
+* Fix day jumps to wrong index. Thanks @moderateroni. (#34)
+* Fix bug in DatePickerViewType. Thanks @mkhitar-avsharyan (#36)
+
 ## 3.7.2
 
 * Add the italian locale to the list of the ones that require day / month / year order
