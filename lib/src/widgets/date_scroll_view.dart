@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
+import 'package:scroll_date_picker/src/extensions/list_extension.dart';
+import 'package:scroll_date_picker/src/extensions/string_extension.dart';
 
 class DateScrollView extends StatelessWidget {
   const DateScrollView({
@@ -12,8 +14,6 @@ class DateScrollView extends StatelessWidget {
     required this.scrollViewOptions,
     required this.selectedIndex,
     required this.locale,
-    this.isYearScrollView = false,
-    this.isMonthScrollView = false,
   }) : super(key: key);
 
   /// A controller for scroll views whose items have the same size.
@@ -37,30 +37,18 @@ class DateScrollView extends StatelessWidget {
   /// Set calendar language
   final Locale locale;
 
-  final bool isYearScrollView;
-
-  final bool isMonthScrollView;
-
   double _getScrollViewWidth(BuildContext context) {
-    String _longestText = '';
-    List _dates = isMonthScrollView ? locale.months : dates;
-    for (var text in _dates) {
-      if ('$text'.length > _longestText.length) {
-        _longestText = '$text'.padLeft(2, '0');
-      }
-    }
-    _longestText += scrollViewOptions.label;
-    final TextPainter _painter = TextPainter(
-      text: TextSpan(
-        style: scrollViewOptions.selectedTextStyle,
-        text: _longestText,
-      ),
-      textDirection: Directionality.of(context),
+    String longestText = dates.longestString + scrollViewOptions.label;
+    double textWidth = longestText.width(
+      context,
+      style: scrollViewOptions.selectedTextStyle,
     );
-    _painter.layout();
-    return locale.languageCode == ar
-        ? _painter.size.width + 40.0
-        : _painter.size.width + 8.0;
+
+    if (locale.languageCode == ar) {
+      return textWidth + 40;
+    }
+
+    return textWidth + 8;
   }
 
   @override

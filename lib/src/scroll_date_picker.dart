@@ -153,7 +153,6 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
         options: widget.options,
         scrollViewOptions: widget.scrollViewOptions.year,
         selectedIndex: selectedYearIndex,
-        isYearScrollView: true,
         locale: widget.locale,
         onChanged: (_) {
           _onDateTimeChanged();
@@ -173,7 +172,6 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
       scrollViewOptions: widget.scrollViewOptions.month,
       selectedIndex: selectedMonthIndex,
       locale: widget.locale,
-      isMonthScrollView: true,
       onChanged: (_) {
         _onDateTimeChanged();
         _initDays();
