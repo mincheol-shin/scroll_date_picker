@@ -177,8 +177,8 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
           _initMonths();
           _initDays();
           if (isYearScrollable) {
-            _monthController.jumpToItem(selectedMonthIndex);
-            _dayController.jumpToItem(selectedDayIndex);
+            //_monthController.jumpToItem(selectedMonthIndex);
+            //_dayController.jumpToItem(selectedDayIndex);
           }
           isYearScrollable = true;
         });
@@ -195,7 +195,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
         _onDateTimeChanged();
         _initDays();
         if (isMonthScrollable) {
-          _dayController.jumpToItem(selectedDayIndex);
+          //_dayController.jumpToItem(selectedDayIndex);
         }
         isMonthScrollable = true;
       },
@@ -309,10 +309,19 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
     return Stack(
       alignment: Alignment.center,
       children: [
-        Row(
-          mainAxisAlignment: widget.scrollViewOptions.mainAxisAlignment,
-          crossAxisAlignment: widget.scrollViewOptions.crossAxisAlignment,
-          children: _getScrollDatePicker(),
+        NotificationListener<ScrollNotification>(
+          onNotification: (notification) {
+            if (notification is ScrollEndNotification) {
+              debugPrint("ScrollEndNotification");
+              setState(() {});
+            }
+            return false;
+          },
+          child: Row(
+            mainAxisAlignment: widget.scrollViewOptions.mainAxisAlignment,
+            crossAxisAlignment: widget.scrollViewOptions.crossAxisAlignment,
+            children: _getScrollDatePicker(),
+          ),
         ),
         // Date Picker Indicator
         IgnorePointer(
